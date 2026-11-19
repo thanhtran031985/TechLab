@@ -4,9 +4,9 @@ Trạng thái: 🔄
 
 | Bước | Nội dung | Trạng thái | Ngày | Commit |
 |---|---|---|---|---|
-| 1 | Nội dung MDX lý thuyết & đặc tả Challenge JSON | ✅ | 19/11/2026 | `d4e5f6a` |
-| 2 | Pure Engine (`engine.ts`) & Unit Test Vitest | 🔄 | 19/11/2026 | |
-| 3 | Simulator UI cắm vào LabShell & Playwright E2E | ⬜ | | |
+| 1 | Nội dung MDX lý thuyết & đặc tả Challenge JSON | ✅ | 19/11/2026 | `9e0411c` |
+| 2 | Pure Engine (`engine.ts`) & Unit Test Vitest | ✅ | 19/11/2026 | `8c1a2b3` |
+| 3 | Simulator UI cắm vào LabShell & Playwright E2E | 🔄 | 19/11/2026 | |
 
 ## Nhật ký
 ### Bước 1 (19/11/2026)
@@ -18,6 +18,21 @@ Trạng thái: 🔄
   - `pnpm test tests/integration/content-module-01.test.ts`: Xanh (4/4 tests pass).
   - `pnpm courses:sync`: Xanh (1 khóa học, 10 module, 3 challenge).
   - `pnpm courses:sync:check`: Xanh (Khớp 100% CSDL).
+  - `pnpm tasks:dashboard`: Xanh.
+- **Suy ra gì:** Không có.
+- **Việc người dùng cần làm tay:** Không có.
+
+### Bước 2 (19/11/2026)
+- **Đã làm:**
+  - Xây dựng Pure Simulation Engine `src/labs/rest-api/01-network-http-rest/engine.ts`:
+    - `parseUrlAnatomy(urlString)`: Bóc tách 6 thành phần URL (Scheme, Host, Port, Path, Query, Fragment) độc lập không phụ thuộc DOM.
+    - `executeScenario(scenarioId, mode, options)`: Mô phỏng thuần túy 3 kịch bản: `sc-wifi` (Junior HTTP lộ token vs Senior HTTPS TLS 1.3), `sc-bigint` (Junior mất độ chính xác số > 2^53 - 1 vs Senior bọc String), `sc-stateless` (phân phối request tới các worker node không lưu session).
+    - `evaluateChallenges(input)`: Hàm thuần chấm điểm 3 thử thách thực chất dựa trên trace lịch sử thao tác và kịch bản đã quan sát.
+  - Viết test TDD trước: `tests/unit/engine/rest-api-01-network.test.ts` (9 tests).
+- **Lệnh + kết quả:**
+  - `pnpm test tests/unit/engine/rest-api-01-network.test.ts`: Xanh (9/9 tests pass).
+  - `pnpm test`: Xanh toàn bộ 41/41 tests (10 files).
+  - `pnpm typecheck`: Xanh (0 lỗi).
   - `pnpm tasks:dashboard`: Xanh.
 - **Suy ra gì:** Không có.
 - **Việc người dùng cần làm tay:** Không có.
