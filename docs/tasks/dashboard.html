@@ -68,8 +68,8 @@ Trạng thái: 🔄
 
 | Bước | Nội dung | Trạng thái | Ngày | Commit |
 |---|---|---|---|---|
-| 1 | Khởi tạo Next.js + TypeScript + pnpm scripts + Zod env | ✅ | 19/11/2026 | (chờ duyệt) |
-| 2 | Schema Drizzle + SQLite WAL + Migration | ⬜ | | |
+| 1 | Khởi tạo Next.js + TypeScript + pnpm scripts + Zod env | ✅ | 19/11/2026 | `44ea544` |
+| 2 | Schema Drizzle + SQLite WAL + Migration | ✅ | 19/11/2026 | (chờ commit) |
 | 3 | Pipeline Tokens + AppShell khung + /api/health | ⬜ | | |
 | 4 | Pipeline Content-as-Code (courses:sync) | ⬜ | | |
 | 5 | Tasks Dashboard + Security Check + Playwright E2E Smoke | ⬜ | | |
@@ -92,6 +92,22 @@ Trạng thái: 🔄
   - `pnpm tasks:dashboard`: Xanh, sinh `docs/tasks/dashboard.html`
 - **Suy ra gì:**
   - Trên pnpm v12, cấu hình cấp quyền build (`allowBuilds`) được lưu trong `pnpm-workspace.yaml`.
+- **Việc người dùng cần làm tay:** Không có.
+
+### Bước 2 (19/11/2026)
+- **Đã làm:**
+  - Định nghĩa 6 bảng SQLite trong `src/db/schema.ts` (`courses`, `modules`, `challenges`, `challenge_progress`, `user_notes`, `sandbox_runs`) theo PRD Phần E với `user_id` mặc định `'local'`.
+  - Viết `src/db/client.ts` khởi tạo `better-sqlite3` kèm 5 PRAGMA bắt buộc (`journal_mode=WAL`, `foreign_keys=ON`, `busy_timeout=30000`, `synchronous=NORMAL`, `auto_vacuum=INCREMENTAL`).
+  - Thiết lập `drizzle.config.ts`, sinh migration `drizzle/0000_same_luminals.sql` bằng `pnpm db:generate`.
+  - Viết `scripts/migrate.ts` áp dụng migration qua Drizzle migrator.
+  - Viết test TDD trước: `tests/integration/db-migrations.test.ts` kiểm tra áp dụng 2 lần idempotent, các PRAGMA bắt buộc, kiểm tra đủ 6 bảng và ràng buộc khóa ngoại.
+- **Lệnh + kết quả:**
+  - `pnpm db:generate`: Sinh thành công 6 bảng trong SQL migration.
+  - `pnpm db:migrate`: Chạy 2 lần thành công (idempotent).
+  - `pnpm test tests/integration/db-migrations.test.ts`: 4/4 test pass.
+  - `pnpm typecheck`: Xanh.
+  - `pnpm tasks:dashboard`: Xanh.
+- **Suy ra gì:** Không có.
 - **Việc người dùng cần làm tay:** Không có.
 </pre>
       </div>
