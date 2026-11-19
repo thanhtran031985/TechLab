@@ -25,7 +25,7 @@ export function CheatSheetModal({ isOpen, onClose }: CheatSheetModalProps) {
 
   return (
     <div
-      className="modal-backdrop active"
+      className="modal-backdrop open"
       id="tl-cheatsheet-modal"
       role="dialog"
       aria-modal="true"

@@ -1,13 +1,13 @@
 # Tiến độ — 01-app-lab-shell
 
-Trạng thái: 🔄
+Trạng thái: ✅
 
 | Bước | Nội dung | Trạng thái | Ngày | Commit |
 |---|---|---|---|---|
 | 1 | API chuẩn hóa (`/api/courses`, `/api/progress`) | ✅ | 19/11/2026 | `80b770e` |
 | 2 | Nạp tokens Dark Studio & Thành phần dùng chung | ✅ | 19/11/2026 | `24eacdc` |
-| 3 | Khung `<LabShell>` 3 cột bám sát `designs/shell/shell.css` | ✅ | 19/11/2026 | (chờ commit) |
-| 4 | Trang chủ `/` theo `designs/pages/home.html` & Route động `/courses/[course]/[module]` | ⬜ | | |
+| 3 | Khung `<LabShell>` 3 cột bám sát `designs/shell/shell.css` | ✅ | 19/11/2026 | `2a4dd16` |
+| 4 | Trang chủ `/` theo `designs/pages/home.html` & Route động `/courses/[course]/[module]` | ✅ | 19/11/2026 | `9b3ff89` |
 
 ## Nhật ký
 ### Bước 1 (19/11/2026)
@@ -54,6 +54,30 @@ Trạng thái: 🔄
 - **Lệnh + kết quả:**
   - `pnpm test`: 28/28 tests pass (8 test files).
   - `pnpm typecheck`: Xanh.
+  - `pnpm tasks:dashboard`: Xanh.
+- **Suy ra gì:** Không có.
+- **Việc người dùng cần làm tay:** Không có.
+
+### Bước 4 (19/11/2026)
+- **Đã làm:**
+  - Xây dựng registry metadata danh sách 10 modules của khóa REST API (`src/labs/registry.ts`).
+  - Xây dựng giao diện mô phỏng JaneGram Mobile v2.4 tương tác (`src/labs/rest-api/01-network-http-rest/Simulator.tsx`) với các hành động bấm Like và kiểm tra BigInt.
+  - Xây dựng giao diện Lý thuyết Module 01 (`src/labs/rest-api/01-network-http-rest/Theory.tsx`) với công cụ giải phẫu 6 thành phần URL (Anatomy) tương tác và bảng 4 thói quen vàng.
+  - Cập nhật `src/app/layout.tsx` cho phép render nội dung trang trực tiếp với token Dark Studio.
+  - Xây dựng lại Trang chủ Portal `/` (`src/app/page.tsx`) bám sát 100% `designs/pages/home.html` (Header TechLab Portal, Progress pill đọc từ `/api/progress`, 2 thẻ khóa học, nút mở Cheat Sheet modal và điều hướng mượt).
+  - Triển khai Route động `/courses/[course]/[module]` (`src/app/courses/[course]/[module]/page.tsx`) kết nối `<LabShell>`, `<Module01Simulator>`, `<Module01Theory>`, `<InspectorPanel>` và `<ChallengePanel>`, tự động cập nhật tiến độ challenge vào SQLite khi thực thi kịch bản Senior.
+  - Viết bộ E2E Playwright toàn diện `tests/e2e/lab-shell.spec.ts` kiểm tra:
+    - Trang chủ `/` tại 1366×768 và 1440×900: không cuộn toàn cục, 0 lỗi console, mở/đóng modal Cheat Sheet bằng phím Esc, điều hướng sang Module 01.
+    - Trang Lab `/courses/rest-api/01-network-http-rest` tại 1366×768 và 1440×900: không cuộn toàn cục, 10 module sidebar, chuyển đổi Junior (amber) sang Senior (emerald), chuyển 3 Tab Workbench, tương tác URL Anatomy, thực thi JaneGram Like cập nhật 5 chặng mạng & raw HTTP packet, tự động chấm đạt Challenge 2.
+    - Điều hướng qua lại giữa module 01 và module 02 bằng thanh bên trái.
+    - Chụp và lưu toàn bộ ảnh màn hình vào `tests/e2e/__screens__/`.
+- **Lệnh + kết quả:**
+  - `pnpm test:e2e`: 8/8 tests pass (100% xanh).
+  - `pnpm test`: 28/28 tests pass (8 test files).
+  - `pnpm typecheck`: Xanh (0 lỗi).
+  - `pnpm lint`: Xanh (0 warning, 0 error).
+  - `pnpm security:check`: Xanh.
+  - `pnpm courses:sync:check`: Xanh (100% khớp SQLite).
   - `pnpm tasks:dashboard`: Xanh.
 - **Suy ra gì:** Không có.
 - **Việc người dùng cần làm tay:** Không có.

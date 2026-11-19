@@ -152,6 +152,7 @@ export function LabShell({
           <div className="wb-tabs" role="tablist">
             <button
               type="button"
+              id="wb-tab-theory"
               className={`wb-tab ${activeTab === 'theory' ? 'active' : ''}`}
               data-tab="theory"
               role="tab"
@@ -163,6 +164,7 @@ export function LabShell({
 
             <button
               type="button"
+              id="wb-tab-inspector"
               className={`wb-tab ${activeTab === 'inspector' ? 'active' : ''}`}
               data-tab="inspector"
               role="tab"
@@ -174,6 +176,7 @@ export function LabShell({
 
             <button
               type="button"
+              id="wb-tab-challenges"
               className={`wb-tab ${activeTab === 'challenges' ? 'active' : ''}`}
               data-tab="challenges"
               role="tab"

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { AppShell } from '@/components/AppShell';
 
 export const metadata: Metadata = {
   title: 'TechLab — Nền tảng học tập kỹ thuật phần mềm tương tác',
@@ -15,9 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="vi" suppressHydrationWarning>
-      <body>
-        <AppShell>{children}</AppShell>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
