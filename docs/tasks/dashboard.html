@@ -70,8 +70,8 @@ Trạng thái: 🔄
 |---|---|---|---|---|
 | 1 | Khởi tạo Next.js + TypeScript + pnpm scripts + Zod env | ✅ | 19/11/2026 | `44ea544` |
 | 2 | Schema Drizzle + SQLite WAL + Migration | ✅ | 19/11/2026 | `a8eab8b` |
-| 3 | Pipeline Tokens + AppShell khung + /api/health | ✅ | 19/11/2026 | (chờ commit) |
-| 4 | Pipeline Content-as-Code (courses:sync) | ⬜ | | |
+| 3 | Pipeline Tokens + AppShell khung + /api/health | ✅ | 19/11/2026 | `3d606a8` |
+| 4 | Pipeline Content-as-Code (courses:sync) | ✅ | 19/11/2026 | (chờ commit) |
 | 5 | Tasks Dashboard + Security Check + Playwright E2E Smoke | ⬜ | | |
 | 6 | Lint, Typecheck, CI &amp; Đối chiếu AGENTS.md | ⬜ | | |
 
@@ -122,6 +122,21 @@ Trạng thái: 🔄
   - `pnpm tokens:gen`: Sinh thành công `designs/tokens.css` và `docs/DESIGN_SYSTEM.md`.
   - `pnpm test`: 9/9 tests pass (4 test files).
   - `pnpm typecheck`: Xanh (0 lỗi).
+  - `pnpm tasks:dashboard`: Xanh.
+- **Suy ra gì:** Không có.
+- **Việc người dùng cần làm tay:** Không có.
+
+### Bước 4 (19/11/2026)
+- **Đã làm:**
+  - Định nghĩa Zod schemas trong `src/schemas/course.ts` cho `course.json` và `challenges/*.json`.
+  - Triển khai `scripts/sync-courses.ts` hỗ trợ 2 chế độ: upsert CSDL trong transaction an toàn (PRD D2: bảo toàn tuyệt đối bảng `challenge_progress` và `user_notes`), và cờ `--check` đối chiếu tính đồng bộ giữa file và DB.
+  - Tạo dữ liệu mẫu Content-as-Code: `content/courses/rest-api/course.json` (10 modules từ curriculum) và `content/courses/rest-api/challenges/01-network-http-rest.json` (3 challenges).
+  - Viết test TDD trước: `tests/integration/sync-courses.test.ts` (kiểm tra tính idempotent, kiểm tra bảo toàn tiến độ người học, kiểm tra cờ checkOnly).
+- **Lệnh + kết quả:**
+  - `pnpm courses:sync`: Đồng bộ thành công 1 khóa học, 10 module, 3 challenge vào `data/techlab.db`.
+  - `pnpm courses:sync:check`: Xác nhận khớp 100% với CSDL.
+  - `pnpm test`: 12/12 tests pass (5 test files).
+  - `pnpm typecheck`: Xanh.
   - `pnpm tasks:dashboard`: Xanh.
 - **Suy ra gì:** Không có.
 - **Việc người dùng cần làm tay:** Không có.

@@ -1,0 +1,23 @@
+{
+  "module_slug": "01-network-http-rest",
+  "challenges": [
+    {
+      "order_index": 1,
+      "title": "Giải phẫu URL",
+      "description": "Xác định chính xác 6 thành phần của URL: Scheme, Host, Port, Path, Query String, Fragment.",
+      "mode_required": "both"
+    },
+    {
+      "order_index": 2,
+      "title": "Chuyển giao thức HTTP sang HTTPS & Chuẩn hóa REST",
+      "description": "Quan sát rủi ro mất an toàn ở Junior Mode (HTTP thường, URL tùy hứng /likeIt), sau đó kích hoạt Senior Mode (HTTPS + TLS + RESTful) và xác nhận đủ 5 chặng mạng.",
+      "mode_required": "both"
+    },
+    {
+      "order_index": 3,
+      "title": "Khắc phục mất độ chính xác số nguyên 64-bit trong JSON",
+      "description": "Phát hiện lỗi làm tròn số của ID vượt quá 2^53 - 1 trong JavaScript JSON parser và chuyển trường id sang kiểu chuỗi.",
+      "mode_required": "senior"
+    }
+  ]
+}
