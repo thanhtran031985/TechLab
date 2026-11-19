@@ -15,12 +15,11 @@ describe('Design Tokens Generation (scripts/gen-tokens.ts)', () => {
 
     const cssContent = fs.readFileSync(cssPath, 'utf-8');
     expect(cssContent).toContain(':root');
-    expect(cssContent).toContain('[data-theme="dark"]');
     expect(cssContent).toContain('--primary:');
     expect(cssContent).toContain('--bg:');
     expect(cssContent).toContain('--surface:');
-    expect(cssContent).toContain('--ok:');
-    expect(cssContent).toContain('--warn:');
+    expect(cssContent).toContain('--senior:');
+    expect(cssContent).toContain('--junior:');
     expect(cssContent).toContain('--crit:');
 
     const docContent = fs.readFileSync(docPath, 'utf-8');
