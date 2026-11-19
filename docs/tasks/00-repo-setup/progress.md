@@ -8,8 +8,8 @@ Trạng thái: 🔄
 | 2 | Schema Drizzle + SQLite WAL + Migration | ✅ | 19/11/2026 | `a8eab8b` |
 | 3 | Pipeline Tokens + AppShell khung + /api/health | ✅ | 19/11/2026 | `3d606a8` |
 | 4 | Pipeline Content-as-Code (courses:sync) | ✅ | 19/11/2026 | `e633b63` |
-| 5 | Tasks Dashboard + Security Check + Playwright E2E Smoke | ✅ | 19/11/2026 | (chờ commit) |
-| 6 | Lint, Typecheck, CI & Đối chiếu AGENTS.md | ⬜ | | |
+| 5 | Tasks Dashboard + Security Check + Playwright E2E Smoke | ✅ | 19/11/2026 | `de98989` |
+| 6 | Lint, Typecheck, CI & Đối chiếu AGENTS.md | ✅ | 19/11/2026 | (chờ commit) |
 
 ## Nhật ký
 ### Bước 1 (19/11/2026)
@@ -87,5 +87,26 @@ Trạng thái: 🔄
   - `pnpm tasks:dashboard`: Xanh, sinh `docs/tasks/dashboard.html`.
   - `pnpm security:check`: Xanh (0 cảnh báo bảo mật).
   - `pnpm test:e2e`: 3/3 tests pass (1366x768, 1440x900, /api/health).
+- **Suy ra gì:** Không có.
+- **Việc người dùng cần làm tay:** Không có.
+
+### Bước 6 (19/11/2026)
+- **Đã làm:**
+  - Cấu hình `.eslintrc.json` và `.prettierrc`, cập nhật script `lint` và `format`.
+  - Thiết lập GitHub Actions CI `.github/workflows/ci.yml` kiểm thử đa nền tảng (`ubuntu-latest` và `windows-latest`).
+  - Kiểm tra Next.js production build (`pnpm build`).
+  - Đối chiếu 100% các lệnh trong `AGENTS.md` với `package.json`.
+  - Chạy toàn bộ bộ kiểm thử: `lint`, `typecheck`, `test`, `security:check`, `courses:sync:check`, `test:e2e`, `tasks:dashboard`.
+  - Cập nhật checklist kiểm thử `docs/tasks/00-repo-setup/checklist.md`.
+- **Lệnh + kết quả:**
+  - `pnpm lint`: Xanh (No ESLint warnings or errors).
+  - `pnpm format`: Xanh, định dạng toàn bộ repository.
+  - `pnpm build`: Xanh (Next.js compiled successfully).
+  - `pnpm typecheck`: Xanh (0 lỗi).
+  - `pnpm test`: Xanh (12/12 tests passed).
+  - `pnpm security:check`: Xanh (an toàn).
+  - `pnpm courses:sync:check`: Xanh (100% khớp).
+  - `pnpm test:e2e`: Xanh (3/3 tests passed).
+  - `pnpm tasks:dashboard`: Xanh, sinh `docs/tasks/dashboard.html`.
 - **Suy ra gì:** Không có.
 - **Việc người dùng cần làm tay:** Không có.

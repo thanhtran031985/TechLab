@@ -10,8 +10,15 @@ function generateDashboard(): void {
 
   const readmeContent = fs.readFileSync(readmePath, 'utf-8');
   const taskDirs = fs
-    .readdirSync(path.resolve(process.cwd(), 'docs', 'tasks'), { withFileTypes: true })
-    .filter((dirent) => dirent.isDirectory() && dirent.name !== '_template' && dirent.name !== '_archive')
+    .readdirSync(path.resolve(process.cwd(), 'docs', 'tasks'), {
+      withFileTypes: true,
+    })
+    .filter(
+      (dirent) =>
+        dirent.isDirectory() &&
+        dirent.name !== '_template' &&
+        dirent.name !== '_archive'
+    )
     .map((dirent) => dirent.name);
 
   const tasksData: Array<{
@@ -20,13 +27,31 @@ function generateDashboard(): void {
     stage: string;
     status: string;
     branch: string;
-    steps: Array<{ step: string; content: string; status: string; date: string; commit: string }>;
+    steps: Array<{
+      step: string;
+      content: string;
+      status: string;
+      date: string;
+      commit: string;
+    }>;
   }> = [];
 
   for (const dir of taskDirs) {
-    const progressPath = path.resolve(process.cwd(), 'docs', 'tasks', dir, 'progress.md');
+    const progressPath = path.resolve(
+      process.cwd(),
+      'docs',
+      'tasks',
+      dir,
+      'progress.md'
+    );
     let taskStatus = '⬜';
-    const steps: Array<{ step: string; content: string; status: string; date: string; commit: string }> = [];
+    const steps: Array<{
+      step: string;
+      content: string;
+      status: string;
+      date: string;
+      commit: string;
+    }> = [];
 
     if (fs.existsSync(progressPath)) {
       const progContent = fs.readFileSync(progressPath, 'utf-8');
@@ -37,7 +62,9 @@ function generateDashboard(): void {
 
       const tableLines = progContent.split('\n');
       for (const line of tableLines) {
-        const rowMatch = line.match(/^\|\s*(\d+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^|]*)\s*\|\s*([^|]*)\s*\|/);
+        const rowMatch = line.match(
+          /^\|\s*(\d+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^|]*)\s*\|\s*([^|]*)\s*\|/
+        );
         if (rowMatch) {
           steps.push({
             step: rowMatch[1].trim(),
@@ -216,7 +243,12 @@ function generateDashboard(): void {
 </body>
 </html>`;
 
-  const outputPath = path.resolve(process.cwd(), 'docs', 'tasks', 'dashboard.html');
+  const outputPath = path.resolve(
+    process.cwd(),
+    'docs',
+    'tasks',
+    'dashboard.html'
+  );
   fs.writeFileSync(outputPath, html, 'utf-8');
   console.log(`Đã cập nhật dashboard: ${outputPath}`);
 }

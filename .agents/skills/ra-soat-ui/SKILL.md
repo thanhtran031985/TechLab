@@ -22,14 +22,14 @@ description: Rà soát các màn hình đã code theo chuẩn Fluent Compact + M
 
 ## 2. Bảng kiểm định 6 tiêu chuẩn UI/UX (TechLab Audit Rubric)
 
-| Tiêu chuẩn | Nội dung kiểm tra bắt buộc | Tiêu chí Đạt |
-|---|---|---|
-| **1. Token Integrity (Tính toàn vẹn Token)** | Tuyệt đối không hardcode mã màu hex (`#...`) hay kích thước pixel cứng (`px`) trong page/component. Toàn bộ màu sắc, spacing, border-radius phải dùng token từ `designs/tokens.css`. Mọi module đều dùng chung `<LabShell>`. | 100% sử dụng token và khung `<LabShell>` thống nhất. |
-| **2. Frame-First & No-Scroll (Khung màn hình không cuộn)** | Ở màn hình máy tính ≥ 1366×768, trang tuyệt đối **KHÔNG cuộn toàn cục** (`document.documentElement.scrollHeight <= innerHeight`, không cuộn ngang) ở cả Junior và Senior mode. Chỉ cho phép cuộn nội bộ trong các panel (`flex-1 min-h-0 overflow-y-auto`). | Không xuất hiện thanh cuộn trình duyệt của cả trang web. |
-| **3. Information Density (Mật độ Fluent Compact)** | Controls (Input, Select, Button) dùng kích thước gọn (`30px` / `26px`). Không dùng khối hero lớn, không gradient, không emoji, không dấu chấm than. Dữ liệu dạng bảng có vạch ngăn mảnh, số dùng `tabular-nums`, code/JSON/SQL dùng `--font-mono`. | Giao diện gọn, dày thông tin kỹ thuật nhưng tường minh, dễ đọc. |
-| **4. State Completeness (Đầy đủ 4 trạng thái)** | Mọi khối dữ liệu xử lý đủ: Bình thường, Skeleton đúng kích thước, EmptyState (lý do + 1 hành động), ErrorAlert (giữ dữ liệu cũ + nút Thử lại). Nội dung Lý thuyết hiển thị ngay, không trắng trang. | Không bị trắng trang hay đơ giao diện khi API/dữ liệu lỗi. |
-| **5. Micro-interactions & A11y (Tương tác & Tiếp cận)** | Độ tương phản chữ/nền đạt WCAG AA (≥ 4.5:1). Focus ring 2px rõ khi bấm Tab. Nút chỉ có icon có `aria-label` và tooltip. Kết quả mô phỏng/Challenge cập nhật trong vùng `aria-live="polite"`. | Thao tác bàn phím mượt, chỉ dẫn trạng thái luôn có icon + chữ. |
-| **6. Dark Mode Consistency (Đồng nhất chế độ tối)** | Khi bật `data-theme="dark"`: nền không đen tuyệt đối (`#000000`), phân tầng rõ giữa `bg` (`#1F1F1F`), `surface` (`#292929`), `surface-2` (`#2E2E2E`), viền mảnh rõ, chữ và khối code dễ đọc. | Trải nghiệm đồng nhất, dịu mắt ở cả Sáng và Tối. |
+| Tiêu chuẩn                                                 | Nội dung kiểm tra bắt buộc                                                                                                                                                                                                                                  | Tiêu chí Đạt                                                    |
+| ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| **1. Token Integrity (Tính toàn vẹn Token)**               | Tuyệt đối không hardcode mã màu hex (`#...`) hay kích thước pixel cứng (`px`) trong page/component. Toàn bộ màu sắc, spacing, border-radius phải dùng token từ `designs/tokens.css`. Mọi module đều dùng chung `<LabShell>`.                                | 100% sử dụng token và khung `<LabShell>` thống nhất.            |
+| **2. Frame-First & No-Scroll (Khung màn hình không cuộn)** | Ở màn hình máy tính ≥ 1366×768, trang tuyệt đối **KHÔNG cuộn toàn cục** (`document.documentElement.scrollHeight <= innerHeight`, không cuộn ngang) ở cả Junior và Senior mode. Chỉ cho phép cuộn nội bộ trong các panel (`flex-1 min-h-0 overflow-y-auto`). | Không xuất hiện thanh cuộn trình duyệt của cả trang web.        |
+| **3. Information Density (Mật độ Fluent Compact)**         | Controls (Input, Select, Button) dùng kích thước gọn (`30px` / `26px`). Không dùng khối hero lớn, không gradient, không emoji, không dấu chấm than. Dữ liệu dạng bảng có vạch ngăn mảnh, số dùng `tabular-nums`, code/JSON/SQL dùng `--font-mono`.          | Giao diện gọn, dày thông tin kỹ thuật nhưng tường minh, dễ đọc. |
+| **4. State Completeness (Đầy đủ 4 trạng thái)**            | Mọi khối dữ liệu xử lý đủ: Bình thường, Skeleton đúng kích thước, EmptyState (lý do + 1 hành động), ErrorAlert (giữ dữ liệu cũ + nút Thử lại). Nội dung Lý thuyết hiển thị ngay, không trắng trang.                                                         | Không bị trắng trang hay đơ giao diện khi API/dữ liệu lỗi.      |
+| **5. Micro-interactions & A11y (Tương tác & Tiếp cận)**    | Độ tương phản chữ/nền đạt WCAG AA (≥ 4.5:1). Focus ring 2px rõ khi bấm Tab. Nút chỉ có icon có `aria-label` và tooltip. Kết quả mô phỏng/Challenge cập nhật trong vùng `aria-live="polite"`.                                                                | Thao tác bàn phím mượt, chỉ dẫn trạng thái luôn có icon + chữ.  |
+| **6. Dark Mode Consistency (Đồng nhất chế độ tối)**        | Khi bật `data-theme="dark"`: nền không đen tuyệt đối (`#000000`), phân tầng rõ giữa `bg` (`#1F1F1F`), `surface` (`#292929`), `surface-2` (`#2E2E2E`), viền mảnh rõ, chữ và khối code dễ đọc.                                                                | Trải nghiệm đồng nhất, dịu mắt ở cả Sáng và Tối.                |
 
 ## 3. Mẫu bảng báo cáo rà soát
 
@@ -40,14 +40,14 @@ description: Rà soát các màn hình đã code theo chuẩn Fluent Compact + M
 - **Chế độ hiển thị:** Sáng (Light) & Tối (Dark) · Junior & Senior Mode
 - **Ảnh chụp bằng chứng:** `tests/e2e/__screens__/...`
 
-| Tiêu chuẩn | Hiện trạng thực tế | Đánh giá | Đề xuất cải tiến |
-|---|---|:---:|---|
-| 1. Token Integrity | | ✅ Đạt / ⚠️ Cần sửa | |
-| 2. Frame-First & No-Scroll | | ✅ Đạt / ⚠️ Cần sửa | |
-| 3. Information Density | | ✅ Đạt / ⚠️ Cần sửa | |
-| 4. State Completeness | | ✅ Đạt / ⚠️ Cần sửa | |
-| 5. Micro-interactions & A11y | | ✅ Đạt / ⚠️ Cần sửa | |
-| 6. Dark Mode Consistency | | ✅ Đạt / ⚠️ Cần sửa | |
+| Tiêu chuẩn                   | Hiện trạng thực tế |      Đánh giá       | Đề xuất cải tiến |
+| ---------------------------- | ------------------ | :-----------------: | ---------------- |
+| 1. Token Integrity           |                    | ✅ Đạt / ⚠️ Cần sửa |                  |
+| 2. Frame-First & No-Scroll   |                    | ✅ Đạt / ⚠️ Cần sửa |                  |
+| 3. Information Density       |                    | ✅ Đạt / ⚠️ Cần sửa |                  |
+| 4. State Completeness        |                    | ✅ Đạt / ⚠️ Cần sửa |                  |
+| 5. Micro-interactions & A11y |                    | ✅ Đạt / ⚠️ Cần sửa |                  |
+| 6. Dark Mode Consistency     |                    | ✅ Đạt / ⚠️ Cần sửa |                  |
 
 **Kết luận chung:** (Đạt chuẩn / Cần tinh chỉnh theo danh sách trên)
 ```

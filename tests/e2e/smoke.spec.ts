@@ -17,7 +17,9 @@ test.describe('TechLab AppShell & Home Page Smoke Test', () => {
   ];
 
   for (const vp of viewports) {
-    test(`renders home page without global scroll at ${vp.name} (Light & Dark)`, async ({ page }) => {
+    test(`renders home page without global scroll at ${vp.name} (Light & Dark)`, async ({
+      page,
+    }) => {
       const consoleErrors: string[] = [];
       page.on('console', (msg) => {
         if (msg.type() === 'error') {
@@ -33,7 +35,9 @@ test.describe('TechLab AppShell & Home Page Smoke Test', () => {
 
       // Check header and content are visible
       await expect(page.locator('text=Danh sách khóa học')).toBeVisible();
-      await expect(page.locator('text=REST API Design Like a Senior Engineer')).toBeVisible();
+      await expect(
+        page.locator('text=REST API Design Like a Senior Engineer')
+      ).toBeVisible();
 
       // Check NO global vertical scroll: document.documentElement.scrollHeight <= window.innerHeight
       const dimensions = await page.evaluate(() => ({
@@ -43,7 +47,9 @@ test.describe('TechLab AppShell & Home Page Smoke Test', () => {
         innerWidth: window.innerWidth,
       }));
 
-      expect(dimensions.scrollHeight).toBeLessThanOrEqual(dimensions.innerHeight + 1); // allow 1px rounding
+      expect(dimensions.scrollHeight).toBeLessThanOrEqual(
+        dimensions.innerHeight + 1
+      ); // allow 1px rounding
       expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.innerWidth);
 
       // Screenshot Light Mode
@@ -52,7 +58,9 @@ test.describe('TechLab AppShell & Home Page Smoke Test', () => {
       });
 
       // Toggle Dark Mode
-      const themeToggle = page.locator('button[aria-label="Chuyển sang chế độ Tối"]');
+      const themeToggle = page.locator(
+        'button[aria-label="Chuyển sang chế độ Tối"]'
+      );
       await themeToggle.click();
 
       // Verify data-theme="dark" on <html>
@@ -65,14 +73,18 @@ test.describe('TechLab AppShell & Home Page Smoke Test', () => {
       });
 
       // Toggle back to Light Mode
-      const lightToggle = page.locator('button[aria-label="Chuyển sang chế độ Sáng"]');
+      const lightToggle = page.locator(
+        'button[aria-label="Chuyển sang chế độ Sáng"]'
+      );
       await lightToggle.click();
       const themeAttrLight = await page.getAttribute('html', 'data-theme');
       expect(themeAttrLight).toBe('light');
     });
   }
 
-  test('calls /api/health directly and verifies status', async ({ request }) => {
+  test('calls /api/health directly and verifies status', async ({
+    request,
+  }) => {
     const res = await request.get('/api/health');
     expect(res.ok()).toBe(true);
     const json = await res.json();

@@ -74,28 +74,40 @@ describe('Content-as-Code Sync Pipeline (scripts/sync-courses.ts)', () => {
 
   it('syncs course, module and challenge data idempotently', () => {
     // Run sync twice
-    const result1 = syncCourses({ dbPath: tempDbPath, contentDir: tempContentDir });
+    const result1 = syncCourses({
+      dbPath: tempDbPath,
+      contentDir: tempContentDir,
+    });
     expect(result1.syncedCourses).toBe(1);
     expect(result1.syncedModules).toBe(1);
     expect(result1.syncedChallenges).toBe(1);
 
-    const result2 = syncCourses({ dbPath: tempDbPath, contentDir: tempContentDir });
+    const result2 = syncCourses({
+      dbPath: tempDbPath,
+      contentDir: tempContentDir,
+    });
     expect(result2.syncedCourses).toBe(1);
     expect(result2.syncedModules).toBe(1);
     expect(result2.syncedChallenges).toBe(1);
 
     // Verify DB contents
     const sqlite = new Database(tempDbPath);
-    const course = sqlite.prepare("SELECT * FROM courses WHERE slug = 'mock-course'").get() as any;
+    const course = sqlite
+      .prepare("SELECT * FROM courses WHERE slug = 'mock-course'")
+      .get() as any;
     expect(course).toBeDefined();
     expect(course.title).toBe('Mock Course for Testing');
     expect(course.module_count).toBe(1);
 
-    const mod = sqlite.prepare("SELECT * FROM modules WHERE id = 'mock-course/01-intro'").get() as any;
+    const mod = sqlite
+      .prepare("SELECT * FROM modules WHERE id = 'mock-course/01-intro'")
+      .get() as any;
     expect(mod).toBeDefined();
     expect(mod.challenge_count).toBe(1);
 
-    const ch = sqlite.prepare("SELECT * FROM challenges WHERE id = 'mock-course/01-intro/1'").get() as any;
+    const ch = sqlite
+      .prepare("SELECT * FROM challenges WHERE id = 'mock-course/01-intro/1'")
+      .get() as any;
     expect(ch).toBeDefined();
     expect(ch.mode_required).toBe('junior');
 
@@ -149,12 +161,16 @@ describe('Content-as-Code Sync Pipeline (scripts/sync-courses.ts)', () => {
 
     // Check that progress and notes are still intact!
     const sqliteAfter = new Database(tempDbPath);
-    const progress = sqliteAfter.prepare("SELECT * FROM challenge_progress WHERE id = 'prog-1'").get() as any;
+    const progress = sqliteAfter
+      .prepare("SELECT * FROM challenge_progress WHERE id = 'prog-1'")
+      .get() as any;
     expect(progress).toBeDefined();
     expect(progress.status).toBe('PASSED');
     expect(progress.attempts).toBe(2);
 
-    const note = sqliteAfter.prepare("SELECT * FROM user_notes WHERE id = 'note-1'").get() as any;
+    const note = sqliteAfter
+      .prepare("SELECT * FROM user_notes WHERE id = 'note-1'")
+      .get() as any;
     expect(note).toBeDefined();
     expect(note.content).toBe('Ghi chu quan trong');
 
@@ -163,14 +179,22 @@ describe('Content-as-Code Sync Pipeline (scripts/sync-courses.ts)', () => {
 
   it('checkCourses reports in-sync or out-of-sync properly', () => {
     // Before sync: should report out of sync (course missing)
-    const checkBefore = syncCourses({ dbPath: tempDbPath, contentDir: tempContentDir, checkOnly: true });
+    const checkBefore = syncCourses({
+      dbPath: tempDbPath,
+      contentDir: tempContentDir,
+      checkOnly: true,
+    });
     expect(checkBefore.inSync).toBe(false);
 
     // Perform sync
     syncCourses({ dbPath: tempDbPath, contentDir: tempContentDir });
 
     // After sync: should report in sync
-    const checkAfter = syncCourses({ dbPath: tempDbPath, contentDir: tempContentDir, checkOnly: true });
+    const checkAfter = syncCourses({
+      dbPath: tempDbPath,
+      contentDir: tempContentDir,
+      checkOnly: true,
+    });
     expect(checkAfter.inSync).toBe(true);
   });
 });

@@ -1,7 +1,7 @@
 # Bản đồ kiến thức khóa học: REST API Design Like a Senior Engineer
 
 - **Mã khóa học (`course_slug`):** `rest-api`
-- **Nguồn video:** System Design Lab — *REST API Design Like a Senior Engineer (REST, GraphQL, Networking, Pagination, Auth, Security)*
+- **Nguồn video:** System Design Lab — _REST API Design Like a Senior Engineer (REST, GraphQL, Networking, Pagination, Auth, Security)_
 - **URL:** `https://www.youtube.com/watch?v=BvtIqaiabJA`
 - **Thời lượng:** `02:24:33`
 - **Ứng dụng mô phỏng xuyên suốt:** **JaneGram** (ứng dụng chia sẻ ảnh có Feed, Like, Comment, Upload ảnh/video, Profile, Follow, Notifications).
@@ -10,24 +10,25 @@
 
 ## Tổng quan 10 Module (Bao phủ 100% nội dung video)
 
-| # | Slug | Tên Module | Mốc video | Kịch bản Junior (Lỗi) vs Senior (Chuẩn) |
-|---|---|---|---|---|
-| 01 | `01-network-http-rest` | Nền tảng Mạng, HTTP & REST | `[00:00:00]` – `[00:19:34]` | Junior gọi URL tùy hứng (`/likeIt`), bỏ qua TLS/Stateless vs Senior áp dụng 4 thói quen REST, HTTPS/TLS, Stateless và chuẩn hóa JSON. |
-| 02 | `02-resource-modeling` | Mô hình hóa Tài nguyên & URL | `[00:19:35]` – `[00:28:55]` | Junior đưa động từ vào URL (`/getUserPosts`), lồng 4 cấp, dùng username làm khóa vs Senior tách Entity/Attribute, Collection/Item, ID bất biến, nested tối đa 1 cấp, `:customMethod`. |
-| 03 | `03-methods-status-caching` | Methods, Status Codes & Caching | `[00:28:56]` – `[00:57:55]` | Junior dùng `POST` cho Like (double-tap nhảy 2 tim), đẩy ảnh nặng qua API server, trả 200/500 cho mọi lỗi vs Senior dùng `PUT` Idempotent, `ETag`/`304`, Signed URL, `202 Accepted`, `QUERY`, Redirect đúng mã, Retry có Jitter. |
-| 04 | `04-read-errors-pagination` | Thiết kế Read, Chuẩn lỗi & Phân trang | `[00:57:56]` – `[01:12:54]` | Junior gọi N+1 (21 request cho 10 post), tên trường lẫn lộn, phân trang Offset bị trùng bài khi có bài mới vs Senior dùng 1 call Screen-driven, Embed + Link, RFC 9457, Cursor/Keyset Pagination & `since=`. |
-| 05 | `05-write-safety-reliability` | An toàn Ghi dữ liệu & Độ tin cậy | `[01:12:55]` – `[01:20:29]` | Junior retry `POST` khi rớt mạng tạo 2 bài trùng, 2 thiết bị cùng sửa gây Lost Update, Webhook không ký vs Senior dùng `Idempotency-Key`, Optimistic Locking (`If-Match`/`412`), Webhook ký HMAC + Event ID. |
-| 06 | `06-architecture-versioning` | Kiến trúc 3 tầng & API Versioning | `[01:20:30]` – `[01:40:22]` | Junior gộp SQL trong handler, lộ stack trace DB, đổi `likes` sang `reactions` làm sập App v1.0 vs Senior tách 3 tầng + SQL Join, Expand & Contract, Versioning (`/v2` + adapter), `Deprecation`/`Sunset` -> `410 Gone`. |
-| 07 | `07-auth-authorization` | Xác thực (AuthN) & Phân quyền (AuthZ) | `[01:40:23]` – `[01:56:27]` | Junior lưu mật khẩu yếu, gửi API key trên URL, nhầm 401/403, không kiểm `iss`/`aud` của JWT vs Senior dùng Argon2id+Salt, Session Cookie `HttpOnly`, JWT cặp khóa + Refresh Token Rotation, OAuth 2.0 + PKCE + OIDC, RBAC/ABAC/ACL. |
-| 08 | `08-api-security` | Bảo mật API chuyên sâu (Red-Team) | `[01:56:28]` – `[02:05:08]` | Junior bỏ qua kiểm tra quyền theo đối tượng (BOLA), copy thẳng body (Mass Assignment), không giới hạn spam vs Senior chặn BOLA (`404`/`403`), Allow-list trường ghi, Token Bucket (`429`), CORS Preflight, CSRF Token, Parameterized Query & XSS Escaping. |
-| 09 | `09-openapi-documentation` | Tài liệu hóa & OpenAPI Contract | `[02:05:09]` – `[02:11:52]` | Junior viết docs tay trên wiki bị lệch thực tế (`text` vs `body`) vs Senior dùng OpenAPI 3.1/3.2 (Design-First), tái sử dụng `components/schemas`, sinh 4 đầu ra tự động, dùng Diff & Linter chặn Breaking Change. |
-| 10 | `10-graphql-grpc` | Ngoài REST: GraphQL & gRPC | `[02:11:53]` – `[02:24:33]` | Junior dùng 1 endpoint REST cố định gây Overfetching trên Smartwatch và Underfetching trên Web, không đặt timeout nội bộ vs Senior dùng GraphQL + DataLoader (hiểu rõ 4 chi phí) và gRPC (`.proto`, HTTP/2, Deadline). |
+| #   | Slug                          | Tên Module                            | Mốc video                   | Kịch bản Junior (Lỗi) vs Senior (Chuẩn)                                                                                                                                                                                                                    |
+| --- | ----------------------------- | ------------------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 01  | `01-network-http-rest`        | Nền tảng Mạng, HTTP & REST            | `[00:00:00]` – `[00:19:34]` | Junior gọi URL tùy hứng (`/likeIt`), bỏ qua TLS/Stateless vs Senior áp dụng 4 thói quen REST, HTTPS/TLS, Stateless và chuẩn hóa JSON.                                                                                                                      |
+| 02  | `02-resource-modeling`        | Mô hình hóa Tài nguyên & URL          | `[00:19:35]` – `[00:28:55]` | Junior đưa động từ vào URL (`/getUserPosts`), lồng 4 cấp, dùng username làm khóa vs Senior tách Entity/Attribute, Collection/Item, ID bất biến, nested tối đa 1 cấp, `:customMethod`.                                                                      |
+| 03  | `03-methods-status-caching`   | Methods, Status Codes & Caching       | `[00:28:56]` – `[00:57:55]` | Junior dùng `POST` cho Like (double-tap nhảy 2 tim), đẩy ảnh nặng qua API server, trả 200/500 cho mọi lỗi vs Senior dùng `PUT` Idempotent, `ETag`/`304`, Signed URL, `202 Accepted`, `QUERY`, Redirect đúng mã, Retry có Jitter.                           |
+| 04  | `04-read-errors-pagination`   | Thiết kế Read, Chuẩn lỗi & Phân trang | `[00:57:56]` – `[01:12:54]` | Junior gọi N+1 (21 request cho 10 post), tên trường lẫn lộn, phân trang Offset bị trùng bài khi có bài mới vs Senior dùng 1 call Screen-driven, Embed + Link, RFC 9457, Cursor/Keyset Pagination & `since=`.                                               |
+| 05  | `05-write-safety-reliability` | An toàn Ghi dữ liệu & Độ tin cậy      | `[01:12:55]` – `[01:20:29]` | Junior retry `POST` khi rớt mạng tạo 2 bài trùng, 2 thiết bị cùng sửa gây Lost Update, Webhook không ký vs Senior dùng `Idempotency-Key`, Optimistic Locking (`If-Match`/`412`), Webhook ký HMAC + Event ID.                                               |
+| 06  | `06-architecture-versioning`  | Kiến trúc 3 tầng & API Versioning     | `[01:20:30]` – `[01:40:22]` | Junior gộp SQL trong handler, lộ stack trace DB, đổi `likes` sang `reactions` làm sập App v1.0 vs Senior tách 3 tầng + SQL Join, Expand & Contract, Versioning (`/v2` + adapter), `Deprecation`/`Sunset` -> `410 Gone`.                                    |
+| 07  | `07-auth-authorization`       | Xác thực (AuthN) & Phân quyền (AuthZ) | `[01:40:23]` – `[01:56:27]` | Junior lưu mật khẩu yếu, gửi API key trên URL, nhầm 401/403, không kiểm `iss`/`aud` của JWT vs Senior dùng Argon2id+Salt, Session Cookie `HttpOnly`, JWT cặp khóa + Refresh Token Rotation, OAuth 2.0 + PKCE + OIDC, RBAC/ABAC/ACL.                        |
+| 08  | `08-api-security`             | Bảo mật API chuyên sâu (Red-Team)     | `[01:56:28]` – `[02:05:08]` | Junior bỏ qua kiểm tra quyền theo đối tượng (BOLA), copy thẳng body (Mass Assignment), không giới hạn spam vs Senior chặn BOLA (`404`/`403`), Allow-list trường ghi, Token Bucket (`429`), CORS Preflight, CSRF Token, Parameterized Query & XSS Escaping. |
+| 09  | `09-openapi-documentation`    | Tài liệu hóa & OpenAPI Contract       | `[02:05:09]` – `[02:11:52]` | Junior viết docs tay trên wiki bị lệch thực tế (`text` vs `body`) vs Senior dùng OpenAPI 3.1/3.2 (Design-First), tái sử dụng `components/schemas`, sinh 4 đầu ra tự động, dùng Diff & Linter chặn Breaking Change.                                         |
+| 10  | `10-graphql-grpc`             | Ngoài REST: GraphQL & gRPC            | `[02:11:53]` – `[02:24:33]` | Junior dùng 1 endpoint REST cố định gây Overfetching trên Smartwatch và Underfetching trên Web, không đặt timeout nội bộ vs Senior dùng GraphQL + DataLoader (hiểu rõ 4 chi phí) và gRPC (`.proto`, HTTP/2, Deadline).                                     |
 
 ---
 
 ## Chi tiết kiến thức, mốc thời gian & thử thách từng Module
 
 ### Module 01 — Nền tảng Mạng, HTTP & REST (`01-network-http-rest`)
+
 - **Kiến thức bắt buộc & mốc video:**
   - Vì sao server scale được nhưng API thiết kế kém thì không (ứng dụng cũ gọi shape cũ nhiều năm) `[00:00:07]`.
   - API Contract (Client vs Server) `[00:02:42]`.
@@ -46,6 +47,7 @@
   3. Phát hiện lỗi mất độ chính xác của ID số nguyên lớn (`> 2^53 - 1`) trong JSON payload và sửa sang kiểu chuỗi.
 
 ### Module 02 — Mô hình hóa Tài nguyên & URL (`02-resource-modeling`)
+
 - **Kiến thức bắt buộc & mốc video:**
   - Quy trình đọc màn hình ứng dụng trước khi viết URL `[00:19:46]`.
   - Phân loại Entity (có ID duy nhất, không đổi, ví dụ User, Post, Comment) vs Attribute (Caption, Avatar, Username có thể đổi) `[00:20:32]`.
@@ -60,6 +62,7 @@
   3. Thiết kế đúng endpoint cho hành động lưu trữ bài viết (`POST /posts/42:archive`) thay vì `GET /archivePost?id=42`.
 
 ### Module 03 — Methods, Status Codes & Caching (`03-methods-status-caching`)
+
 - **Kiến thức bắt buộc & mốc video:**
   - Đầy đủ 10 HTTP Methods: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `HEAD`, `OPTIONS`, `TRACE`, `CONNECT` và `QUERY` mới (RFC 10008 — `GET` có body cho tìm kiếm phức tạp) `[00:29:14]`, `[00:49:44]`, `[00:52:22]`.
   - 5 họ mã trạng thái (`1xx`, `2xx`, `3xx`, `4xx`, `5xx`), chi tiết nhóm `2xx` (`200`, `201` + `Location`, `202 Accepted`, `204 No Content`) `[00:29:35]`, `[00:32:28]`.
@@ -78,6 +81,7 @@
   3. Thực hiện quy trình upload ảnh lớn qua Signed URL (3 bước) mà không đẩy byte ảnh qua API Server.
 
 ### Module 04 — Thiết kế Read, Chuẩn lỗi & Phân trang (`04-read-errors-pagination`)
+
 - **Kiến thức bắt buộc & mốc video:**
   - Thiết kế ngược từ màn hình (Screen-driven): xử lý bài toán **N+1 trên Client** (1 request `/feed` thay vì 21 requests) `[00:57:56]`.
   - Liên kết dữ liệu: Bare ID vs Link vs Embed tóm tắt (Embed những gì màn hình luôn vẽ, còn lại dùng ID + Link) `[00:59:26]`.
@@ -95,6 +99,7 @@
   3. Gửi caption vượt giới hạn để kiểm tra response lỗi đạt chuẩn RFC 9457 có `errors` theo trường và `request_id`.
 
 ### Module 05 — An toàn Ghi dữ liệu & Độ tin cậy (`05-write-safety-reliability`)
+
 - **Kiến thức bắt buộc & mốc video:**
   - Khoảng trống của TCP khi rớt mạng giữa đường về: Server đã lưu nhưng Client timeout và retry gây tạo 2 bài đăng trùng `[01:12:55]`.
   - **`Idempotency-Key`** cho `POST`: lưu sổ cái `(caller, key, payload_hash, response)` có TTL (vd 24 giờ); xử lý 3 trường hợp biên (trùng key nhưng khác payload → từ chối; retry đến khi request đầu đang chạy → khóa và trả `409 Conflict`; tách namespace theo caller) `[01:13:50]`.
@@ -107,6 +112,7 @@
   3. Giả lập gửi lại một Webhook cũ (replay attack / duplicate event) và xác minh cơ chế kiểm tra chữ ký + `event_id` chặn xử lý trùng.
 
 ### Module 06 — Kiến trúc 3 tầng & API Versioning (`06-architecture-versioning`)
+
 - **Kiến thức bắt buộc & mốc video:**
   - 3 tầng trong Server: **API Layer** (HTTP/Status/Routing) → **Business Layer** (Rules thuần, không biết HTTP) → **Data Layer** (SQL, Transaction, tách biệt tên cột DB `body` khỏi JSON `text`) `[01:20:59]`.
   - Bài toán N+1 ẩn bên trong DB và cách xử lý bằng **SQL Join** `[01:25:14]`.
@@ -122,6 +128,7 @@
   3. Điều khiển lộ trình khai tử v1 qua đủ 4 giai đoạn đến khi traffic về 0 và trả `410 Gone`.
 
 ### Module 07 — Xác thực (AuthN) & Phân quyền (AuthZ) (`07-auth-authorization`)
+
 - **Kiến thức bắt buộc & mốc video:**
   - 2 chốt kiểm soát: **Authentication** (`401 Unauthorized` + `WWW-Authenticate`) vs **Authorization** (`403 Forbidden`) `[01:40:23]`.
   - 4 vị trí lưu bằng chứng danh tính & header `Authorization` (`Basic`, `Bearer`) `[01:41:20]`.
@@ -139,6 +146,7 @@
   3. Chọn đúng cơ chế Auth và mô hình AuthZ cho 3 kịch bản (Web App, Mobile App dùng SSO, Partner Server).
 
 ### Module 08 — Bảo mật API chuyên sâu (`08-api-security`)
+
 - **Kiến thức bắt buộc & mốc video:**
   - **BOLA / IDOR (OWASP API1):** Có token hợp lệ nhưng đổi ID URL sang bài riêng tư của người khác; kiểm tra quyền sở hữu/quan hệ trên mọi đối tượng, cân nhắc trả `404` để giấu sự tồn tại `[01:56:28]`.
   - **Mass Assignment (OWASP API3):** Gửi thêm `role: "admin"` trong `PATCH /users/me`; khắc phục bằng **Allow-list** trường cho phép ghi và đọc (không dùng block-list) `[01:58:11]`.
@@ -153,6 +161,7 @@
   3. Tái hiện lỗi SQL Injection / XSS trên Simulator giả lập và xác minh Parameterized Query + Output Escaping vô hiệu hóa payload.
 
 ### Module 09 — Tài liệu hóa & OpenAPI Contract (`09-openapi-documentation`)
+
 - **Kiến thức bắt buộc & mốc video:**
   - Vì sao tài liệu Wiki viết tay luôn bị lệch khỏi code thực tế (`text` vs `body`) `[02:05:36]`.
   - Đọc cấu trúc file **OpenAPI 3.1.1 / 3.2.1** (`openapi`, `servers`, `paths`, `parameters`, `requestBody`, `responses`, `security`) `[02:06:23]`.
@@ -166,6 +175,7 @@
   3. Chạy Contract Test giả lập để phát hiện server trả sai tên trường (`text` thay vì `body`) so với file OpenAPI.
 
 ### Module 10 — Ngoài REST: GraphQL & gRPC (`10-graphql-grpc`)
+
 - **Kiến thức bắt buộc & mốc video:**
   - Bài toán đa thiết bị của REST: **Overfetching** (Smartwatch chỉ cần số like) và **Underfetching** (Web Feed cần thêm bio tác giả + 2 comment đầu) `[02:11:53]`.
   - **GraphQL:** Typed Schema, 1 endpoint `/graphql`, **Query** (đọc — response phản chiếu đúng shape query) vs **Mutation** (ghi — chạy tuần tự ở top-level) `[02:13:33]`, `[02:16:09]`.

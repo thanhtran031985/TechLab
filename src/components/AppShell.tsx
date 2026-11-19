@@ -23,7 +23,8 @@ export function AppShell({ children }: AppShellProps) {
   const pathname = usePathname();
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('techlab-theme') as 'light' | 'dark' | null;
+    const savedTheme = localStorage.getItem('techlab-theme') as
+      'light' | 'dark' | null;
     if (savedTheme) {
       setTheme(savedTheme);
       document.documentElement.setAttribute('data-theme', savedTheme);
@@ -85,7 +86,9 @@ export function AppShell({ children }: AppShellProps) {
                   <span className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r bg-nav-accent" />
                 )}
                 <Icon size={16} className="shrink-0" />
-                {!collapsed && <span className="ml-2.5 truncate">{item.label}</span>}
+                {!collapsed && (
+                  <span className="ml-2.5 truncate">{item.label}</span>
+                )}
               </Link>
             );
           })}
@@ -118,7 +121,11 @@ export function AppShell({ children }: AppShellProps) {
             <button
               type="button"
               onClick={toggleTheme}
-              aria-label={theme === 'light' ? 'Chuyển sang chế độ Tối' : 'Chuyển sang chế độ Sáng'}
+              aria-label={
+                theme === 'light'
+                  ? 'Chuyển sang chế độ Tối'
+                  : 'Chuyển sang chế độ Sáng'
+              }
               className="flex h-[30px] w-[30px] items-center justify-center rounded-[4px] border border-line text-ink hover:bg-surface-2 transition-colors"
             >
               {theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}

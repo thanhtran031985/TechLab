@@ -51,8 +51,14 @@ function runSecurityCheck(): void {
       }
 
       // Check for hardcoded secrets or API keys
-      if (/(?:api_key|apiKey|secret|private_key)\s*[:=]\s*["'][A-Za-z0-9+/=_-]{16,}["']/i.test(content)) {
-        console.error(`✗ Phát hiện chuỗi nghi vấn chứa secret/apiKey trong: ${relPath}`);
+      if (
+        /(?:api_key|apiKey|secret|private_key)\s*[:=]\s*["'][A-Za-z0-9+/=_-]{16,}["']/i.test(
+          content
+        )
+      ) {
+        console.error(
+          `✗ Phát hiện chuỗi nghi vấn chứa secret/apiKey trong: ${relPath}`
+        );
         hasErrors = true;
       }
     }
@@ -62,7 +68,9 @@ function runSecurityCheck(): void {
     console.error('✗ Security check thất bại.');
     process.exit(1);
   } else {
-    console.log('✓ Security check xanh: .gitignore an toàn, không có dangerouslySetInnerHTML hay hardcoded secrets.');
+    console.log(
+      '✓ Security check xanh: .gitignore an toàn, không có dangerouslySetInnerHTML hay hardcoded secrets.'
+    );
   }
 }
 

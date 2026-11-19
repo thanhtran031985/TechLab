@@ -22,7 +22,9 @@ export function generateTokens(): void {
 
   // Colors
   if (tokens.color) {
-    for (const [key, val] of Object.entries(tokens.color as Record<string, any>)) {
+    for (const [key, val] of Object.entries(
+      tokens.color as Record<string, any>
+    )) {
       if (val.light) {
         rootVars.push(`  --${key}: ${val.light};`);
       }
@@ -34,7 +36,9 @@ export function generateTokens(): void {
 
   // Typography
   if (tokens.type) {
-    for (const [key, val] of Object.entries(tokens.type as Record<string, any>)) {
+    for (const [key, val] of Object.entries(
+      tokens.type as Record<string, any>
+    )) {
       if (val.size) rootVars.push(`  --type-${key}-size: ${val.size};`);
       if (val.line) rootVars.push(`  --type-${key}-line: ${val.line};`);
       if (val.weight) rootVars.push(`  --type-${key}-weight: ${val.weight};`);
@@ -43,35 +47,45 @@ export function generateTokens(): void {
 
   // Spacing
   if (tokens.space) {
-    for (const [key, val] of Object.entries(tokens.space as Record<string, any>)) {
+    for (const [key, val] of Object.entries(
+      tokens.space as Record<string, any>
+    )) {
       rootVars.push(`  --space-${key}: ${val.value || val};`);
     }
   }
 
   // Radius
   if (tokens.radius) {
-    for (const [key, val] of Object.entries(tokens.radius as Record<string, any>)) {
+    for (const [key, val] of Object.entries(
+      tokens.radius as Record<string, any>
+    )) {
       rootVars.push(`  --radius-${key}: ${val.value || val};`);
     }
   }
 
   // Size
   if (tokens.size) {
-    for (const [key, val] of Object.entries(tokens.size as Record<string, any>)) {
+    for (const [key, val] of Object.entries(
+      tokens.size as Record<string, any>
+    )) {
       rootVars.push(`  --size-${key}: ${val.value || val};`);
     }
   }
 
   // Elevation
   if (tokens.elevation) {
-    for (const [key, val] of Object.entries(tokens.elevation as Record<string, any>)) {
+    for (const [key, val] of Object.entries(
+      tokens.elevation as Record<string, any>
+    )) {
       rootVars.push(`  --shadow-${key}: ${val.value || val};`);
     }
   }
 
   // Motion
   if (tokens.motion) {
-    for (const [key, val] of Object.entries(tokens.motion as Record<string, any>)) {
+    for (const [key, val] of Object.entries(
+      tokens.motion as Record<string, any>
+    )) {
       rootVars.push(`  --motion-${key}: ${val.value || val};`);
     }
   }
@@ -105,7 +119,10 @@ _Tự động sinh từ \`designs/tokens.json\` qua lệnh \`pnpm tokens:gen\`. 
 | Token | Light Mode | Dark Mode | Mục đích |
 |---|---|---|---|
 ${Object.entries(tokens.color as Record<string, any>)
-  .map(([k, v]) => `| \`--${k}\` | \`${v.light || '—'}\` | \`${v.dark || '—'}\` | ${v.use || ''} |`)
+  .map(
+    ([k, v]) =>
+      `| \`--${k}\` | \`${v.light || '—'}\` | \`${v.dark || '—'}\` | ${v.use || ''} |`
+  )
   .join('\n')}
 
 ## 3. Kiểu Chữ (Typography)

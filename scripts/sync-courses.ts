@@ -247,7 +247,11 @@ export function syncCourses(options: SyncOptions = {}): SyncResult {
 
 if (process.argv[1] && process.argv[1].endsWith('sync-courses.ts')) {
   const isCheck = process.argv.includes('--check');
-  console.log(isCheck ? 'Kiểm tra đồng bộ Content-as-Code...' : 'Đang đồng bộ Content-as-Code vào SQLite...');
+  console.log(
+    isCheck
+      ? 'Kiểm tra đồng bộ Content-as-Code...'
+      : 'Đang đồng bộ Content-as-Code vào SQLite...'
+  );
 
   const res = syncCourses({ checkOnly: isCheck });
 

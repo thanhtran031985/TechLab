@@ -1,7 +1,9 @@
 # Kế hoạch thực hiện (Implementation Plan) — 00-repo-setup
 
 ## 1. Mục tiêu
+
 Thiết lập toàn bộ khung nền tảng TechLab trên Windows bằng `pnpm` (không Docker):
+
 - Next.js (App Router) + React 19 + TypeScript `strict` + Tailwind CSS + `lucide-react`.
 - Khung ứng dụng `<AppShell>` Fluent Compact (Sáng/Tối qua `[data-theme="dark"]`, không cuộn toàn cục ở 1366×768 và 1440×900).
 - CSDL SQLite (`better-sqlite3` + WAL mode) qua Drizzle ORM với đủ 6 bảng trong PRD; migration tự động idempotent.
@@ -15,6 +17,7 @@ Thiết lập toàn bộ khung nền tảng TechLab trên Windows bằng `pnpm` 
 ## 2. Danh sách Package cần cài đặt
 
 ### Dependencies (chính)
+
 - `next` (^15.1.0), `react` (^19.0.0), `react-dom` (^19.0.0)
 - `better-sqlite3` (^11.8.0 / ^13.2.0): SQLite cục bộ tốc độ cao
 - `drizzle-orm` (^0.39.0): ORM thuần TypeScript
@@ -22,6 +25,7 @@ Thiết lập toàn bộ khung nền tảng TechLab trên Windows bằng `pnpm` 
 - `lucide-react` (^1.16.0): Bộ icon nét chuẩn 16px
 
 ### DevDependencies (phát triển & kiểm thử)
+
 - `typescript` (^5.7.0), `@types/node` (^22.0.0), `@types/react` (^19.0.0), `@types/react-dom` (^19.0.0), `@types/better-sqlite3` (^7.6.12)
 - `drizzle-kit` (^0.30.0): Công cụ sinh migration Drizzle
 - `tailwindcss` (^3.4.17), `postcss` (^8.5.1), `autoprefixer` (^10.4.20)
@@ -35,6 +39,7 @@ Thiết lập toàn bộ khung nền tảng TechLab trên Windows bằng `pnpm` 
 ## 3. Các bước thực hiện chi tiết
 
 ### Bước 1 — Khởi tạo Next.js + TypeScript + pnpm scripts + Zod env
+
 - **Mục tiêu:** Có repo git và cấu trúc dự án Next.js hoạt động với TypeScript `strict`, nạp biến môi trường chuẩn hóa đường dẫn Windows bằng `node:path`.
 - **Files tạo/sửa:**
   - Khởi tạo git (`git init`), tạo nhánh `feat/00-repo-setup`.
@@ -55,6 +60,7 @@ Thiết lập toàn bộ khung nền tảng TechLab trên Windows bằng `pnpm` 
 ---
 
 ### Bước 2 — Schema Drizzle + SQLite WAL + Migration
+
 - **Mục tiêu:** Định nghĩa đủ 6 bảng CSDL trong PRD Phần E, kết nối SQLite với PRAGMA WAL bắt buộc, sinh migration và áp dụng an toàn.
 - **Files tạo/sửa:**
   - `src/db/schema.ts`: Khai báo 6 bảng bằng Drizzle SQLite:
@@ -78,6 +84,7 @@ Thiết lập toàn bộ khung nền tảng TechLab trên Windows bằng `pnpm` 
 ---
 
 ### Bước 3 — Pipeline Tokens + AppShell khung + `/api/health`
+
 - **Mục tiêu:** Tạo pipeline đồng bộ Token từ `designs/tokens.json`, dựng khung `<AppShell>` Fluent Compact không cuộn toàn cục, và API health check SQLite.
 - **Files tạo/sửa:**
   - `scripts/gen-tokens.ts`: Đọc `designs/tokens.json`, sinh `designs/tokens.css` và `docs/DESIGN_SYSTEM.md`.
@@ -97,6 +104,7 @@ Thiết lập toàn bộ khung nền tảng TechLab trên Windows bằng `pnpm` 
 ---
 
 ### Bước 4 — Pipeline Content-as-Code (`courses:sync`)
+
 - **Mục tiêu:** Xây dựng cơ chế đồng bộ `content/courses/` vào SQLite an toàn bằng Zod, hỗ trợ cờ `--check` và bảo toàn tiến độ người học.
 - **Files tạo/sửa:**
   - `src/schemas/course.ts`: Zod schemas cho `course.json` và `challenges/*.json`.
@@ -116,6 +124,7 @@ Thiết lập toàn bộ khung nền tảng TechLab trên Windows bằng `pnpm` 
 ---
 
 ### Bước 5 — Tasks Dashboard + Security Check + Playwright E2E Smoke
+
 - **Mục tiêu:** Tự động hóa kiểm tra bảo mật, sinh trang bảng điều khiển task, và test E2E kiểm tra không cuộn toàn cục ở 1366×768 & 1440×900.
 - **Files tạo/sửa:**
   - `scripts/tasks-dashboard.ts`: Quét `docs/tasks/README.md` và các thư mục task, xuất `docs/tasks/dashboard.html`.
@@ -132,6 +141,7 @@ Thiết lập toàn bộ khung nền tảng TechLab trên Windows bằng `pnpm` 
 ---
 
 ### Bước 6 — Lint, Typecheck, CI & Đối chiếu `AGENTS.md`
+
 - **Mục tiêu:** Cấu hình chuẩn hóa mã nguồn ESLint, Prettier, GitHub Actions CI và đối chiếu toàn bộ lệnh của repo.
 - **Files tạo/sửa:**
   - `eslint.config.mjs` (hoặc `.eslintrc.json`) + `.prettierrc`
@@ -148,9 +158,11 @@ Thiết lập toàn bộ khung nền tảng TechLab trên Windows bằng `pnpm` 
 ---
 
 ## 4. Chi tiết suy ra từ Spec
+
 - Khởi tạo git repo cục bộ: Thư mục `D:\TechLab` chưa có `.git`, sẽ chạy `git init` và tạo nhánh `feat/00-repo-setup` để theo dõi mã nguồn đúng quy trình.
 - Cột `user_id` trong SQLite: Đặt giá trị mặc định là `'local'` cho các bảng tiến độ theo đúng PRD Phần E.
 - Node.js version trên máy: Hệ thống đang dùng Node 25.2.1; `better-sqlite3` 13.2.0 đã được kiểm chứng hoạt động tốt với Node 25 trên Windows.
 
 ## 5. Câu hỏi mở
+
 - Không có.

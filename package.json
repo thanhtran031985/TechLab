@@ -13,7 +13,7 @@
     "courses:sync:check": "tsx scripts/sync-courses.ts --check",
     "tokens:gen": "tsx scripts/gen-tokens.ts",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint .",
+    "lint": "next lint",
     "format": "prettier --write .",
     "test": "vitest run",
     "test:e2e": "playwright test",

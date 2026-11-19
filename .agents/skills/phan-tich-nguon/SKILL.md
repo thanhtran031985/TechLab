@@ -8,6 +8,7 @@ description: Phân tích transcript hoặc tài liệu nguồn từ YouTube tron
 Đầu vào: Đường dẫn thư mục hoặc file transcript trong `sources/<course-slug>/` (hoặc link/nội dung người dùng cung cấp).
 
 ## Quy trình thực hiện
+
 1. **Đọc trọn vẹn nguồn:** Đọc toàn bộ transcript/ghi chú trong `sources/<course-slug>/`, không bỏ qua đoạn giữa hoặc cuối video.
 2. **Kiểm kê 100% khái niệm:** Lập danh sách đầy đủ mọi chủ đề, quy tắc kỹ thuật, mã lỗi, giao thức, đánh đổi kiến trúc (trade-offs) xuất hiện trong nguồn, gắn kèm mốc thời gian `[HH:MM:SS]` chính xác.
 3. **Quy hoạch Module:** Nhóm các khái niệm thành các Module có phạm vi vừa đủ (mỗi Module triển khai được trong 1 task độc lập), đảm bảo **không bỏ sót bất kỳ mục kiến thức nào** từ bước 2.

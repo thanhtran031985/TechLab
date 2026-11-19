@@ -8,6 +8,7 @@ description: Hướng dẫn chuẩn hóa khi code một Module Lab mới trong T
 Áp dụng song song cùng quy trình từng bước của `lam-task`.
 
 ## Thành phần bắt buộc của mỗi Module (`<course-slug>/<NN-slug>`)
+
 1. **Nội dung Lý thuyết (`content/courses/<course-slug>/modules/<NN-slug>.mdx`):**
    - Bao phủ 100% các khái niệm và mốc `[HH:MM:SS]` đã liệt kê cho Module trong `docs/courses/<course-slug>/curriculum.md`.
    - Có bảng đối chiếu rõ ràng **Junior (First-Try)** vs **Senior (Chuẩn Hệ Thống)**.

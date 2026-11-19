@@ -12,6 +12,7 @@ description: Quy tắc SQLite (WAL), Drizzle ORM, migration và đồng bộ Con
 - Dự phòng đa người dùng: các bảng tiến độ (`challenge_progress`, `user_notes`, `sandbox_runs`) luôn có cột `user_id TEXT NOT NULL DEFAULT 'local'` để sẵn sàng mở rộng tính năng đăng nhập sau này mà không cần phá schema.
 
 ## Cấu hình kết nối SQLite (`src/db/client.ts`)
+
 - Khi mở kết nối `better-sqlite3`, bắt buộc thiết lập ngay các PRAGMA:
   - `PRAGMA journal_mode = WAL;`
   - `PRAGMA foreign_keys = ON;`
@@ -23,6 +24,7 @@ description: Quy tắc SQLite (WAL), Drizzle ORM, migration và đồng bộ Con
 - Sao lưu SQLite dùng `VACUUM INTO` hoặc SQLite backup API, không copy file trực tiếp khi server đang chạy.
 
 ## Migration & Đồng bộ nội dung
+
 - Mọi thay đổi schema phải tạo migration qua `pnpm db:generate` (Drizzle Kit) và chạy bằng `pnpm db:migrate`. Không tự sửa file SQL migration cũ đã áp dụng.
 - Test tích hợp (`tests/integration/`) phải chạy trên file SQLite tạm, kiểm tra áp dụng migration 2 lần liên tiếp (idempotent) và kiểm tra đúng PRAGMA (`wal`, `foreign_keys = 1`).
 - Script `scripts/sync-courses.ts` đồng bộ `content/courses/` vào bảng `courses`, `modules`, `challenges` theo cơ chế upsert an toàn trong một transaction; không xóa mất dữ liệu `challenge_progress` hoặc `user_notes` của người học khi cập nhật nội dung bài học.

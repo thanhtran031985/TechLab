@@ -39,7 +39,8 @@ export default function HomePage() {
             Danh sách khóa học
           </h1>
           <p className="text-[12px] text-ink-soft">
-            Chuyển hóa video chuyên sâu thành Interactive Sandbox với Junior vs Senior Mode
+            Chuyển hóa video chuyên sâu thành Interactive Sandbox với Junior vs
+            Senior Mode
           </p>
         </div>
 
@@ -89,18 +90,20 @@ export default function HomePage() {
         </div>
 
         <div className="flex items-center gap-1">
-          {['Tất cả', 'Đang học', 'Hoàn thành', 'Chưa bắt đầu'].map((filter, i) => (
-            <button
-              key={filter}
-              className={`h-[26px] px-2.5 rounded-[4px] text-[11px] font-semibold transition-colors ${
-                i === 0
-                  ? 'bg-primary-soft text-primary'
-                  : 'text-ink-soft hover:bg-surface-2 hover:text-ink'
-              }`}
-            >
-              {filter}
-            </button>
-          ))}
+          {['Tất cả', 'Đang học', 'Hoàn thành', 'Chưa bắt đầu'].map(
+            (filter, i) => (
+              <button
+                key={filter}
+                className={`h-[26px] px-2.5 rounded-[4px] text-[11px] font-semibold transition-colors ${
+                  i === 0
+                    ? 'bg-primary-soft text-primary'
+                    : 'text-ink-soft hover:bg-surface-2 hover:text-ink'
+                }`}
+              >
+                {filter}
+              </button>
+            )
+          )}
         </div>
       </div>
 

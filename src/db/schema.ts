@@ -31,7 +31,9 @@ export const challenges = sqliteTable('challenges', {
   order_index: integer('order_index').notNull(),
   title: text('title').notNull(),
   description: text('description').notNull(),
-  mode_required: text('mode_required', { enum: ['junior', 'senior', 'both'] }).notNull(),
+  mode_required: text('mode_required', {
+    enum: ['junior', 'senior', 'both'],
+  }).notNull(),
 });
 
 export const challenge_progress = sqliteTable('challenge_progress', {
