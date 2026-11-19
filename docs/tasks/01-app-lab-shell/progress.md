@@ -4,8 +4,8 @@ Trạng thái: 🔄
 
 | Bước | Nội dung | Trạng thái | Ngày | Commit |
 |---|---|---|---|---|
-| 1 | API chuẩn hóa (`/api/courses`, `/api/progress`) | ✅ | 19/11/2026 | (chờ commit) |
-| 2 | Nạp tokens Dark Studio & Thành phần dùng chung | ⬜ | | |
+| 1 | API chuẩn hóa (`/api/courses`, `/api/progress`) | ✅ | 19/11/2026 | `80b770e` |
+| 2 | Nạp tokens Dark Studio & Thành phần dùng chung | ✅ | 19/11/2026 | (chờ commit) |
 | 3 | Khung `<LabShell>` 3 cột bám sát `designs/shell/shell.css` | ⬜ | | |
 | 4 | Trang chủ `/` theo `designs/pages/home.html` & Route động `/courses/[course]/[module]` | ⬜ | | |
 
@@ -22,6 +22,22 @@ Trạng thái: 🔄
 - **Lệnh + kết quả:**
   - `pnpm test tests/integration/api-progress.test.ts`: Xanh (7/7 tests pass).
   - `pnpm typecheck`: Xanh (0 lỗi).
+  - `pnpm tasks:dashboard`: Xanh.
+- **Suy ra gì:** Không có.
+- **Việc người dùng cần làm tay:** Không có.
+
+### Bước 2 (19/11/2026)
+- **Đã làm:**
+  - Nạp token và layout CSS từ `designs/shell/tokens.css` và `designs/shell/shell.css` vào `src/app/globals.css`.
+  - Triển khai component `ModeToggle` (`src/components/ModeToggle.tsx`) cho phép chuyển đổi chế độ Junior (First-Try) và Senior (Chuẩn Hệ Thống).
+  - Triển khai component `InspectorPanel` (`src/components/InspectorPanel.tsx`) hiển thị 5 chặng mạng (`hops-bar`), Raw HTTP Request, Raw HTTP Response và hộp phân tích tone màu.
+  - Triển khai component `ChallengePanel` (`src/components/ChallengePanel.tsx`) hiển thị danh sách thử thách, trạng thái Đạt/Chưa đạt và hỗ trợ vùng `aria-live="polite"`.
+  - Triển khai `CheatSheetModal` (`src/components/CheatSheetModal.tsx`) hiển thị tra cứu nhanh HTTP Methods và Status Codes, hỗ trợ phím `Esc` để đóng.
+  - Xây dựng bộ component phản hồi trạng thái dữ liệu `LoadingSkeleton`, `EmptyState`, `ErrorAlert` (`src/components/ui/FeedbackStates.tsx`).
+  - Viết test TDD trước: `tests/unit/lab-components.test.tsx` (7 tests).
+- **Lệnh + kết quả:**
+  - `pnpm test tests/unit/lab-components.test.tsx`: Xanh (7/7 tests pass).
+  - `pnpm typecheck`: Xanh.
   - `pnpm tasks:dashboard`: Xanh.
 - **Suy ra gì:** Không có.
 - **Việc người dùng cần làm tay:** Không có.

@@ -1,4 +1,6 @@
-@import '../../designs/tokens.css';
+@import "../../designs/tokens.css";
+@import "../../designs/shell/tokens.css";
+@import "../../designs/shell/shell.css";
 
 @tailwind base;
 @tailwind components;
@@ -13,30 +15,24 @@
     background-color: var(--bg);
     color: var(--ink);
     font-family: var(--font-ui);
-    font-size: var(--type-body-size);
-    line-height: var(--type-body-line);
+    font-size: 13px;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-
-  @media (min-width: 900px) {
-    html,
-    body {
-      overflow: hidden;
-    }
+    overflow: hidden;
   }
 
   *,
   *::before,
   *::after {
     box-sizing: border-box;
-    border-color: var(--line);
   }
 
   code,
   kbd,
   samp,
-  pre {
+  pre,
+  .mono {
     font-family: var(--font-mono);
   }
 }
