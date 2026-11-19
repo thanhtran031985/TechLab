@@ -1,6 +1,6 @@
 # Tiến độ — 00-repo-setup
 
-Trạng thái: 🔄
+Trạng thái: ✅
 
 | Bước | Nội dung | Trạng thái | Ngày | Commit |
 |---|---|---|---|---|
@@ -9,7 +9,7 @@ Trạng thái: 🔄
 | 3 | Pipeline Tokens + AppShell khung + /api/health | ✅ | 19/11/2026 | `3d606a8` |
 | 4 | Pipeline Content-as-Code (courses:sync) | ✅ | 19/11/2026 | `e633b63` |
 | 5 | Tasks Dashboard + Security Check + Playwright E2E Smoke | ✅ | 19/11/2026 | `de98989` |
-| 6 | Lint, Typecheck, CI & Đối chiếu AGENTS.md | ✅ | 19/11/2026 | (chờ commit) |
+| 6 | Lint, Typecheck, CI & Đối chiếu AGENTS.md | ✅ | 19/11/2026 | `141f15f` |
 
 ## Nhật ký
 ### Bước 1 (19/11/2026)
