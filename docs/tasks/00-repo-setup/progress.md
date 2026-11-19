@@ -7,8 +7,8 @@ Trạng thái: 🔄
 | 1 | Khởi tạo Next.js + TypeScript + pnpm scripts + Zod env | ✅ | 19/11/2026 | `44ea544` |
 | 2 | Schema Drizzle + SQLite WAL + Migration | ✅ | 19/11/2026 | `a8eab8b` |
 | 3 | Pipeline Tokens + AppShell khung + /api/health | ✅ | 19/11/2026 | `3d606a8` |
-| 4 | Pipeline Content-as-Code (courses:sync) | ✅ | 19/11/2026 | (chờ commit) |
-| 5 | Tasks Dashboard + Security Check + Playwright E2E Smoke | ⬜ | | |
+| 4 | Pipeline Content-as-Code (courses:sync) | ✅ | 19/11/2026 | `e633b63` |
+| 5 | Tasks Dashboard + Security Check + Playwright E2E Smoke | ✅ | 19/11/2026 | (chờ commit) |
 | 6 | Lint, Typecheck, CI & Đối chiếu AGENTS.md | ⬜ | | |
 
 ## Nhật ký
@@ -74,5 +74,18 @@ Trạng thái: 🔄
   - `pnpm test`: 12/12 tests pass (5 test files).
   - `pnpm typecheck`: Xanh.
   - `pnpm tasks:dashboard`: Xanh.
+- **Suy ra gì:** Không có.
+- **Việc người dùng cần làm tay:** Không có.
+
+### Bước 5 (19/11/2026)
+- **Đã làm:**
+  - Nâng cấp `scripts/tasks-dashboard.ts` sinh file `docs/tasks/dashboard.html` chuẩn giao diện Fluent Compact hiển thị chi tiết tiến độ từng bước.
+  - Viết `scripts/security-check.ts` kiểm tra an toàn theo `.agents/rules/security.md` (kiểm tra .gitignore, cấm dangerouslySetInnerHTML, kiểm tra rò rỉ secret).
+  - Cấu hình Playwright (`playwright.config.ts`) tự động khởi chạy Next.js dev server.
+  - Viết bộ kiểm thử E2E `tests/e2e/smoke.spec.ts` kiểm tra trang chủ `/` ở 2 kích thước 1366×768 và 1440×900, xác nhận 0 lỗi console, không cuộn toàn cục (`scrollHeight <= innerHeight`), kiểm tra bật/tắt Dark Mode (`data-theme="dark"`), và chụp 4 ảnh màn hình bằng chứng vào `tests/e2e/__screens__/`.
+- **Lệnh + kết quả:**
+  - `pnpm tasks:dashboard`: Xanh, sinh `docs/tasks/dashboard.html`.
+  - `pnpm security:check`: Xanh (0 cảnh báo bảo mật).
+  - `pnpm test:e2e`: 3/3 tests pass (1366x768, 1440x900, /api/health).
 - **Suy ra gì:** Không có.
 - **Việc người dùng cần làm tay:** Không có.

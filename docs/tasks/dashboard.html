@@ -5,142 +5,177 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TechLab — Bảng điều khiển Task</title>
   <style>
+    :root {
+      --bg: #F5F5F5;
+      --surface: #FFFFFF;
+      --surface-2: #FAFAFA;
+      --line: #E0E0E0;
+      --ink: #242424;
+      --ink-soft: #616161;
+      --primary: #0F6CBD;
+      --primary-soft: #EBF3FC;
+      --ok: #107C10;
+      --ok-soft: #F1FAF1;
+      --warn: #BC4B09;
+      --warn-soft: #FFF9F5;
+    }
     body {
       font-family: "Segoe UI", Roboto, Arial, sans-serif;
-      background: #F5F5F5;
-      color: #242424;
+      background: var(--bg);
+      color: var(--ink);
       margin: 0;
       padding: 24px;
+      font-size: 13px;
     }
     header {
-      margin-bottom: 24px;
-      border-bottom: 1px solid #E0E0E0;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--line);
       padding-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
     }
     h1 {
-      margin: 0 0 8px 0;
-      font-size: 20px;
+      margin: 0 0 4px 0;
+      font-size: 18px;
       font-weight: 600;
     }
-    .badge {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 4px;
+    .legend {
+      color: var(--ink-soft);
       font-size: 12px;
-      font-weight: 600;
-      background: #EBF3FC;
-      color: #0F6CBD;
     }
     .task-card {
-      background: #FFFFFF;
-      border: 1px solid #E0E0E0;
+      background: var(--surface);
+      border: 1px solid var(--line);
       border-radius: 6px;
       padding: 16px;
       margin-bottom: 16px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
     }
     .task-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 8px;
     }
     .task-title {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
+      color: var(--ink);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    th, td {
+      padding: 6px 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+    }
+    th {
+      background: var(--surface-2);
+      font-weight: 600;
+      color: var(--ink-soft);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+    code {
+      font-family: Consolas, monospace;
+      font-size: 11px;
+      background: var(--surface-2);
+      padding: 2px 4px;
+      border-radius: 3px;
+      border: 1px solid var(--line);
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>TechLab — Bảng điều khiển Task</h1>
-    <div>Trạng thái: ⬜ chưa làm · 🔄 đang làm · ❓ có code chưa rà soát · ⚠️ khác task.md · ❌ thiếu · ✅ xong</div>
+    <div>
+      <h1>TechLab — Bảng điều khiển Task</h1>
+      <div class="legend">Theo dõi tiến độ phát triển theo Content-as-Code & TDD</div>
+    </div>
+    <div class="legend">Trạng thái: ⬜ chưa làm · 🔄 đang làm · ❓ có code chưa rà soát · ⚠️ khác task.md · ❌ thiếu · ✅ xong</div>
   </header>
   <main>
     
       <div class="task-card">
         <div class="task-header">
-          <span class="task-title">00-repo-setup</span>
-          <span class="badge">🔄</span>
+          <div>
+            <span class="task-title">00-repo-setup</span>
+            <span style="margin-left: 8px; color: var(--ink-soft); font-size: 12px;">(Nhánh: <code>feat/00-repo-setup</code>)</span>
+          </div>
+          <span class="badge">Trạng thái: 🔄</span>
         </div>
-        <pre style="font-family: Consolas, monospace; font-size: 12px; background: #2E2E2E; color: #F0F0F0; padding: 8px; border-radius: 4px; overflow-x: auto;"># Tiến độ — 00-repo-setup
-
-Trạng thái: 🔄
-
-| Bước | Nội dung | Trạng thái | Ngày | Commit |
-|---|---|---|---|---|
-| 1 | Khởi tạo Next.js + TypeScript + pnpm scripts + Zod env | ✅ | 19/11/2026 | `44ea544` |
-| 2 | Schema Drizzle + SQLite WAL + Migration | ✅ | 19/11/2026 | `a8eab8b` |
-| 3 | Pipeline Tokens + AppShell khung + /api/health | ✅ | 19/11/2026 | `3d606a8` |
-| 4 | Pipeline Content-as-Code (courses:sync) | ✅ | 19/11/2026 | (chờ commit) |
-| 5 | Tasks Dashboard + Security Check + Playwright E2E Smoke | ⬜ | | |
-| 6 | Lint, Typecheck, CI &amp; Đối chiếu AGENTS.md | ⬜ | | |
-
-## Nhật ký
-### Bước 1 (19/11/2026)
-- **Đã làm:**
-  - Khởi tạo git repository, cấu hình remote `origin https://github.com/thanhtran031985/TechLab.git`, push nhánh `main`, tạo và chuyển sang nhánh `feat/00-repo-setup`.
-  - Thiết lập `package.json` với đầy đủ 15 scripts theo `AGENTS.md`.
-  - Cấu hình `tsconfig.json` (`strict: true`), `next.config.ts`, `vitest.config.ts`, `.gitignore`, `.env.example`.
-  - Cài đặt dependencies qua pnpm; phê duyệt build script bằng `pnpm approve-builds --all` (ghi nhận vào `pnpm-workspace.yaml`).
-  - Viết test TDD trước: `tests/unit/env.test.ts` (chạy thấy đỏ khi chưa có `src/lib/env.ts`).
-  - Triển khai `src/lib/env.ts` sử dụng Zod và `node:path.resolve` chuẩn hóa đường dẫn `TECHLAB_DB_PATH` cho Windows/Linux.
-  - Khởi tạo `scripts/tasks-dashboard.ts` hỗ trợ cập nhật `docs/tasks/dashboard.html`.
-- **Lệnh + kết quả:**
-  - `pnpm install`: Thành công
-  - `pnpm typecheck`: Xanh (`tsc --noEmit` exit 0)
-  - `pnpm test tests/unit/env.test.ts`: Xanh (3/3 passed)
-  - `pnpm tasks:dashboard`: Xanh, sinh `docs/tasks/dashboard.html`
-- **Suy ra gì:**
-  - Trên pnpm v12, cấu hình cấp quyền build (`allowBuilds`) được lưu trong `pnpm-workspace.yaml`.
-- **Việc người dùng cần làm tay:** Không có.
-
-### Bước 2 (19/11/2026)
-- **Đã làm:**
-  - Định nghĩa 6 bảng SQLite trong `src/db/schema.ts` (`courses`, `modules`, `challenges`, `challenge_progress`, `user_notes`, `sandbox_runs`) theo PRD Phần E với `user_id` mặc định `'local'`.
-  - Viết `src/db/client.ts` khởi tạo `better-sqlite3` kèm 5 PRAGMA bắt buộc (`journal_mode=WAL`, `foreign_keys=ON`, `busy_timeout=30000`, `synchronous=NORMAL`, `auto_vacuum=INCREMENTAL`).
-  - Thiết lập `drizzle.config.ts`, sinh migration `drizzle/0000_same_luminals.sql` bằng `pnpm db:generate`.
-  - Viết `scripts/migrate.ts` áp dụng migration qua Drizzle migrator.
-  - Viết test TDD trước: `tests/integration/db-migrations.test.ts` kiểm tra áp dụng 2 lần idempotent, các PRAGMA bắt buộc, kiểm tra đủ 6 bảng và ràng buộc khóa ngoại.
-- **Lệnh + kết quả:**
-  - `pnpm db:generate`: Sinh thành công 6 bảng trong SQL migration.
-  - `pnpm db:migrate`: Chạy 2 lần thành công (idempotent).
-  - `pnpm test tests/integration/db-migrations.test.ts`: 4/4 test pass.
-  - `pnpm typecheck`: Xanh.
-  - `pnpm tasks:dashboard`: Xanh.
-- **Suy ra gì:** Không có.
-- **Việc người dùng cần làm tay:** Không có.
-
-### Bước 3 (19/11/2026)
-- **Đã làm:**
-  - Viết `scripts/gen-tokens.ts` đọc `designs/tokens.json` để tự động sinh `designs/tokens.css` và `docs/DESIGN_SYSTEM.md`.
-  - Cấu hình `postcss.config.mjs`, `tailwind.config.ts`, và `src/app/globals.css` nạp tokens và ánh xạ các biến màu sắc, typography, spacing, radius sang Tailwind.
-  - Xây dựng component `&lt;AppShell&gt;` (`src/components/AppShell.tsx`) chuẩn Fluent Compact: Sidebar thu gọn linh hoạt (200px ↔ 48px), Header 44px 1 dòng có nút chuyển Sáng/Tối (`data-theme="dark"` lưu localStorage), vùng nội dung không cuộn toàn cục.
-  - Cập nhật `src/app/layout.tsx` và tạo `src/app/page.tsx` tổng quan (Header 1 dòng, 4 KPI cards compact, Command bar tìm kiếm/lọc, Bảng danh sách khóa học).
-  - Viết Route Handler `src/app/api/health/route.ts` kiểm tra `SELECT 1` và `PRAGMA journal_mode`, trả status 200 kèm `journalMode: "wal"`.
-  - Viết test TDD trước: `tests/unit/tokens.test.ts` và `tests/integration/api-health.test.ts`.
-- **Lệnh + kết quả:**
-  - `pnpm tokens:gen`: Sinh thành công `designs/tokens.css` và `docs/DESIGN_SYSTEM.md`.
-  - `pnpm test`: 9/9 tests pass (4 test files).
-  - `pnpm typecheck`: Xanh (0 lỗi).
-  - `pnpm tasks:dashboard`: Xanh.
-- **Suy ra gì:** Không có.
-- **Việc người dùng cần làm tay:** Không có.
-
-### Bước 4 (19/11/2026)
-- **Đã làm:**
-  - Định nghĩa Zod schemas trong `src/schemas/course.ts` cho `course.json` và `challenges/*.json`.
-  - Triển khai `scripts/sync-courses.ts` hỗ trợ 2 chế độ: upsert CSDL trong transaction an toàn (PRD D2: bảo toàn tuyệt đối bảng `challenge_progress` và `user_notes`), và cờ `--check` đối chiếu tính đồng bộ giữa file và DB.
-  - Tạo dữ liệu mẫu Content-as-Code: `content/courses/rest-api/course.json` (10 modules từ curriculum) và `content/courses/rest-api/challenges/01-network-http-rest.json` (3 challenges).
-  - Viết test TDD trước: `tests/integration/sync-courses.test.ts` (kiểm tra tính idempotent, kiểm tra bảo toàn tiến độ người học, kiểm tra cờ checkOnly).
-- **Lệnh + kết quả:**
-  - `pnpm courses:sync`: Đồng bộ thành công 1 khóa học, 10 module, 3 challenge vào `data/techlab.db`.
-  - `pnpm courses:sync:check`: Xác nhận khớp 100% với CSDL.
-  - `pnpm test`: 12/12 tests pass (5 test files).
-  - `pnpm typecheck`: Xanh.
-  - `pnpm tasks:dashboard`: Xanh.
-- **Suy ra gì:** Không có.
-- **Việc người dùng cần làm tay:** Không có.
-</pre>
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 50px;">Bước</th>
+              <th>Nội dung</th>
+              <th style="width: 80px; text-align: center;">Trạng thái</th>
+              <th style="width: 100px;">Ngày</th>
+              <th style="width: 120px;">Commit</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td><strong>1</strong></td>
+                <td>Khởi tạo Next.js + TypeScript + pnpm scripts + Zod env</td>
+                <td style="text-align: center;">✅</td>
+                <td>19/11/2026</td>
+                <td><code>44ea544</code></td>
+              </tr>
+              <tr>
+                <td><strong>2</strong></td>
+                <td>Schema Drizzle + SQLite WAL + Migration</td>
+                <td style="text-align: center;">✅</td>
+                <td>19/11/2026</td>
+                <td><code>a8eab8b</code></td>
+              </tr>
+              <tr>
+                <td><strong>3</strong></td>
+                <td>Pipeline Tokens + AppShell khung + /api/health</td>
+                <td style="text-align: center;">✅</td>
+                <td>19/11/2026</td>
+                <td><code>3d606a8</code></td>
+              </tr>
+              <tr>
+                <td><strong>4</strong></td>
+                <td>Pipeline Content-as-Code (courses:sync)</td>
+                <td style="text-align: center;">✅</td>
+                <td>19/11/2026</td>
+                <td><code>e633b63</code></td>
+              </tr>
+              <tr>
+                <td><strong>5</strong></td>
+                <td>Tasks Dashboard + Security Check + Playwright E2E Smoke</td>
+                <td style="text-align: center;">✅</td>
+                <td>19/11/2026</td>
+                <td><code>(chờ commit)</code></td>
+              </tr>
+              <tr>
+                <td><strong>6</strong></td>
+                <td>Lint, Typecheck, CI & Đối chiếu AGENTS.md</td>
+                <td style="text-align: center;">⬜</td>
+                <td>—</td>
+                <td>—</td>
+              </tr>
+          </tbody>
+        </table>
       </div>
   </main>
 </body>
