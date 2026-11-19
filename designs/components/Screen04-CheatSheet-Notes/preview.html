@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Screen04-CheatSheet-Notes — TechLab Design Preview</title>
+  <link rel="stylesheet" href="../../tokens.css" />
+  <link rel="stylesheet" href="../bundle.css" />
+  
+</head>
+<body data-state="normal">
+  <div class="tl-preview-bar">
+    <div class="tl-preview-bar-group">
+      <strong>TechLab Design Reference (CHỈ ĐỌC)</strong>
+      <span>|</span>
+      <span>Screen04-CheatSheet-Notes</span>
+    </div>
+    <div class="tl-preview-bar-group">
+      <span>Trạng thái:</span>
+      <button class="tl-preview-btn active" data-set-state="normal">Bình thường</button>
+      <button class="tl-preview-btn" data-set-state="loading">Đang tải</button>
+      <button class="tl-preview-btn" data-set-state="empty">Trống</button>
+      <button class="tl-preview-btn" data-set-state="error">Lỗi</button>
+      <span>|</span>
+      <span>Giao diện:</span>
+      <button class="tl-preview-btn active" data-set-theme="light">Sáng</button>
+      <button class="tl-preview-btn" data-set-theme="dark">Tối</button>
+    </div>
+  </div>
+
+  <div class="tl-shell">
+    <aside class="tl-nav" aria-label="Điều hướng chính">
+      <div class="tl-nav-brand">
+        <span class="tl-row"><svg class="tl-ico" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg><span class="tl-nav-label">TechLab</span></span>
+        <button class="tl-btn tl-btn-icon tl-btn-sm" data-toggle-nav aria-label="Thu gọn thanh bên"><svg class="tl-ico" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg></button>
+      </div>
+      <div class="tl-nav-group">
+        <div class="tl-nav-caption">Học tập</div>
+        <a href="#" class="tl-nav-item"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg><span class="tl-nav-label">Khóa học</span></a>
+        <a href="#" class="tl-nav-item active"><svg class="tl-ico" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg><span class="tl-nav-label">Phòng Lab</span></a>
+        <a href="#" class="tl-nav-item"><svg class="tl-ico" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span class="tl-nav-label">Tiến độ & Lịch sử</span></a>
+      </div>
+    </aside>
+
+    <div class="tl-main-wrap">
+      <header class="tl-header">
+        <div class="tl-breadcrumb"><span>TechLab</span><span>/</span><strong>CheatSheetModal & NotesDrawer</strong></div>
+        <div class="tl-header-actions">
+          <span class="tl-chip tl-chip-info"><svg class="tl-ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><span>SQLite WAL · local</span></span>
+          <button class="tl-btn tl-btn-sm" data-header-theme aria-label="Đổi chế độ Sáng Tối"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span>Chế độ tối</span></button>
+        </div>
+      </header>
+
+      <main class="tl-page">
+        
+<div class="tl-page-header">
+  <div class="tl-page-title-row">
+    <h1 class="tl-h1">Tham chiếu: CheatSheetModal & NotesDrawer</h1>
+    <span class="tl-muted">Hiển thị song song 2 thành phần nổi (Modal tra cứu nhanh và Ngăn kéo ghi chú 480px)</span>
+  </div>
+</div>
+
+<div class="tl-alert" data-view-state="error" role="alert">
+  <span class="tl-row"><svg class="tl-ico" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>Không thể lưu ghi chú mới vào SQLite.</span></span>
+  <button class="tl-btn tl-btn-sm"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span>Thử lại</span></button>
+</div>
+
+<div class="tl-master-detail" data-view-state="normal" style="align-items:stretch;">
+  <!-- CheatSheetModal Preview -->
+  <div class="tl-modal-card" style="flex:1;height:100%;">
+    <div class="tl-panel-head">
+      <span class="tl-h2">Tra cứu nhanh — REST API Cheat Sheet</span>
+      <button class="tl-btn tl-btn-icon tl-btn-sm" aria-label="Đóng hộp thoại"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+    </div>
+    <div class="tl-tabs">
+      <button class="tl-tab active" data-tab-group="cs" data-tab-target="methods">HTTP Methods (10)</button>
+      <button class="tl-tab" data-tab-group="cs" data-tab-target="status">Status Codes</button>
+      <button class="tl-tab" data-tab-group="cs" data-tab-target="arch">REST vs GraphQL vs gRPC</button>
+    </div>
+    <div class="tl-panel-body" data-tab-pane-group="cs" data-tab-pane="methods">
+      <table class="tl-table" style="border:1px solid var(--line);">
+        <thead><tr><th>Method</th><th>Safe</th><th>Idempotent</th><th>Request Body</th><th>Vai trò chính</th></tr></thead>
+        <tbody>
+          <tr><td class="tl-mono"><strong>GET</strong></td><td>Có</td><td>Có</td><td>Không</td><td>Đọc tài nguyên</td></tr>
+          <tr><td class="tl-mono"><strong>POST</strong></td><td>Không</td><td>Không</td><td>Có</td><td>Tạo mới (cần Idempotency-Key khi retry)</td></tr>
+          <tr><td class="tl-mono"><strong>PUT</strong></td><td>Không</td><td>Có</td><td>Có</td><td>Thay thế toàn bộ hoặc đặt trạng thái xác định</td></tr>
+          <tr><td class="tl-mono"><strong>PATCH</strong></td><td>Không</td><td>Tùy thiết kế</td><td>Có</td><td>Cập nhật một phần trường</td></tr>
+          <tr><td class="tl-mono"><strong>DELETE</strong></td><td>Không</td><td>Có</td><td>Không</td><td>Xóa tài nguyên (trả 204)</td></tr>
+          <tr><td class="tl-mono"><strong>QUERY</strong></td><td>Có</td><td>Có</td><td>Có</td><td>Truy vấn phức tạp có body (RFC 10008)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tl-panel-body" data-tab-pane-group="cs" data-tab-pane="status" style="display:none;">
+      <table class="tl-table" style="border:1px solid var(--line);">
+        <thead><tr><th>Mã</th><th>Họ</th><th>Ý nghĩa thực chiến</th></tr></thead>
+        <tbody>
+          <tr><td class="tl-mono">200 / 201 / 202 / 204</td><td><span class="tl-chip tl-chip-ok">2xx</span></td><td>Thành công / Tạo mới (+Location) / Chấp nhận xử lý nền / Không nội dung</td></tr>
+          <tr><td class="tl-mono">301 / 304 / 307 / 308</td><td><span class="tl-chip tl-chip-info">3xx</span></td><td>Chuyển hướng hoặc Not Modified (ETag cache)</td></tr>
+          <tr><td class="tl-mono">400 / 401 / 403 / 404 / 409 / 412 / 422 / 429</td><td><span class="tl-chip tl-chip-warn">4xx</span></td><td>Lỗi phía Client (xác thực, phân quyền, xung đột, tiền điều kiện, rate limit)</td></tr>
+          <tr><td class="tl-mono">500 / 502 / 503 / 504</td><td><span class="tl-chip tl-chip-crit">5xx</span></td><td>Lỗi Server/Gateway (kèm Retry-After & chiến lược Jitter)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tl-panel-body" data-tab-pane-group="cs" data-tab-pane="arch" style="display:none;">
+      <table class="tl-table" style="border:1px solid var(--line);">
+        <thead><tr><th>Kiểu API</th><th>Khi nào chọn</th><th>Đánh đổi chính</th></tr></thead>
+        <tbody>
+          <tr><td><strong>REST</strong></td><td>Public API, cần HTTP Caching và công cụ phổ quát</td><td>Có thể Overfetching / Underfetching trên đa thiết bị</td></tr>
+          <tr><td><strong>GraphQL</strong></td><td>Nhiều loại client cần các lát cắt dữ liệu khác nhau</td><td>Mất GET cache mặc định, cần DataLoader và giới hạn độ sâu</td></tr>
+          <tr><td><strong>gRPC</strong></td><td>Service nội bộ cần tốc độ cao, streaming, hợp đồng chặt</td><td>Trình duyệt không gọi trực tiếp được (cần proxy)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- NotesDrawer Preview (480px) -->
+  <aside class="tl-drawer-card" aria-label="Ngăn kéo ghi chú">
+    <div class="tl-panel-head">
+      <span class="tl-h2">Ghi chú — Module 03</span>
+      <button class="tl-btn tl-btn-icon tl-btn-sm" aria-label="Đóng ngăn kéo"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+    </div>
+    <div class="tl-panel-body">
+      <div class="tl-surface" style="padding:var(--space-10);display:flex;flex-direction:column;gap:var(--space-8);">
+        <div class="tl-row">
+          <input class="tl-input tl-mono" value="[00:47:28]" aria-label="Mốc thời gian" style="width:100px;" />
+          <span class="tl-muted" style="font-size:12px;">Mốc thời gian video</span>
+        </div>
+        <textarea class="tl-input" rows="3" placeholder="Nhập ghi chú kỹ thuật..." style="height:auto;padding:var(--space-8);">PUT /posts/42/likes/me giúp retry khi mạng yếu không làm tăng sai bộ đếm.</textarea>
+        <div class="tl-row" style="justify-content:flex-end;">
+          <button class="tl-btn tl-btn-sm tl-btn-primary"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg><span>Lưu ghi chú</span></button>
+        </div>
+      </div>
+
+      <div class="tl-kpi-label">Đã lưu (2)</div>
+      <div class="tl-surface" style="padding:var(--space-8) var(--space-10);display:flex;flex-direction:column;gap:4px;">
+        <div class="tl-row" style="justify-content:space-between;">
+          <span class="tl-chip tl-chip-info tl-mono">[00:45:36]</span>
+          <button class="tl-btn tl-btn-icon tl-btn-sm" aria-label="Xóa ghi chú"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg></button>
+        </div>
+        <div>Cache-Control: public chỉ dùng cho ảnh đại diện chung, tuyệt đối không dùng cho Feed cá nhân.</div>
+        <div class="tl-muted tl-mono" style="font-size:11px;">19/11/2026 15:20:00</div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<div class="tl-surface" data-view-state="loading" style="flex:1;padding:var(--space-12);flex-direction:column;gap:var(--space-10);">
+  <div class="tl-skeleton" style="height:100%;width:100%;"></div>
+</div>
+<div class="tl-empty-box" data-view-state="empty">
+  <div class="tl-h2">Chưa có ghi chú nào cho module này</div>
+  <div class="tl-muted">Lưu lại mốc thời gian video quan trọng để tra cứu nhanh về sau.</div>
+</div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="../_shared/preview.js"></script>
+</body>
+</html>

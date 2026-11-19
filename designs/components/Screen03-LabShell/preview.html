@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Screen03-LabShell — TechLab Design Preview</title>
+  <link rel="stylesheet" href="../../tokens.css" />
+  <link rel="stylesheet" href="../bundle.css" />
+  <style>
+.tl-phone-mock {
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-card);
+  background: var(--bg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.tl-phone-head {
+  padding: var(--space-8) var(--space-10);
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+}
+.tl-phone-post {
+  padding: var(--space-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+.tl-phone-img {
+  height: 120px;
+  border-radius: var(--radius-control);
+  background: var(--surface-2);
+  border: 1px dashed var(--line-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+.tl-hops {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+.tl-hop {
+  padding: var(--space-6);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+  background: var(--surface-2);
+  text-align: center;
+  font-size: 11px;
+}
+.tl-hop.active { border-color: var(--primary); background: var(--primary-soft); color: var(--primary); font-weight: 600; }
+.tl-challenge-item {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+  padding: var(--space-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  background: var(--surface);
+}
+</style>
+</head>
+<body data-state="normal">
+  <div class="tl-preview-bar">
+    <div class="tl-preview-bar-group">
+      <strong>TechLab Design Reference (CHỈ ĐỌC)</strong>
+      <span>|</span>
+      <span>Screen03-LabShell</span>
+    </div>
+    <div class="tl-preview-bar-group">
+      <span>Trạng thái:</span>
+      <button class="tl-preview-btn active" data-set-state="normal">Bình thường</button>
+      <button class="tl-preview-btn" data-set-state="loading">Đang tải</button>
+      <button class="tl-preview-btn" data-set-state="empty">Trống</button>
+      <button class="tl-preview-btn" data-set-state="error">Lỗi</button>
+      <span>|</span>
+      <span>Giao diện:</span>
+      <button class="tl-preview-btn active" data-set-theme="light">Sáng</button>
+      <button class="tl-preview-btn" data-set-theme="dark">Tối</button>
+    </div>
+  </div>
+
+  <div class="tl-shell">
+    <aside class="tl-nav" aria-label="Điều hướng chính">
+      <div class="tl-nav-brand">
+        <span class="tl-row"><svg class="tl-ico" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg><span class="tl-nav-label">TechLab</span></span>
+        <button class="tl-btn tl-btn-icon tl-btn-sm" data-toggle-nav aria-label="Thu gọn thanh bên"><svg class="tl-ico" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg></button>
+      </div>
+      <div class="tl-nav-group">
+        <div class="tl-nav-caption">Học tập</div>
+        <a href="#" class="tl-nav-item"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg><span class="tl-nav-label">Khóa học</span></a>
+        <a href="#" class="tl-nav-item active"><svg class="tl-ico" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg><span class="tl-nav-label">Phòng Lab</span></a>
+        <a href="#" class="tl-nav-item"><svg class="tl-ico" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span class="tl-nav-label">Tiến độ & Lịch sử</span></a>
+      </div>
+    </aside>
+
+    <div class="tl-main-wrap">
+      <header class="tl-header">
+        <div class="tl-breadcrumb"><span>TechLab</span><span>/</span><span>REST API Design</span><span>/</span><strong>Module 03</strong></div>
+        <div class="tl-header-actions">
+          <span class="tl-chip tl-chip-info"><svg class="tl-ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><span>SQLite WAL · local</span></span>
+          <button class="tl-btn tl-btn-sm" data-header-theme aria-label="Đổi chế độ Sáng Tối"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span>Chế độ tối</span></button>
+        </div>
+      </header>
+
+      <main class="tl-page">
+        
+<div class="tl-commandbar">
+  <div class="tl-row">
+    <select class="tl-select" aria-label="Chọn module">
+      <option>01. Nền tảng Mạng, HTTP & REST</option>
+      <option>02. Mô hình hóa Tài nguyên & URL</option>
+      <option selected>03. Methods, Status Codes & Caching</option>
+      <option>04. Thiết kế Read, Chuẩn lỗi & Phân trang</option>
+    </select>
+    <span class="tl-chip tl-chip-off tl-mono">[00:28:56]</span>
+  </div>
+
+  <div class="tl-mode-toggle" role="group" aria-label="Chế độ mô phỏng Junior hoặc Senior">
+    <button class="tl-mode-btn active-junior" data-set-mode="junior"><svg class="tl-ico" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>Junior (First-Try)</span></button>
+    <button class="tl-mode-btn" data-set-mode="senior"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><span>Senior (Chuẩn Hệ Thống)</span></button>
+  </div>
+
+  <div class="tl-row">
+    <button class="tl-btn tl-btn-sm"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span>Đặt lại</span></button>
+    <button class="tl-btn tl-btn-sm"><svg class="tl-ico" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg><span>Ghi chú (2)</span></button>
+    <button class="tl-btn tl-btn-sm"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Cheat Sheet</span></button>
+  </div>
+</div>
+
+<div class="tl-alert" data-view-state="error" role="alert">
+  <span class="tl-row"><svg class="tl-ico" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>Không thể lưu tiến độ thử thách vào SQLite (mô phỏng vẫn hoạt động cục bộ).</span></span>
+  <button class="tl-btn tl-btn-sm"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span>Thử lại</span></button>
+</div>
+
+<div class="tl-lab-split" data-view-state="normal">
+  <!-- LEFT SLOT: Simulator + Scenario Controls -->
+  <section class="tl-lab-pane" aria-label="Khu vực mô phỏng tương tác">
+    <div class="tl-panel-head">
+      <span class="tl-h2">Mô phỏng: JaneGram Mobile</span>
+      <span class="tl-chip tl-chip-warn" data-mode-only="junior"><svg class="tl-ico" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>Lỗi Junior</span></span>
+      <span class="tl-chip tl-chip-ok" data-mode-only="senior" style="display:none;"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><span>Chuẩn Senior</span></span>
+    </div>
+    <div class="tl-panel-body">
+      <div class="tl-phone-mock">
+        <div class="tl-phone-head">
+          <span>JaneGram</span>
+          <span class="tl-mono tl-muted">user_id: 7</span>
+        </div>
+        <div class="tl-phone-post">
+          <div class="tl-row" style="justify-content:space-between;">
+            <strong>jane_photo</strong>
+            <span class="tl-mono tl-muted">post #42</span>
+          </div>
+          <div class="tl-phone-img">Ảnh mẫu: Sunset Beach (1.8 MB)</div>
+          <div class="tl-row" style="justify-content:space-between;">
+            <button class="tl-btn tl-btn-sm"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>Thích (128)</span></button>
+            <span class="tl-muted" style="font-size:12px;">ETag: "v1-abc"</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-kpi-label">Kịch bản thực hành nhanh (Scenario Controls)</div>
+      <div style="display:flex;flex-direction:column;gap:var(--space-6);">
+        <button class="tl-btn tl-btn-primary" style="justify-content:flex-start;"><svg class="tl-ico" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>1. Bấm Double-Tap Like (Gửi 2 lần liên tiếp)</span></button>
+        <button class="tl-btn" style="justify-content:flex-start;"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span>2. Tải lại Avatar (Kiểm tra ETag / 304)</span></button>
+        <button class="tl-btn" style="justify-content:flex-start;"><svg class="tl-ico" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg><span>3. Tải lên ảnh 12 MB (Direct vs Signed URL)</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RIGHT SLOT: 3 Standardized Tabs -->
+  <section class="tl-lab-pane" aria-label="Lý thuyết, Inspector và Thử thách">
+    <div class="tl-tabs" role="tablist">
+      <button class="tl-tab active" data-tab-group="lab" data-tab-target="theory" role="tab"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg><span>1. Kiến thức cốt lõi</span></button>
+      <button class="tl-tab" data-tab-group="lab" data-tab-target="inspector" role="tab"><svg class="tl-ico" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg><span>2. Live Inspector</span></button>
+      <button class="tl-tab" data-tab-group="lab" data-tab-target="challenges" role="tab"><svg class="tl-ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg><span>3. Thử thách (2/3)</span></button>
+    </div>
+
+    <!-- Tab 1: Theory -->
+    <div class="tl-panel-body" data-tab-pane-group="lab" data-tab-pane="theory">
+      <div class="tl-row" style="justify-content:space-between;">
+        <h2 class="tl-h2">Safe, Idempotent và HTTP Caching</h2>
+        <span class="tl-mono tl-muted">[00:45:36] – [00:49:30]</span>
+      </div>
+      <p style="margin:0;">Một method được gọi là <strong>Idempotent</strong> khi gửi cùng một request 1 lần hay 10 lần đều để lại trạng thái cuối cùng trên server giống hệt nhau. <span class="tl-mono">PUT</span> và <span class="tl-mono">DELETE</span> có tính Idempotent, còn <span class="tl-mono">POST</span> thì không.</p>
+      <table class="tl-table" style="border:1px solid var(--line);">
+        <thead>
+          <tr><th>Tiêu chí</th><th>Junior (First-Try)</th><th>Senior (Chuẩn Hệ Thống)</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Nút Like</td>
+            <td class="tl-mono">POST /posts/42/likes</td>
+            <td class="tl-mono">PUT /posts/42/likes/me</td>
+          </tr>
+          <tr>
+            <td>Khi Double-Tap</td>
+            <td>Số tim nhảy 128 → 130 (lỗi trùng)</td>
+            <td>Số tim giữ nguyên 129 (Idempotent)</td>
+          </tr>
+          <tr>
+            <td>Tải lại Avatar</td>
+            <td>Tải lại toàn bộ ảnh (200 OK)</td>
+            <td>Gửi If-None-Match → 304 Not Modified</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tab 2: Live Inspector -->
+    <div class="tl-panel-body" data-tab-pane-group="lab" data-tab-pane="inspector" style="display:none;" aria-live="polite">
+      <div class="tl-kpi-label">Hành trình gói tin (5 chặng)</div>
+      <div class="tl-hops">
+        <div class="tl-hop active">1. Client</div>
+        <div class="tl-hop active">2. DNS/TLS</div>
+        <div class="tl-hop active">3. Gateway</div>
+        <div class="tl-hop active">4. Service</div>
+        <div class="tl-hop active">5. SQLite</div>
+      </div>
+
+      <div class="tl-alert tl-alert-warn" data-mode-only="junior">
+        <span><strong>Phân tích Junior:</strong> Request POST gửi lặp lần 2 đã tạo thêm 1 dòng Like mới. Số lượt thích tăng sai từ 128 lên 130.</span>
+      </div>
+      <div class="tl-alert tl-alert-ok" data-mode-only="senior" style="display:none;">
+        <span><strong>Phân tích Senior:</strong> Request PUT /posts/42/likes/me gửi lần 2 giữ nguyên trạng thái đã thích. Tổng lượt thích ổn định ở 129.</span>
+      </div>
+
+      <div class="tl-kpi-label">Raw HTTP Request</div>
+      <pre class="tl-code-box" data-mode-only="junior">POST /api/v1/posts/42/likes HTTP/1.1
+Host: api.janegram.local
+Authorization: Bearer eyJhbGci...
+Content-Type: application/json
+
+{"user_id": 7}</pre>
+      <pre class="tl-code-box" data-mode-only="senior" style="display:none;">PUT /api/v1/posts/42/likes/me HTTP/1.1
+Host: api.janegram.local
+Authorization: Bearer eyJhbGci...
+Content-Type: application/json
+
+{}</pre>
+
+      <div class="tl-kpi-label">Raw HTTP Response</div>
+      <pre class="tl-code-box">HTTP/1.1 200 OK
+Content-Type: application/json
+X-Request-Id: req_94f1c2
+
+{"post_id": "42", "likes": 129, "idempotent": true}</pre>
+    </div>
+
+    <!-- Tab 3: Challenges -->
+    <div class="tl-panel-body" data-tab-pane-group="lab" data-tab-pane="challenges" style="display:none;" aria-live="polite">
+      <div class="tl-challenge-item">
+        <div class="tl-row" style="justify-content:space-between;">
+          <strong>1. Kiểm chứng Idempotency khi Double-Tap</strong>
+          <span class="tl-chip tl-chip-ok"><svg class="tl-ico" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Đạt</span></span>
+        </div>
+        <div class="tl-muted" style="font-size:12px;">Bấm Double-Tap ở chế độ Junior để thấy lỗi tăng 2 tim, sau đó chuyển sang Senior và thực hiện lại để xác nhận số tim chỉ tăng 1.</div>
+      </div>
+      <div class="tl-challenge-item">
+        <div class="tl-row" style="justify-content:space-between;">
+          <strong>2. Nhận phản hồi 304 Not Modified với ETag</strong>
+          <span class="tl-chip tl-chip-ok"><svg class="tl-ico" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Đạt</span></span>
+        </div>
+        <div class="tl-muted" style="font-size:12px;">Tải lại Avatar 2 lần liên tiếp ở chế độ Senior để xác minh header If-None-Match hoạt động.</div>
+      </div>
+      <div class="tl-challenge-item">
+        <div class="tl-row" style="justify-content:space-between;">
+          <strong>3. Upload ảnh lớn qua Signed URL</strong>
+          <span class="tl-chip tl-chip-off"><svg class="tl-ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><span>Chưa đạt</span></span>
+        </div>
+        <div class="tl-muted" style="font-size:12px;">Kích hoạt kịch bản 3 ở chế độ Senior để đẩy file ảnh thẳng lên Storage mà không đi qua API Server.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="tl-surface" data-view-state="loading" style="flex:1;padding:var(--space-12);flex-direction:column;gap:var(--space-10);">
+  <div class="tl-skeleton" style="height:100%;width:100%;"></div>
+</div>
+
+<div class="tl-empty-box" data-view-state="empty">
+  <div class="tl-h2">Không tìm thấy dữ liệu module</div>
+  <div class="tl-muted">Kiểm tra lại đường dẫn module hoặc chạy đồng bộ khóa học.</div>
+  <button class="tl-btn tl-btn-primary">Quay lại bản đồ khóa học</button>
+</div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="../_shared/preview.js"></script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Screen05-Progress — TechLab Design Preview</title>
+  <link rel="stylesheet" href="../../tokens.css" />
+  <link rel="stylesheet" href="../bundle.css" />
+  
+</head>
+<body data-state="normal">
+  <div class="tl-preview-bar">
+    <div class="tl-preview-bar-group">
+      <strong>TechLab Design Reference (CHỈ ĐỌC)</strong>
+      <span>|</span>
+      <span>Screen05-Progress</span>
+    </div>
+    <div class="tl-preview-bar-group">
+      <span>Trạng thái:</span>
+      <button class="tl-preview-btn active" data-set-state="normal">Bình thường</button>
+      <button class="tl-preview-btn" data-set-state="loading">Đang tải</button>
+      <button class="tl-preview-btn" data-set-state="empty">Trống</button>
+      <button class="tl-preview-btn" data-set-state="error">Lỗi</button>
+      <span>|</span>
+      <span>Giao diện:</span>
+      <button class="tl-preview-btn active" data-set-theme="light">Sáng</button>
+      <button class="tl-preview-btn" data-set-theme="dark">Tối</button>
+    </div>
+  </div>
+
+  <div class="tl-shell">
+    <aside class="tl-nav" aria-label="Điều hướng chính">
+      <div class="tl-nav-brand">
+        <span class="tl-row"><svg class="tl-ico" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg><span class="tl-nav-label">TechLab</span></span>
+        <button class="tl-btn tl-btn-icon tl-btn-sm" data-toggle-nav aria-label="Thu gọn thanh bên"><svg class="tl-ico" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg></button>
+      </div>
+      <div class="tl-nav-group">
+        <div class="tl-nav-caption">Học tập</div>
+        <a href="#" class="tl-nav-item"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg><span class="tl-nav-label">Khóa học</span></a>
+        <a href="#" class="tl-nav-item"><svg class="tl-ico" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg><span class="tl-nav-label">Phòng Lab</span></a>
+        <a href="#" class="tl-nav-item active"><svg class="tl-ico" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span class="tl-nav-label">Tiến độ & Lịch sử</span></a>
+      </div>
+    </aside>
+
+    <div class="tl-main-wrap">
+      <header class="tl-header">
+        <div class="tl-breadcrumb"><span>TechLab</span><span>/</span><strong>Tiến độ & Lịch sử</strong></div>
+        <div class="tl-header-actions">
+          <span class="tl-chip tl-chip-info"><svg class="tl-ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><span>SQLite WAL · local</span></span>
+          <button class="tl-btn tl-btn-sm" data-header-theme aria-label="Đổi chế độ Sáng Tối"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span>Chế độ tối</span></button>
+        </div>
+      </header>
+
+      <main class="tl-page">
+        
+<div class="tl-page-header">
+  <div class="tl-page-title-row">
+    <h1 class="tl-h1">Tiến độ & Lịch sử Sandbox</h1>
+    <span class="tl-muted">Theo dõi các lần chạy mô phỏng gần nhất và quản lý dữ liệu tiến độ trên SQLite</span>
+  </div>
+  <button class="tl-btn tl-btn-danger"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg><span>Đặt lại tiến độ khóa học</span></button>
+</div>
+
+<div class="tl-alert" data-view-state="error" role="alert">
+  <span class="tl-row"><svg class="tl-ico" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>Không thể tải lịch sử chạy từ SQLite.</span></span>
+  <button class="tl-btn tl-btn-sm"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span>Thử lại</span></button>
+</div>
+
+<div class="tl-commandbar">
+  <div class="tl-row">
+    <select class="tl-select" aria-label="Lọc theo khóa học">
+      <option>Tất cả khóa học</option>
+      <option>REST API Design</option>
+    </select>
+    <select class="tl-select" aria-label="Lọc theo chế độ">
+      <option>Tất cả chế độ</option>
+      <option>Junior (First-Try)</option>
+      <option>Senior (Chuẩn Hệ Thống)</option>
+    </select>
+  </div>
+  <span class="tl-muted tl-mono">Hiển thị 50 lượt chạy gần nhất</span>
+</div>
+
+<div class="tl-master-detail" data-view-state="normal">
+  <div class="tl-table-wrap">
+    <table class="tl-table">
+      <thead>
+        <tr>
+          <th>Thời gian</th>
+          <th>Module</th>
+          <th>Chế độ</th>
+          <th>Hành động</th>
+          <th>HTTP</th>
+          <th>Kết quả</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tl-mono tl-muted">19/11/2026 16:40:12</td>
+          <td>03. Methods & Caching</td>
+          <td><span class="tl-chip tl-chip-ok"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><span>Senior</span></span></td>
+          <td>Double-Tap Like</td>
+          <td class="tl-mono">PUT 200</td>
+          <td>Giữ nguyên 129 tim (Idempotent)</td>
+        </tr>
+        <tr>
+          <td class="tl-mono tl-muted">19/11/2026 16:39:40</td>
+          <td>03. Methods & Caching</td>
+          <td><span class="tl-chip tl-chip-warn"><svg class="tl-ico" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>Junior</span></span></td>
+          <td>Double-Tap Like</td>
+          <td class="tl-mono">POST 201</td>
+          <td>Tăng trùng 128 → 130 tim</td>
+        </tr>
+        <tr>
+          <td class="tl-mono tl-muted">19/11/2026 16:35:18</td>
+          <td>01. Network & REST</td>
+          <td><span class="tl-chip tl-chip-ok"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><span>Senior</span></span></td>
+          <td>Tap Like (HTTPS)</td>
+          <td class="tl-mono">PUT 200</td>
+          <td>Hoàn tất 5 chặng mạng TLS</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Confirmation Dialog Preview on Right for Reset Flow -->
+  <aside class="tl-detail-panel" aria-label="Mẫu hộp thoại xác nhận đặt lại tiến độ">
+    <div class="tl-panel-head">
+      <span class="tl-h2">Mẫu hộp thoại đặt lại tiến độ</span>
+    </div>
+    <div class="tl-panel-body">
+      <div class="tl-alert" style="display:block;">
+        <strong>Sẽ xóa:</strong> Toàn bộ trạng thái Đạt của 30 thử thách và lịch sử chạy Sandbox thuộc khóa REST API Design.
+      </div>
+      <div class="tl-surface" style="padding:var(--space-8);font-size:12px;">
+        <strong>Giữ lại:</strong> Nội dung khóa học trong content/courses/ và các ghi chú cá nhân của bạn.
+      </div>
+      <div>
+        <label class="tl-kpi-label" for="confirm-xoa">Gõ XOA để xác nhận đặt lại</label>
+        <input id="confirm-xoa" class="tl-input tl-mono" placeholder="XOA" style="width:100%;margin-top:4px;" />
+      </div>
+    </div>
+    <div class="tl-panel-foot">
+      <button class="tl-btn tl-btn-sm">Hủy</button>
+      <button class="tl-btn tl-btn-sm tl-btn-danger">Xác nhận đặt lại</button>
+    </div>
+  </aside>
+</div>
+
+<div class="tl-surface" data-view-state="loading" style="flex:1;padding:var(--space-12);flex-direction:column;gap:var(--space-10);">
+  <div class="tl-skeleton" style="height:30px;width:100%;"></div>
+  <div class="tl-skeleton" style="height:32px;width:100%;"></div>
+</div>
+<div class="tl-empty-box" data-view-state="empty">
+  <div class="tl-h2">Chưa có lịch sử chạy mô phỏng</div>
+  <div class="tl-muted">Mở một bài học bất kỳ và thao tác trên Simulator để ghi nhận lịch sử.</div>
+  <button class="tl-btn tl-btn-primary">Mở danh sách khóa học</button>
+</div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="../_shared/preview.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Screen01-Courses — TechLab Design Preview</title>
+  <link rel="stylesheet" href="../../tokens.css" />
+  <link rel="stylesheet" href="../bundle.css" />
+  
+</head>
+<body data-state="normal">
+  <div class="tl-preview-bar">
+    <div class="tl-preview-bar-group">
+      <strong>TechLab Design Reference (CHỈ ĐỌC)</strong>
+      <span>|</span>
+      <span>Screen01-Courses</span>
+    </div>
+    <div class="tl-preview-bar-group">
+      <span>Trạng thái:</span>
+      <button class="tl-preview-btn active" data-set-state="normal">Bình thường</button>
+      <button class="tl-preview-btn" data-set-state="loading">Đang tải</button>
+      <button class="tl-preview-btn" data-set-state="empty">Trống</button>
+      <button class="tl-preview-btn" data-set-state="error">Lỗi</button>
+      <span>|</span>
+      <span>Giao diện:</span>
+      <button class="tl-preview-btn active" data-set-theme="light">Sáng</button>
+      <button class="tl-preview-btn" data-set-theme="dark">Tối</button>
+    </div>
+  </div>
+
+  <div class="tl-shell">
+    <aside class="tl-nav" aria-label="Điều hướng chính">
+      <div class="tl-nav-brand">
+        <span class="tl-row"><svg class="tl-ico" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg><span class="tl-nav-label">TechLab</span></span>
+        <button class="tl-btn tl-btn-icon tl-btn-sm" data-toggle-nav aria-label="Thu gọn thanh bên"><svg class="tl-ico" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg></button>
+      </div>
+      <div class="tl-nav-group">
+        <div class="tl-nav-caption">Học tập</div>
+        <a href="#" class="tl-nav-item active"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg><span class="tl-nav-label">Khóa học</span></a>
+        <a href="#" class="tl-nav-item"><svg class="tl-ico" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg><span class="tl-nav-label">Phòng Lab</span></a>
+        <a href="#" class="tl-nav-item"><svg class="tl-ico" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span class="tl-nav-label">Tiến độ & Lịch sử</span></a>
+      </div>
+    </aside>
+
+    <div class="tl-main-wrap">
+      <header class="tl-header">
+        <div class="tl-breadcrumb"><span>TechLab</span><span>/</span><strong>Khóa học</strong></div>
+        <div class="tl-header-actions">
+          <span class="tl-chip tl-chip-info"><svg class="tl-ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><span>SQLite WAL · local</span></span>
+          <button class="tl-btn tl-btn-sm" data-header-theme aria-label="Đổi chế độ Sáng Tối"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span>Chế độ tối</span></button>
+        </div>
+      </header>
+
+      <main class="tl-page">
+        
+<div class="tl-page-header">
+  <div class="tl-page-title-row">
+    <h1 class="tl-h1">Danh sách khóa học</h1>
+    <span class="tl-muted">Chọn một khóa học để theo dõi lộ trình module và thực hành trên Sandbox</span>
+  </div>
+  <button class="tl-btn tl-btn-primary"><svg class="tl-ico" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>Tiếp tục bài gần nhất</span></button>
+</div>
+
+<div class="tl-alert" data-view-state="error" role="alert">
+  <span class="tl-row"><svg class="tl-ico" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>Không thể tải tiến độ mới nhất từ SQLite (hiển thị dữ liệu lần đồng bộ lúc 16:45:00).</span></span>
+  <button class="tl-btn tl-btn-sm"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span>Thử lại</span></button>
+</div>
+
+<div class="tl-kpi-grid" data-view-state="normal">
+  <div class="tl-kpi"><div class="tl-kpi-label">Tổng số khóa học</div><div class="tl-kpi-val">2</div></div>
+  <div class="tl-kpi"><div class="tl-kpi-label">Module đã hoàn thành</div><div class="tl-kpi-val">3 / 10</div></div>
+  <div class="tl-kpi"><div class="tl-kpi-label">Thử thách đã đạt</div><div class="tl-kpi-val">11 / 30</div></div>
+  <div class="tl-kpi"><div class="tl-kpi-label">Ghi chú đã lưu</div><div class="tl-kpi-val">8</div></div>
+</div>
+
+<div class="tl-commandbar">
+  <div class="tl-row">
+    <input class="tl-input" type="search" placeholder="Tìm theo tên khóa học hoặc nguồn video..." aria-label="Tìm khóa học" style="width:280px" />
+    <select class="tl-select" aria-label="Lọc trạng thái">
+      <option>Tất cả trạng thái</option>
+      <option>Đang học</option>
+      <option>Hoàn thành</option>
+      <option>Chưa bắt đầu</option>
+    </select>
+  </div>
+  <div class="tl-row">
+    <span class="tl-muted tl-mono">2 khóa học</span>
+  </div>
+</div>
+
+<div class="tl-table-wrap" data-view-state="normal">
+  <table class="tl-table">
+    <thead>
+      <tr>
+        <th>Mã khóa</th>
+        <th>Tên khóa học</th>
+        <th>Nguồn kênh</th>
+        <th class="tl-num">Module</th>
+        <th class="tl-num">Thử thách đạt</th>
+        <th>Trạng thái</th>
+        <th>Lần học gần nhất</th>
+        <th>Hành động</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="tl-mono">rest-api</td>
+        <td><strong>REST API Design Like a Senior Engineer</strong></td>
+        <td class="tl-muted">System Design Lab</td>
+        <td class="tl-num">10</td>
+        <td class="tl-num">11 / 30</td>
+        <td><span class="tl-chip tl-chip-info"><svg class="tl-ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Đang học</span></span></td>
+        <td class="tl-mono tl-muted">19/11/2026 16:40:12</td>
+        <td><button class="tl-btn tl-btn-sm tl-btn-primary">Mở khóa học</button></td>
+      </tr>
+      <tr>
+        <td class="tl-mono">system-design-core</td>
+        <td><strong>Distributed Systems Fundamentals</strong></td>
+        <td class="tl-muted">System Design Lab</td>
+        <td class="tl-num">8</td>
+        <td class="tl-num">0 / 24</td>
+        <td><span class="tl-chip tl-chip-off"><svg class="tl-ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><span>Chưa bắt đầu</span></span></td>
+        <td class="tl-muted">—</td>
+        <td><button class="tl-btn tl-btn-sm">Mở khóa học</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="tl-surface" data-view-state="loading" style="flex:1;padding:var(--space-12);flex-direction:column;gap:var(--space-10);">
+  <div class="tl-skeleton" style="height:28px;width:100%;"></div>
+  <div class="tl-skeleton" style="height:32px;width:100%;"></div>
+  <div class="tl-skeleton" style="height:32px;width:100%;"></div>
+  <div class="tl-skeleton" style="height:32px;width:85%;"></div>
+</div>
+
+<div class="tl-empty-box" data-view-state="empty">
+  <div class="tl-h2">Chưa có khóa học nào được đồng bộ</div>
+  <div class="tl-muted">Thêm thư mục khóa học vào content/courses/ và chạy lệnh đồng bộ vào SQLite.</div>
+  <button class="tl-btn tl-btn-primary"><svg class="tl-ico" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span>Kiểm tra đồng bộ</span></button>
+</div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="../_shared/preview.js"></script>
+</body>
+</html>
