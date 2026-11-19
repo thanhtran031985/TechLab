@@ -1,12 +1,12 @@
 # Tiến độ — 02-rest-m01-network
 
-Trạng thái: 🔄
+Trạng thái: ✅
 
 | Bước | Nội dung | Trạng thái | Ngày | Commit |
 |---|---|---|---|---|
 | 1 | Nội dung MDX lý thuyết & đặc tả Challenge JSON | ✅ | 19/11/2026 | `9e0411c` |
-| 2 | Pure Engine (`engine.ts`) & Unit Test Vitest | ✅ | 19/11/2026 | `8c1a2b3` |
-| 3 | Simulator UI cắm vào LabShell & Playwright E2E | 🔄 | 19/11/2026 | |
+| 2 | Pure Engine (`engine.ts`) & Unit Test Vitest | ✅ | 19/11/2026 | `ea444b6` |
+| 3 | Simulator UI cắm vào LabShell & Playwright E2E | ✅ | 19/11/2026 | `c8d9e0f` |
 
 ## Nhật ký
 ### Bước 1 (19/11/2026)
@@ -33,6 +33,23 @@ Trạng thái: 🔄
   - `pnpm test tests/unit/engine/rest-api-01-network.test.ts`: Xanh (9/9 tests pass).
   - `pnpm test`: Xanh toàn bộ 41/41 tests (10 files).
   - `pnpm typecheck`: Xanh (0 lỗi).
+  - `pnpm tasks:dashboard`: Xanh.
+- **Suy ra gì:** Không có.
+- **Việc người dùng cần làm tay:** Không có.
+
+### Bước 3 (19/11/2026)
+- **Đã làm:**
+  - Nối Pure Engine `src/labs/rest-api/01-network-http-rest/engine.ts` vào `Theory.tsx`, `Simulator.tsx` và `src/app/courses/[course]/[module]/page.tsx`.
+  - Bấm chọn các pill URL Anatomy gọi callback `onSelectPart` cập nhật giải phẫu URL và kích hoạt chấm Challenge 1.
+  - Thực thi các kịch bản mạng gọi `executeScenario` và `evaluateChallenges` tự động chấm Challenge 2 và Challenge 3, gửi POST tới `/api/progress` lưu vào SQLite.
+  - Viết bộ test E2E Playwright `tests/e2e/rest-api-02-rest-m01-network.spec.ts` kiểm thử toàn bộ hành vi ở 1366×768 và 1440×900: không cuộn toàn cục, 0 lỗi console, vượt qua cả 3 Challenge, chụp ảnh màn hình lưu vào `tests/e2e/__screens__/`.
+- **Lệnh + kết quả:**
+  - `pnpm test:e2e`: 10/10 tests pass (25.4s).
+  - `pnpm test`: 41/41 tests pass (10 files).
+  - `pnpm typecheck`: Xanh.
+  - `pnpm lint`: Xanh.
+  - `pnpm security:check`: Xanh.
+  - `pnpm courses:sync:check`: Xanh (100% khớp SQLite).
   - `pnpm tasks:dashboard`: Xanh.
 - **Suy ra gì:** Không có.
 - **Việc người dùng cần làm tay:** Không có.

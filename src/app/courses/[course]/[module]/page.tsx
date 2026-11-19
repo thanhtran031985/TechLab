@@ -7,6 +7,11 @@ import { ChallengePanel, ChallengeItemData } from '@/components/ChallengePanel';
 import { REST_API_MODULES } from '@/labs/registry';
 import { Module01Simulator } from '@/labs/rest-api/01-network-http-rest/Simulator';
 import { Module01Theory } from '@/labs/rest-api/01-network-http-rest/Theory';
+import {
+  executeScenario,
+  evaluateChallenges,
+  ScenarioResult,
+} from '@/labs/rest-api/01-network-http-rest/engine';
 
 interface PageProps {
   params: Promise<{
@@ -20,21 +25,24 @@ const MODULE_01_CHALLENGES: ChallengeItemData[] = [
     id: 'rest-api/01-network-http-rest/1',
     order_index: 1,
     title: 'Giải phẫu URL',
-    description: 'Xác định chính xác 6 thành phần của URL: Scheme, Host, Port, Path, Query String, Fragment.',
+    description:
+      'Xác định chính xác 6 thành phần của URL: Scheme, Host, Port, Path, Query String, Fragment.',
     mode_required: 'both',
   },
   {
     id: 'rest-api/01-network-http-rest/2',
     order_index: 2,
     title: 'Chuyển giao thức HTTP sang HTTPS & Chuẩn hóa REST',
-    description: 'Quan sát rủi ro mất an toàn ở Junior Mode (HTTP thường, URL tùy hứng /likeIt), sau đó kích hoạt Senior Mode (HTTPS + TLS + RESTful) và xác nhận đủ 5 chặng mạng.',
+    description:
+      'Quan sát rủi ro mất an toàn ở Junior Mode (HTTP thường, URL tùy hứng /likeIt), sau đó kích hoạt Senior Mode (HTTPS + TLS + RESTful) và xác nhận đủ 5 chặng mạng.',
     mode_required: 'both',
   },
   {
     id: 'rest-api/01-network-http-rest/3',
     order_index: 3,
     title: 'Khắc phục mất độ chính xác số nguyên 64-bit trong JSON',
-    description: 'Phát hiện lỗi làm tròn số của ID vượt quá 2^53 - 1 trong JavaScript JSON parser và chuyển trường id sang kiểu chuỗi.',
+    description:
+      'Phát hiện lỗi làm tròn số của ID vượt quá 2^53 - 1 trong JavaScript JSON parser và chuyển trường id sang kiểu chuỗi.',
     mode_required: 'senior',
   },
 ];
@@ -56,12 +64,20 @@ export default function LabModulePage({ params }: PageProps) {
     { label: '4. Service', status: 'idle' },
     { label: '5. Database', status: 'idle' },
   ]);
-  const [rawRequest, setRawRequest] = useState<string>('(Chưa có request nào được gửi)');
-  const [rawResponse, setRawResponse] = useState<string>('(Chờ response từ server...)');
+  const [rawRequest, setRawRequest] = useState<string>(
+    '(Chưa có request nào được gửi)'
+  );
+  const [rawResponse, setRawResponse] = useState<string>(
+    '(Chờ response từ server...)'
+  );
   const [analysis, setAnalysis] = useState<string>(
     'Bấm một nút kịch bản ở cột giữa để quan sát gói tin và so sánh chế độ Junior vs Senior.'
   );
   const [analysisTone, setAnalysisTone] = useState<'ok' | 'warn' | 'crit'>('ok');
+
+  // Engine tracking state
+  const [visitedParts, setVisitedParts] = useState<string[]>([]);
+  const [history, setHistory] = useState<ScenarioResult[]>([]);
 
   // Load progress on mount
   useEffect(() => {
@@ -87,115 +103,54 @@ export default function LabModulePage({ params }: PageProps) {
       });
       const data = await res.json();
       if (data.ok) {
-        setPassedIds((prev) => [...prev, challengeId]);
+        setPassedIds((prev) =>
+          prev.includes(challengeId) ? prev : [...prev, challengeId]
+        );
       }
     } catch {
       // Fallback local
-      setPassedIds((prev) => [...prev, challengeId]);
+      setPassedIds((prev) =>
+        prev.includes(challengeId) ? prev : [...prev, challengeId]
+      );
+    }
+  };
+
+  const handleSelectPart = (part: string) => {
+    const nextParts = visitedParts.includes(part)
+      ? visitedParts
+      : [...visitedParts, part];
+    setVisitedParts(nextParts);
+
+    // Evaluate challenges through pure engine
+    const qualified = evaluateChallenges({
+      visitedParts: nextParts,
+      history,
+    });
+    for (const qId of qualified) {
+      markPassed(qId);
     }
   };
 
   const handleScenario = (scenarioId: string) => {
-    if (scenarioId === 'like' || scenarioId === 'sc-wifi') {
-      if (mode === 'junior') {
-        setHops([
-          { label: '1. Client', status: 'lit' },
-          { label: '2. DNS/TLS', status: 'err' },
-          { label: '3. Gateway', status: 'idle' },
-          { label: '4. Service', status: 'idle' },
-          { label: '5. Database', status: 'idle' },
-        ]);
-        setRawRequest(
-          `GET /likeIt?user=janedoe&post=42 HTTP/1.1\nHost: api.janegram.com\nAuthorization: Bearer secret-token-12345`
-        );
-        setRawResponse(
-          `HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"status": "ok", "message": "liked"}`
-        );
-        setAnalysis(
-          'CẢNH BÁO JUNIOR: Request dùng GET cho hành động sửa dữ liệu, URL đặt động từ (/likeIt), chạy qua HTTP thuần không mã hóa TLS! Token nhạy cảm bị bắt gói tin thô trên Wi-Fi quán cafe.'
-        );
-        setAnalysisTone('warn');
-      } else {
-        setHops([
-          { label: '1. Client', status: 'lit' },
-          { label: '2. DNS/TLS', status: 'lit' },
-          { label: '3. Gateway', status: 'lit' },
-          { label: '4. Service', status: 'lit' },
-          { label: '5. Database', status: 'lit' },
-        ]);
-        setRawRequest(
-          `PUT /v1/posts/42/likes HTTP/1.1\nHost: api.janegram.com\nAuthorization: Bearer [ENCRYPTED_TLS]\nContent-Length: 0`
-        );
-        setRawResponse(
-          `HTTP/1.1 204 No Content\nStrict-Transport-Security: max-age=31536000\nDate: ${new Date().toUTCString()}`
-        );
-        setAnalysis(
-          'CHUẨN SENIOR: HTTPS + TLS 1.3 bảo mật kênh truyền. URL chuẩn RESTful (/v1/posts/42/likes) sử dụng PUT mang tính Idempotent (bấm like nhiều lần không bị cộng trùng lượt thích). Trả 204 No Content tối ưu băng thông.'
-        );
-        setAnalysisTone('ok');
+    const res = executeScenario(scenarioId as any, mode);
 
-        // Automatically pass Challenge 2 in Senior mode!
-        markPassed('rest-api/01-network-http-rest/2');
-      }
-    } else if (scenarioId === 'bigint' || scenarioId === 'sc-bigint') {
-      if (mode === 'junior') {
-        setHops([
-          { label: '1. Client', status: 'lit' },
-          { label: '2. DNS/TLS', status: 'lit' },
-          { label: '3. Gateway', status: 'lit' },
-          { label: '4. Service', status: 'err' },
-          { label: '5. Database', status: 'idle' },
-        ]);
-        setRawRequest(
-          `POST /v1/transactions HTTP/1.1\nHost: api.janegram.com\nContent-Type: application/json\n\n{"tx_id": 9007199254740993}`
-        );
-        setRawResponse(
-          `HTTP/1.1 200 OK\n\n{"processed_id": 9007199254740992}`
-        );
-        setAnalysis(
-          'LỖI JUNIOR: Số nguyên 9007199254740993 vượt quá Number.MAX_SAFE_INTEGER (2^53 - 1). JSON parser làm tròn thành 9007199254740992 gây sai lệch ID tài chính nghiêm trọng!'
-        );
-        setAnalysisTone('crit');
-      } else {
-        setHops([
-          { label: '1. Client', status: 'lit' },
-          { label: '2. DNS/TLS', status: 'lit' },
-          { label: '3. Gateway', status: 'lit' },
-          { label: '4. Service', status: 'lit' },
-          { label: '5. Database', status: 'lit' },
-        ]);
-        setRawRequest(
-          `POST /v1/transactions HTTP/1.1\nHost: api.janegram.com\nContent-Type: application/json\n\n{"tx_id": "9007199254740993"}`
-        );
-        setRawResponse(
-          `HTTP/1.1 201 Created\n\n{"processed_id": "9007199254740993"}`
-        );
-        setAnalysis(
-          'CHUẨN SENIOR: ID số nguyên lớn (> 2^53 - 1) và ngày giờ luôn được biểu diễn dưới dạng String trong JSON payload để bảo toàn 100% độ chính xác trên mọi client runtime.'
-        );
-        setAnalysisTone('ok');
+    // Update inspector view from engine output
+    setHops(res.hops);
+    setRawRequest(res.rawRequest);
+    setRawResponse(res.rawResponse);
+    setAnalysis(res.analysis);
+    setAnalysisTone(res.analysisTone);
 
-        // Automatically pass Challenge 3!
-        markPassed('rest-api/01-network-http-rest/3');
-      }
-    } else if (scenarioId === 'sc-stateless') {
-      setHops([
-        { label: '1. Client', status: 'lit' },
-        { label: '2. DNS/TLS', status: 'lit' },
-        { label: '3. Gateway', status: 'lit' },
-        { label: '4. Service', status: 'lit' },
-        { label: '5. Database', status: 'lit' },
-      ]);
-      setRawRequest(
-        `GET /v1/profile HTTP/1.1\nHost: api.janegram.com\nAuthorization: Bearer jwt-token-with-signature`
-      );
-      setRawResponse(
-        `HTTP/1.1 200 OK\nX-Served-By: worker-node-03\n\n{"user": "janedoe", "stateless": true}`
-      );
-      setAnalysis(
-        'KIẾN TRÚC STATELESS: Server không lưu session state trong bộ nhớ cục bộ của tiến trình. Request được cân bằng tải vào bất kỳ worker node nào (worker-node-03) vẫn xác thực thành công nhờ token độc lập.'
-      );
-      setAnalysisTone('ok');
+    const nextHistory = [...history, res];
+    setHistory(nextHistory);
+
+    // Evaluate challenges through pure engine
+    const qualified = evaluateChallenges({
+      visitedParts,
+      history: nextHistory,
+    });
+    for (const qId of qualified) {
+      markPassed(qId);
     }
   };
 
@@ -222,7 +177,9 @@ export default function LabModulePage({ params }: PageProps) {
       totalCount={totalCount}
       modulePassedCount={modulePassedCount}
       moduleTotalCount={isModule01 ? 3 : 0}
-      simTopbarTitle={isModule01 ? 'JaneGram Mobile · v2.4' : `Module: ${moduleSlug}`}
+      simTopbarTitle={
+        isModule01 ? 'JaneGram Mobile · v2.4' : `Module: ${moduleSlug}`
+      }
       leftSimulator={
         isModule01 ? (
           <Module01Simulator mode={mode} onExecuteScenario={handleScenario} />
@@ -239,7 +196,7 @@ export default function LabModulePage({ params }: PageProps) {
       }
       theoryTab={
         isModule01 ? (
-          <Module01Theory />
+          <Module01Theory onSelectPart={handleSelectPart} />
         ) : (
           <div className="card">
             <div className="card-title">
