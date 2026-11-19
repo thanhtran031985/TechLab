@@ -1,0 +1,75 @@
+import type { Config } from 'tailwindcss';
+
+const config: Config = {
+  content: [
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/labs/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  darkMode: ['selector', '[data-theme="dark"]'],
+  theme: {
+    extend: {
+      colors: {
+        bg: 'var(--bg)',
+        surface: 'var(--surface)',
+        'surface-2': 'var(--surface-2)',
+        line: 'var(--line)',
+        'line-strong': 'var(--line-strong)',
+        ink: 'var(--ink)',
+        'ink-soft': 'var(--ink-soft)',
+        primary: 'var(--primary)',
+        'primary-hover': 'var(--primary-hover)',
+        'on-primary': 'var(--on-primary)',
+        'primary-soft': 'var(--primary-soft)',
+        focus: 'var(--focus)',
+        'nav-bg': 'var(--nav-bg)',
+        'nav-ink': 'var(--nav-ink)',
+        'nav-active': 'var(--nav-active)',
+        'nav-accent': 'var(--nav-accent)',
+        ok: 'var(--ok)',
+        'ok-soft': 'var(--ok-soft)',
+        crit: 'var(--crit)',
+        'crit-soft': 'var(--crit-soft)',
+        warn: 'var(--warn)',
+        'warn-soft': 'var(--warn-soft)',
+        purple: 'var(--purple)',
+        'purple-soft': 'var(--purple-soft)',
+        off: 'var(--off)',
+        'off-soft': 'var(--off-soft)',
+        info: 'var(--info)',
+        'info-soft': 'var(--info-soft)',
+        'code-bg': 'var(--code-bg)',
+        'code-ink': 'var(--code-ink)',
+      },
+      fontFamily: {
+        sans: ['var(--font-ui)'],
+        mono: ['var(--font-mono)'],
+      },
+      borderRadius: {
+        card: 'var(--radius-card)',
+        control: 'var(--radius-control)',
+        chip: 'var(--radius-chip)',
+        step: 'var(--radius-step)',
+      },
+      spacing: {
+        nav: 'var(--size-nav)',
+        'nav-collapsed': 'var(--size-nav-collapsed)',
+        header: 'var(--size-header)',
+        control: 'var(--size-control)',
+        'control-sm': 'var(--size-control-sm)',
+        commandbar: 'var(--size-commandbar)',
+        'detail-panel': 'var(--size-detail-panel)',
+        drawer: 'var(--size-drawer)',
+      },
+      boxShadow: {
+        card: 'var(--shadow-card)',
+        popover: 'var(--shadow-popover)',
+        drawer: 'var(--shadow-drawer)',
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;

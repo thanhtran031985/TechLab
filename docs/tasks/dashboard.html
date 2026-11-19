@@ -69,8 +69,8 @@ Trạng thái: 🔄
 | Bước | Nội dung | Trạng thái | Ngày | Commit |
 |---|---|---|---|---|
 | 1 | Khởi tạo Next.js + TypeScript + pnpm scripts + Zod env | ✅ | 19/11/2026 | `44ea544` |
-| 2 | Schema Drizzle + SQLite WAL + Migration | ✅ | 19/11/2026 | (chờ commit) |
-| 3 | Pipeline Tokens + AppShell khung + /api/health | ⬜ | | |
+| 2 | Schema Drizzle + SQLite WAL + Migration | ✅ | 19/11/2026 | `a8eab8b` |
+| 3 | Pipeline Tokens + AppShell khung + /api/health | ✅ | 19/11/2026 | (chờ commit) |
 | 4 | Pipeline Content-as-Code (courses:sync) | ⬜ | | |
 | 5 | Tasks Dashboard + Security Check + Playwright E2E Smoke | ⬜ | | |
 | 6 | Lint, Typecheck, CI &amp; Đối chiếu AGENTS.md | ⬜ | | |
@@ -106,6 +106,22 @@ Trạng thái: 🔄
   - `pnpm db:migrate`: Chạy 2 lần thành công (idempotent).
   - `pnpm test tests/integration/db-migrations.test.ts`: 4/4 test pass.
   - `pnpm typecheck`: Xanh.
+  - `pnpm tasks:dashboard`: Xanh.
+- **Suy ra gì:** Không có.
+- **Việc người dùng cần làm tay:** Không có.
+
+### Bước 3 (19/11/2026)
+- **Đã làm:**
+  - Viết `scripts/gen-tokens.ts` đọc `designs/tokens.json` để tự động sinh `designs/tokens.css` và `docs/DESIGN_SYSTEM.md`.
+  - Cấu hình `postcss.config.mjs`, `tailwind.config.ts`, và `src/app/globals.css` nạp tokens và ánh xạ các biến màu sắc, typography, spacing, radius sang Tailwind.
+  - Xây dựng component `&lt;AppShell&gt;` (`src/components/AppShell.tsx`) chuẩn Fluent Compact: Sidebar thu gọn linh hoạt (200px ↔ 48px), Header 44px 1 dòng có nút chuyển Sáng/Tối (`data-theme="dark"` lưu localStorage), vùng nội dung không cuộn toàn cục.
+  - Cập nhật `src/app/layout.tsx` và tạo `src/app/page.tsx` tổng quan (Header 1 dòng, 4 KPI cards compact, Command bar tìm kiếm/lọc, Bảng danh sách khóa học).
+  - Viết Route Handler `src/app/api/health/route.ts` kiểm tra `SELECT 1` và `PRAGMA journal_mode`, trả status 200 kèm `journalMode: "wal"`.
+  - Viết test TDD trước: `tests/unit/tokens.test.ts` và `tests/integration/api-health.test.ts`.
+- **Lệnh + kết quả:**
+  - `pnpm tokens:gen`: Sinh thành công `designs/tokens.css` và `docs/DESIGN_SYSTEM.md`.
+  - `pnpm test`: 9/9 tests pass (4 test files).
+  - `pnpm typecheck`: Xanh (0 lỗi).
   - `pnpm tasks:dashboard`: Xanh.
 - **Suy ra gì:** Không có.
 - **Việc người dùng cần làm tay:** Không có.
