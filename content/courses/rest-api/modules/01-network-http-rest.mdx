@@ -1,0 +1,134 @@
+# Module 01: Nền tảng Mạng, HTTP & REST
+
+Video nguồn: *REST API Design Like a Senior Engineer* (System Design Lab)  
+Thời lượng: `[00:00:00]` – `[00:19:34]`
+
+---
+
+## 1. Bản chất của API & Khả năng mở rộng hệ thống [00:00:07]
+
+> Một server có thể dễ dàng scale bằng cách nâng cấp CPU/RAM hoặc cắm thêm máy chủ sau Load Balancer. Nhưng một API thiết kế kém thì không thể scale dễ dàng như vậy: một khi hàng triệu ứng dụng di động cũ đã ra thị trường và gọi theo định dạng dữ liệu (data shape) ban đầu, bạn buộc phải duy trì nó suốt nhiều năm mà không được làm gãy hệ thống (Breaking Change).
+
+### API Contract giữa Client và Server [00:02:42]
+API là một bản hợp đồng kỹ thuật nghiêm ngặt (Contract) giữa Client (ứng dụng di động JaneGram, Web Frontend) và Server (Backend Services):
+- Khi hợp đồng bị vi phạm (đổi tên trường, đổi kiểu dữ liệu, thay đổi HTTP status code), phía Client sẽ sập ngay lập tức hoặc hiển thị dữ liệu sai lệch.
+- Thiết kế API chuẩn Senior đòi hỏi tư duy hệ thống ngay từ ngày đầu tiên: URL rõ ràng, phương thức chuẩn tắc, bảo toàn dữ liệu trên đường truyền mạng và thiết kế không trạng thái (Stateless).
+
+---
+
+## 2. Giải phẫu cấu trúc URL & Tầng mạng [00:03:54]
+
+Một URL đầy đủ trong kiến trúc web bao gồm 6 thành phần cốt lõi:
+
+```text
+https://api.janegram.com:443/v1/posts/42/comments?sort=-created_at&limit=10#comments-section
+└─┬─┘   └──────┬──────┘  └┬┘ └──────────┬─────────┘ └────────────┬────────────┘ └──────┬──────────┘
+Scheme        Host      Port          Path                  Query String            Fragment
+```
+
+1. **Scheme (`https://`):** Giao thức truyền tải dữ liệu. HTTPS là HTTP chạy trên đường hầm mã hóa bảo mật TLS.
+2. **Host (`api.janegram.com`):** Tên miền định danh máy chủ đích cần giao tiếp.
+3. **Port (`:443` cho HTTPS, `:80` cho HTTP):** [00:06:17] *Địa chỉ IP giúp gói tin tìm đến đúng máy vật lý, còn Port giúp hệ điều hành chuyển gói tin vào đúng tiến trình (process) đang lắng nghe.*
+4. **Path (`/v1/posts/42/comments`):** Đường dẫn tài nguyên trên server, quyết định logic định tuyến (Server Routing).
+5. **Query String (`?sort=-created_at&limit=10`):** Các tham số tùy chọn dùng để lọc, sắp xếp hoặc phân trang. Mọi ký tự đặc biệt như khoảng trắng bắt buộc phải được mã hóa phần trăm (Percent-encoding, ví dụ `%20`).
+6. **Fragment (`#comments-section`):** Chỉ tồn tại và được xử lý ở phía Client (trình duyệt) để cuộn tới vị trí đánh dấu trong DOM. **Tuyệt đối không bao giờ được gửi lên Server** qua giao thức HTTP.
+
+### DNS & Bộ đệm TTL [00:05:27]
+Trước khi gửi bất kỳ gói tin nào, Client phải hỏi DNS Resolver để chuyển đổi Host name thành địa chỉ IP:
+- DNS Resolver lưu đệm địa chỉ IP theo thời gian sống (TTL - Time to Live).
+- Nếu cấu hình TTL quá dài, khi máy chủ gặp sự cố và đổi IP, Client vẫn tiếp tục gửi gói tin vào máy chủ cũ bị hỏng.
+
+---
+
+## 3. Tầng giao vận: TCP, UDP & HTTP/3 trên QUIC
+
+### TCP 3-Way Handshake & Giới hạn cốt lõi [00:06:58]
+Giao vận HTTP/1.1 và HTTP/2 hoạt động trên nền tảng TCP:
+1. **SYN:** Client gửi yêu cầu bắt tay đồng bộ hóa.
+2. **SYN-ACK:** Server phản hồi xác nhận và gửi cờ đồng bộ.
+3. **ACK:** Client xác nhận đã nhận được phản hồi. Kết nối được thiết lập.
+
+TCP đảm bảo:
+- Mọi byte dữ liệu đều được đánh số thứ tự (Sequence Number).
+- Tự động truyền lại (Retry with exponential backoff) nếu bị rơi gói tin trên đường truyền.
+- **Giới hạn quan trọng:** TCP chỉ đảm bảo toàn vẹn byte từ Card mạng bên gửi đến Card mạng bên nhận. TCP **hoàn toàn không đảm bảo** logic ứng dụng bên trong Server đã ghi dữ liệu vào Database thành công!
+
+### UDP vs TCP và HTTP/3 trên QUIC [00:09:39]
+- TCP chịu rủi ro Head-of-Line Blocking: nếu 1 gói tin bị rơi, toàn bộ các gói tin phía sau bị nghẽn lại cho đến khi gói tin đó được truyền lại thành công.
+- HTTP/3 sử dụng giao thức **QUIC** (chạy trên nền UDP): cho phép nhiều luồng stream độc lập. Khi sóng mạng di động 4G/5G chập chờn, chỉ luồng bị rơi gói tin bị chậm lại, các tài nguyên khác vẫn tiếp tục tải bình thường.
+
+---
+
+## 4. An ninh tầng truyền dẫn: HTTP vs HTTPS [00:10:56]
+
+Trên mạng Wi-Fi công cộng (quán cà phê, sân bay), kẻ tấn công cùng mạng cục bộ có thể sử dụng công cụ bắt gói tin (Packet Sniffer) để đọc toàn bộ dữ liệu truyền qua:
+- **HTTP thuần:** Gửi văn bản rõ (Plaintext). Mọi header xác thực (`Authorization: Bearer <token>`), thông tin mật khẩu, nội dung tin nhắn bị lộ hoàn toàn.
+- **HTTPS (HTTP over TLS):**
+  1. Mã hóa bất đối xứng (Asymmetric Encryption) bằng cặp khóa công khai/khóa bí mật để trao đổi khóa phiên an toàn.
+  2. Xác thực danh tính của Server thông qua chứng chỉ số (TLS Certificate) do CA uy tín cấp, ngăn chặn tấn công giả mạo Man-in-the-Middle (MitM).
+  3. Mã hóa đối xứng (Symmetric Encryption như AES-GCM, ChaCha20) với khóa phiên để bảo mật 100% nội dung gói tin với tốc độ cao.
+
+---
+
+## 5. Cấu trúc HTTP Request, Response & Server Routing [00:11:48]
+
+Mỗi chu kỳ trao đổi REST API bao gồm 4 phần tiêu chuẩn:
+
+### HTTP Request
+1. **Request Line:** Method + Path + Giao thức (`PUT /v1/posts/42/likes HTTP/1.1`)
+2. **Request Headers:** Metadata (`Host`, `Authorization`, `Content-Type`, `Idempotency-Key`)
+3. **Dòng trống (CRLF):** Phân tách giữa Header và Payload
+4. **Request Body:** Dữ liệu JSON hoặc nhị phân (nếu có)
+
+### HTTP Response
+1. **Status Line:** Giao thức + Mã trạng thái (`HTTP/1.1 204 No Content` hoặc `HTTP/1.1 200 OK`)
+2. **Response Headers:** Metadata phản hồi (`Content-Type`, `ETag`, `Date`, `Strict-Transport-Security`)
+3. **Dòng trống (CRLF)**
+4. **Response Body:** Payload trả lời (hoặc rỗng nếu trả mã `204`)
+
+---
+
+## 6. Định dạng JSON thực chiến & Cạm bẫy BigInt [00:14:49]
+
+JSON là chuẩn trao đổi dữ liệu phổ biến nhất trong REST API nhưng có 2 giới hạn kỹ thuật lớn:
+1. **Không có kiểu Date/DateTime bản địa:** Phải biểu diễn ngày giờ dưới dạng chuỗi chuẩn ISO 8601 UTC (ví dụ: `"2026-11-19T13:45:00Z"`), không dùng chuỗi địa phương không có múi giờ.
+2. **Cạm bẫy mất độ chính xác số nguyên 64-bit (BigInt Trap):**
+   - JavaScript và nhiều JSON parser dùng định dạng số thực dấu phẩy động 64-bit IEEE 754. Số nguyên an toàn tối đa là `Number.MAX_SAFE_INTEGER = 2^53 - 1 = 9,007,199,254,740,991`.
+   - Khi ID giao dịch tài chính hoặc ID Twitter/Snowflake vượt qua giá trị này (ví dụ: `9007199254740993`), JSON parser sẽ tự động làm tròn thành `9007199254740992`!
+   - **Chuẩn Senior:** Mọi ID số nguyên lớn (> 2^53 - 1) bắt buộc phải được tuần tự hóa (serialize) dưới dạng **String** (`"9007199254740993"`) trong payload JSON.
+
+---
+
+## 7. Kiến trúc không trạng thái (Stateless) sau Load Balancer [00:15:57]
+
+Trong hệ thống thực tế phục vụ hàng triệu người dùng, các máy chủ Web API luôn nằm phía sau một bộ cân bằng tải (Load Balancer - Nginx, AWS ALB, Cloudflare):
+- **Sai lầm Junior (Stateful):** Lưu trữ phiên làm việc (Session), giỏ hàng hoặc bộ đệm trực tiếp trong RAM của một tiến trình server cụ thể. Khi request tiếp theo của user bị đẩy sang server khác, hệ thống báo lỗi chưa đăng nhập!
+- **Chuẩn Senior (Stateless):** Mỗi HTTP Request phải mang đầy đủ ngữ cảnh cần thiết để tự nó được xác thực độc lập (qua JWT có chữ ký số hoặc Session ID tra cứu từ Redis tập trung). Bất kỳ máy chủ worker nào nhận request đều có thể xử lý chính xác mà không cần biết request trước đó chạy ở đâu.
+
+---
+
+## 8. Bốn thói quen vàng của REST & Richardson Maturity Model [00:16:35]
+
+REST (Representational State Transfer) được phát minh bởi Roy Fielding. Thiết kế chuẩn Senior tuân thủ 4 thói quen vàng:
+1. **Resource-Oriented URLs:** URL là danh từ định danh tài nguyên (`/posts`, `/users`), không dùng động từ làm URL (`/getUsers`, `/likeIt`).
+2. **Uniform Interface (HTTP Verbs):** Sử dụng đúng ngữ nghĩa động từ chuẩn của HTTP (`GET` để đọc an toàn, `PUT` để ghi đè mang tính Idempotent, `POST` để tạo mới, `DELETE` để xóa).
+3. **Stateless Communication:** Không lưu trạng thái client trên bộ nhớ tạm của server API.
+4. **Representations & Metadata:** Dữ liệu trả về phân tách rõ ràng giữa định dạng dữ liệu (JSON, Protobuf) và giao thức truyền tải, tận dụng tối đa HTTP Status Codes và HTTP Headers (`ETag`, `Cache-Control`).
+
+### Mô hình trưởng thành Richardson (Richardson Maturity Model):
+- **Level 0 (The Swamp of POX):** Dùng duy nhất 1 endpoint (ví dụ: `POST /api`) truyền lệnh RPC qua HTTP.
+- **Level 1 (Resources):** Phân tách thành nhiều URL tài nguyên (`/posts`, `/users`).
+- **Level 2 (HTTP Verbs):** Sử dụng chuẩn xác các động từ HTTP (`GET`, `POST`, `PUT`, `DELETE`) và mã trạng thái (`200`, `201`, `204`, `400`, `404`). *Đây là chuẩn mực công nghiệp đa số các API Senior hiện nay đạt được.*
+- **Level 3 (Hypermedia Controls / HATEOAS):** Trong payload trả về có kèm link điều hướng tự khám phá hành động tiếp theo.
+
+---
+
+## 9. Bảng đối chiếu thực chiến: Junior vs Senior
+
+| Tiêu chí | Junior (First-Try) | Senior (Chuẩn Hệ Thống) |
+|---|---|---|
+| **Giao thức mạng** | Dùng HTTP thường, không mã hóa TLS trên Wi-Fi | Bắt buộc HTTPS (TLS 1.3), bật HSTS (`Strict-Transport-Security`) |
+| **Đặt tên URL** | Đặt động từ trong URL: `GET /likeIt?post=42` | Đặt danh từ tài nguyên: `PUT /v1/posts/42/likes` |
+| **Tính Idempotent** | Dùng GET để sửa DB hoặc dùng POST không kiểm soát | Dùng PUT mang tính Idempotent: gọi 10 lần kết quả vẫn là 1 lượt thích |
+| **Xử lý số nguyên 64-bit** | Giữ nguyên kiểu Number trong JSON làm lệch ID | Bọc String `"id": "9007199254740993"` bảo toàn 100% độ chính xác |
+| **Trạng thái Server** | Lưu session trong RAM cục bộ tiến trình | Thiết kế hoàn toàn Stateless, xác thực bằng Token độc lập |

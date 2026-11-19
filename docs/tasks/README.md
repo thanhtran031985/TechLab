@@ -6,3 +6,4 @@ Trạng thái: ⬜ chưa làm · 🔄 đang làm · ❓ có code chưa rà soát
 | --- | --------------------------------------------------------------------------------------------------------- | --------- | ---------- | --------- | -------------------- |
 | 00  | [00-repo-setup](00-repo-setup/task.md) — Khung repo Next.js + TypeScript + SQLite (Drizzle) + Tokens + CI | GĐ0       | ✅         | —         | `feat/00-repo-setup` |
 | 01  | [01-app-lab-shell](01-app-lab-shell/task.md) — Dựng khung Dark Studio 3 cột (`<LabShell>`), Trang chủ `/` & Ghép nối điều hướng | GĐ0       | ✅         | 00        | `feat/01-app-lab-shell` |
+| 02  | [02-rest-m01-network](02-rest-m01-network/task.md) — Module 01 — Nền tảng Mạng, HTTP & REST                                      | GĐ1       | 🔄         | 01        | `feat/02-rest-m01-network` |
