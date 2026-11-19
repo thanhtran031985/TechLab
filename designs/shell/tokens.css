@@ -1,0 +1,41 @@
+/* SINH TỪ designs/tokens.json — KHÔNG SỬA TAY */
+:root {
+  --font-ui: "Segoe UI", "Inter", system-ui, -apple-system, Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", "Cascadia Mono", Consolas, ui-monospace, monospace;
+  --bg: #020617;
+  --surface: #0b1120;
+  --surface-2: #0f172a;
+  --surface-3: #1e293b;
+  --line: #1e293b;
+  --line-strong: #334155;
+  --ink: #f1f5f9;
+  --ink-soft: #94a3b8;
+  --ink-muted: #64748b;
+  --primary: #10b981;
+  --primary-hover: #059669;
+  --primary-soft: rgba(16, 185, 129, 0.14);
+  --accent-teal: #14b8a6;
+  --junior: #f59e0b;
+  --junior-ink: #020617;
+  --junior-soft: rgba(245, 158, 11, 0.16);
+  --senior: #10b981;
+  --senior-ink: #020617;
+  --senior-soft: rgba(16, 185, 129, 0.16);
+  --info: #38bdf8;
+  --info-soft: rgba(56, 189, 248, 0.14);
+  --purple: #c084fc;
+  --purple-soft: rgba(192, 132, 252, 0.15);
+  --pink: #f472b6;
+  --pink-soft: rgba(244, 114, 182, 0.15);
+  --crit: #fb7185;
+  --crit-soft: rgba(244, 63, 94, 0.16);
+  --code-bg: #060b16;
+  --code-ink: #e2e8f0;
+  --header-h: 56px;
+  --sidebar-w: 248px;
+  --sim-min-w: 360px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+}

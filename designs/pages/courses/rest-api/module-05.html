@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 05: An toàn Ghi & Độ tin cậy — TechLab (Senior API Lab)</title>
+  <link rel="stylesheet" href="../../../shell/tokens.css" />
+  <link rel="stylesheet" href="../../../shell/shell.css" />
+</head>
+<body>
+  <header class="lab-header">
+    <a class="brand-wrap" href="../../home.html" title="Quay về danh sách khóa học">
+      <div class="brand-logo"><svg class="ico" style="width:20px;height:20px;" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+      <div>
+        <div class="brand-title">Senior API Lab</div>
+        <div class="brand-sub">TechLab · REST API Design (10 Modules)</div>
+      </div>
+    </a>
+
+    <div class="progress-pill">
+      <span class="progress-label">Tiến độ nhiệm vụ:</span>
+      <div class="progress-track"><div class="progress-fill" id="tl-progress-fill"></div></div>
+      <span class="progress-count" id="tl-progress-count">0/30</span>
+    </div>
+
+    <div class="mode-switch" role="group" aria-label="Chế độ Junior hoặc Senior">
+      <button class="mode-btn active-junior" id="btn-mode-junior"><svg class="ico" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>Junior (First-Try)</span></button>
+      <button class="mode-btn" id="btn-mode-senior"><svg class="ico" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><span>Senior (Chuẩn Hệ Thống)</span></button>
+    </div>
+
+    <div class="header-right">
+      <button class="btn" id="btn-open-cheatsheet"><svg class="ico" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg><span>Cheat Sheet</span></button>
+    </div>
+  </header>
+
+  <div class="lab-workspace">
+    <!-- CỘT 1: DANH SÁCH 10 MODULE -->
+    <aside class="module-sidebar" aria-label="Danh sách bài học">
+      <div class="sidebar-head">
+        <span>Danh sách bài học (10 Modules)</span>
+        <a href="../../home.html" style="color:var(--info);text-decoration:none;font-size:11px;">Khóa học</a>
+      </div>
+      <nav class="module-list">
+        <a class="module-item" href="module-01.html"><span class="module-num">1</span><div class="module-meta"><div class="module-name">HTTP, REST & Mạng</div><div class="module-desc">DNS, TCP, TLS & 4 thói quen vàng</div></div></a>
+<a class="module-item" href="module-02.html"><span class="module-num">2</span><div class="module-meta"><div class="module-name">Resource & Cấu trúc URL</div><div class="module-desc">Danh từ, Entity/Attribute & Nested</div></div></a>
+<a class="module-item" href="module-03.html"><span class="module-num">3</span><div class="module-meta"><div class="module-name">Methods, Idempotency & Cache</div><div class="module-desc">PUT vs POST, ETag 304, Signed URL</div></div></a>
+<a class="module-item" href="module-04.html"><span class="module-num">4</span><div class="module-meta"><div class="module-name">Read, Lỗi & Phân trang</div><div class="module-desc">N+1, RFC 9457, Offset vs Cursor</div></div></a>
+<a class="module-item active" href="module-05.html"><span class="module-num">5</span><div class="module-meta"><div class="module-name">An toàn Ghi & Độ tin cậy</div><div class="module-desc">Idempotency-Key, If-Match, Webhook</div></div></a>
+<a class="module-item" href="module-06.html"><span class="module-num">6</span><div class="module-meta"><div class="module-name">Kiến trúc 3 tầng & Versioning</div><div class="module-desc">SQL Join, Expand-Contract, v1/v2</div></div></a>
+<a class="module-item" href="module-07.html"><span class="module-num">7</span><div class="module-meta"><div class="module-name">Xác thực & Phân quyền</div><div class="module-desc">401/403, JWT, OAuth+PKCE, RBAC</div></div></a>
+<a class="module-item" href="module-08.html"><span class="module-num">8</span><div class="module-meta"><div class="module-name">Bảo mật API (Red-Team)</div><div class="module-desc">BOLA, Mass Assignment, Rate Limit</div></div></a>
+<a class="module-item" href="module-09.html"><span class="module-num">9</span><div class="module-meta"><div class="module-name">Tài liệu & OpenAPI</div><div class="module-desc">OpenAPI 3.1, Schemas, Diff & Linter</div></div></a>
+<a class="module-item" href="module-10.html"><span class="module-num">10</span><div class="module-meta"><div class="module-name">GraphQL & gRPC</div><div class="module-desc">Overfetching, DataLoader, Protobuf</div></div></a>
+      </nav>
+    </aside>
+
+    <!-- CỘT 2: KHU VỰC MÔ PHỎNG TƯƠNG TÁC (SLOT_SIMULATOR) -->
+    <section class="sim-column" aria-label="Mô phỏng tương tác">
+      <div class="sim-topbar">
+        <strong style="font-size:13px;">Chaos Network & Concurrency Lab</strong>
+        <span class="chip chip-junior" data-mode-badge>Junior (First-Try)</span>
+      </div>
+      <div class="sim-scroll">
+        
+      <div class="card">
+        <div class="scenario-title">Trạng thái bài viết trên Server</div>
+        <div id="m5-state" class="mono" style="font-size:12px;display:flex;flex-direction:column;gap:4px;">
+          <div>Feed posts: [Post #44]</div>
+          <div>Post #43 ETag: "abc" | caption: "Old" | loc: "HCM"</div>
+        </div>
+      </div>
+      <div class="scenario-box">
+        <div class="scenario-title">Kịch bản thực hành Module 05</div>
+        <button class="btn btn-warn scenario-btn" id="m5-sc-1">1. Đăng bài trong hầm tối (Server đã lưu nhưng rớt mạng → Retry)</button>
+        <button class="btn btn-primary scenario-btn" id="m5-sc-2">2. Phone &amp; Laptop cùng sửa Post #43 (Lost Update vs If-Match)</button>
+        <button class="btn scenario-btn" id="m5-sc-3">3. Bắn lặp Webhook cũ (Kiểm tra chữ ký HMAC + Event ID)</button>
+      </div>
+    
+      </div>
+    </section>
+
+    <!-- CỘT 3: KHU VỰC HỌC & SOI 3 TAB (SLOT_WORKBENCH) -->
+    <section class="workbench-column" aria-label="Lý thuyết, Live Inspector và Nhiệm vụ">
+      <div class="wb-tabs" role="tablist">
+        <button class="wb-tab active" data-tab="theory" role="tab">1. Kiến Thức Cốt Lõi</button>
+        <button class="wb-tab" data-tab="inspector" role="tab">2. Live HTTP Inspector</button>
+        <button class="wb-tab" data-tab="challenges" role="tab">3. Nhiệm Vụ <span class="tab-badge" id="tl-tab-challenge-count">0/3</span></button>
+      </div>
+
+      <!-- TAB 1: LÝ THUYẾT -->
+      <div class="wb-pane active" data-pane="theory">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+          <h2 style="margin:0;font-size:16px;">Module 05: An toàn Ghi & Độ tin cậy</h2>
+          <span class="ts-badge">Video [01:12:55] – [01:20:29]</span>
+        </div>
+        
+      <div class="card">
+        <h3 class="card-title"><span>3 Cơ chế bảo vệ thao tác Ghi</span><span class="ts-badge">[01:13:50] – [01:19:53]</span></h3>
+        <table class="data-table">
+          <thead><tr><th>Rủi ro</th><th>Giải pháp Senior</th><th>Chi tiết kỹ thuật</th></tr></thead>
+          <tbody>
+            <tr><td>Retry POST khi rớt phản hồi</td><td class="mono">Idempotency-Key</td><td>Lưu sổ cái (caller, key, payload_hash, response) có TTL 24h. Trùng key đang chạy → 409 Conflict.</td></tr>
+            <tr><td>2 thiết bị ghi đè nhau (Lost Update)</td><td class="mono">If-Match: "etag"</td><td>ETag không khớp trả 412 Precondition Failed; nếu bắt buộc gửi mà thiếu trả 428.</td></tr>
+            <tr><td>Webhook giả mạo hoặc giao 2 lần</td><td>HMAC + Timestamp + Event ID</td><td>Ký hash(body + timestamp), bỏ qua event_id đã xử lý, trả 2xx ngay rồi xử lý nền.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    
+      </div>
+
+      <!-- TAB 2: LIVE HTTP INSPECTOR & MẠNG -->
+      <div class="wb-pane" data-pane="inspector" aria-live="polite">
+        <div class="scenario-title">Hành trình gói tin &amp; tầng xử lý (5 chặng)</div>
+        <div class="hops-bar" id="tl-hops">
+          <div class="hop-node">1. Client</div>
+          <div class="hop-node">2. DNS/TLS</div>
+          <div class="hop-node">3. Gateway</div>
+          <div class="hop-node">4. Service</div>
+          <div class="hop-node">5. Database</div>
+        </div>
+        <div id="tl-analysis" class="analysis-box">Bấm một nút kịch bản ở cột giữa để quan sát gói tin và so sánh chế độ Junior vs Senior.</div>
+        <div>
+          <div class="scenario-title" style="margin-bottom:4px;">Raw HTTP Request</div>
+          <pre class="code-block" id="tl-raw-req">(Chưa có request nào được gửi)</pre>
+        </div>
+        <div>
+          <div class="scenario-title" style="margin-bottom:4px;">Raw HTTP Response</div>
+          <pre class="code-block" id="tl-raw-res">(Chờ phản hồi từ server mô phỏng...)</pre>
+        </div>
+      </div>
+
+      <!-- TAB 3: NHIỆM VỤ THỰC HÀNH -->
+      <div class="wb-pane" data-pane="challenges" aria-live="polite">
+        <div class="muted">Thực hiện các thao tác trên khu vực mô phỏng bên trái để hệ thống tự động chấm điểm:</div>
+        
+        <div class="challenge-card" data-challenge-id="m05-c1">
+          <div class="challenge-top">
+            <strong>Chống tạo bài trùng bằng Idempotency-Key</strong>
+            <span class="chip chip-info" data-challenge-status>Chưa đạt</span>
+          </div>
+          <div class="muted" style="font-size:12px;">Chạy kịch bản 1 ở Junior (tạo 2 bài #45, #46) rồi chuyển Senior (trả lại đúng #45 từ sổ cái).</div>
+        </div>
+
+        <div class="challenge-card" data-challenge-id="m05-c2">
+          <div class="challenge-top">
+            <strong>Chặn Lost Update bằng Optimistic Locking</strong>
+            <span class="chip chip-info" data-challenge-status>Chưa đạt</span>
+          </div>
+          <div class="muted" style="font-size:12px;">Chạy kịch bản 2 ở Senior Mode để kích hoạt 412 Precondition Failed.</div>
+        </div>
+
+        <div class="challenge-card" data-challenge-id="m05-c3">
+          <div class="challenge-top">
+            <strong>Xác thực chữ ký & chống lặp Webhook</strong>
+            <span class="chip chip-info" data-challenge-status>Chưa đạt</span>
+          </div>
+          <div class="muted" style="font-size:12px;">Chạy kịch bản 3 ở Senior Mode để từ chối event lặp an toàn.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  
+<div class="modal-backdrop" id="tl-cheatsheet-modal" role="dialog" aria-modal="true" aria-label="API Cheat Sheet">
+  <div class="modal-dialog">
+    <div class="modal-head">
+      <strong style="font-size:15px;">API Cheat Sheet — Tra cứu nhanh chuẩn Senior</strong>
+      <button class="btn btn-sm" id="btn-close-cheatsheet">Đóng (Esc)</button>
+    </div>
+    <div class="modal-body">
+      <div>
+        <div class="scenario-title" style="margin-bottom:6px;">HTTP Methods &amp; Thuộc tính</div>
+        <table class="data-table">
+          <thead><tr><th>Method</th><th>Safe</th><th>Idempotent</th><th>Body</th><th>Vai trò</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">GET</td><td>Có</td><td>Có</td><td>Không</td><td>Đọc tài nguyên</td></tr>
+            <tr><td class="mono">POST</td><td>Không</td><td>Không</td><td>Có</td><td>Tạo mới (dùng Idempotency-Key khi retry)</td></tr>
+            <tr><td class="mono">PUT</td><td>Không</td><td>Có</td><td>Có</td><td>Thay thế toàn bộ / đặt trạng thái (như Like)</td></tr>
+            <tr><td class="mono">PATCH</td><td>Không</td><td>Tùy</td><td>Có</td><td>Cập nhật một phần trường</td></tr>
+            <tr><td class="mono">DELETE</td><td>Không</td><td>Có</td><td>Không</td><td>Xóa tài nguyên (trả 204)</td></tr>
+            <tr><td class="mono">QUERY</td><td>Có</td><td>Có</td><td>Có</td><td>Tìm kiếm phức tạp có body (RFC 10008)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="scenario-title" style="margin-bottom:6px;">Mã trạng thái &amp; Kiến trúc cốt lõi</div>
+        <table class="data-table">
+          <thead><tr><th>Nhóm / Giao thức</th><th>Ghi nhớ nhanh</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">200 / 201 / 202 / 204</td><td>OK / Created (+Location) / Accepted (+Job URL) / No Content</td></tr>
+            <tr><td class="mono">301, 308 / 304</td><td>Redirect vĩnh viễn (308 giữ method) / Not Modified (ETag cache)</td></tr>
+            <tr><td class="mono">401 / 403 / 404 / 409 / 412 / 422 / 429</td><td>Chưa login / Cấm / Không thấy / Xung đột / Sai If-Match / Sai rule / Vượt Rate Limit</td></tr>
+            <tr><td class="mono">REST · GraphQL · gRPC</td><td>REST cho Public + Cache · GraphQL cho đa thiết bị · gRPC cho nội bộ nhanh + Deadline</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="../../../shell/shell.js"></script>
+  <script>
+    (function() {
+      
+      document.getElementById("m5-sc-1").onclick = function() {
+        var s = window.TechLab.mode === "senior";
+        document.getElementById("m5-state").innerHTML = s
+          ? '<div style="color:var(--senior);">Feed posts: [Post #44, Post #45] (1 bài duy nhất)</div><div>Ledger: key=K-7F3 -> saved 201</div>'
+          : '<div style="color:var(--crit);">Feed posts: [Post #44, Post #45, Post #46 (TRÙNG LẶP!)]</div>';
+        window.TechLab.updateInspector({
+          req: s ? "POST /v1/posts (Retry lần 2)\nIdempotency-Key: K-7F3\n{\"caption\": \"Hello Tunnel\"}" : "POST /v1/posts (Retry lần 2 — không có Idempotency-Key)\n{\"caption\": \"Hello Tunnel\"}",
+          res: s ? "HTTP/2 201 Created (Replayed from Ledger)\n{\"id\": \"45\"}" : "HTTP/1.1 201 Created (Tạo mới bản ghi thứ 2!)\n{\"id\": \"46\"}",
+          analysis: s ? "Chuẩn Senior: Server tìm thấy khóa K-7F3 trong sổ cái và trả lại kết quả Post #45 mà không ghi đè hay tạo thêm." : "Lỗi Junior: TCP không cho client biết server đã lưu xong trước khi rớt mạng nên retry tạo 2 bài y hệt.",
+          tone: s ? "ok" : "crit"
+        });
+        if (s) window.TechLab.markChallengePassed("m05-c1");
+      };
+      document.getElementById("m5-sc-2").onclick = function() {
+        var s = window.TechLab.mode === "senior";
+        window.TechLab.updateInspector({
+          req: s ? "PATCH /v1/posts/43 (Từ Laptop đang giữ bản cũ)\nIf-Match: \"abc\"\n{\"location\": \"Da Nang\"}" : "PATCH /v1/posts/43 (Từ Laptop — không gửi If-Match)\n{\"caption\": \"Old\", \"location\": \"Da Nang\"}",
+          res: s ? "HTTP/2 412 Precondition Failed\n{\"detail\": \"Post đã được cập nhật lên phiên bản def trên thiết bị khác\"}" : "HTTP/1.1 200 OK (Âm thầm ghi đè mất caption mới của Phone!)",
+          analysis: s ? "Chuẩn Senior: Server so sánh If-Match abc != def nên từ chối với 412 để Laptop tải bản mới rồi gộp an toàn." : "Lỗi Junior: Xảy ra Lost Update — thay đổi trước đó từ điện thoại bị xóa sạch không một cảnh báo.",
+          tone: s ? "ok" : "crit", errorHop: s ? 4 : 0
+        });
+        if (s) window.TechLab.markChallengePassed("m05-c2");
+      };
+      document.getElementById("m5-sc-3").onclick = function() {
+        var s = window.TechLab.mode === "senior";
+        window.TechLab.updateInspector({
+          req: "POST /webhooks/video-done\nX-Signature-256: sha256=89fa...\nX-Timestamp: 1731990000\n{\"event_id\": \"evt_901\", \"post_id\": \"44\"}",
+          res: s ? "HTTP/2 200 OK\n{\"status\": \"duplicate_ignored\", \"event_id\": \"evt_901\"}" : "HTTP/1.1 200 OK (Gửi trùng thông báo 2 lần cho người dùng!)",
+          analysis: s ? "Chuẩn Senior: Xác minh chữ ký HMAC + kiểm tra timestamp chống replay + bỏ qua event_id đã xử lý." : "Lỗi Junior: Không lưu event_id đã nhận nên mỗi lần hệ thống retry webhook đều xử lý lặp lại.",
+          tone: s ? "ok" : "warn"
+        });
+        if (s) window.TechLab.markChallengePassed("m05-c3");
+      };
+    
+    })();
+  </script>
+</body>
+</html>

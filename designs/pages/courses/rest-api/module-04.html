@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 04: Read, Lỗi & Phân trang — TechLab (Senior API Lab)</title>
+  <link rel="stylesheet" href="../../../shell/tokens.css" />
+  <link rel="stylesheet" href="../../../shell/shell.css" />
+</head>
+<body>
+  <header class="lab-header">
+    <a class="brand-wrap" href="../../home.html" title="Quay về danh sách khóa học">
+      <div class="brand-logo"><svg class="ico" style="width:20px;height:20px;" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+      <div>
+        <div class="brand-title">Senior API Lab</div>
+        <div class="brand-sub">TechLab · REST API Design (10 Modules)</div>
+      </div>
+    </a>
+
+    <div class="progress-pill">
+      <span class="progress-label">Tiến độ nhiệm vụ:</span>
+      <div class="progress-track"><div class="progress-fill" id="tl-progress-fill"></div></div>
+      <span class="progress-count" id="tl-progress-count">0/30</span>
+    </div>
+
+    <div class="mode-switch" role="group" aria-label="Chế độ Junior hoặc Senior">
+      <button class="mode-btn active-junior" id="btn-mode-junior"><svg class="ico" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>Junior (First-Try)</span></button>
+      <button class="mode-btn" id="btn-mode-senior"><svg class="ico" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><span>Senior (Chuẩn Hệ Thống)</span></button>
+    </div>
+
+    <div class="header-right">
+      <button class="btn" id="btn-open-cheatsheet"><svg class="ico" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg><span>Cheat Sheet</span></button>
+    </div>
+  </header>
+
+  <div class="lab-workspace">
+    <!-- CỘT 1: DANH SÁCH 10 MODULE -->
+    <aside class="module-sidebar" aria-label="Danh sách bài học">
+      <div class="sidebar-head">
+        <span>Danh sách bài học (10 Modules)</span>
+        <a href="../../home.html" style="color:var(--info);text-decoration:none;font-size:11px;">Khóa học</a>
+      </div>
+      <nav class="module-list">
+        <a class="module-item" href="module-01.html"><span class="module-num">1</span><div class="module-meta"><div class="module-name">HTTP, REST & Mạng</div><div class="module-desc">DNS, TCP, TLS & 4 thói quen vàng</div></div></a>
+<a class="module-item" href="module-02.html"><span class="module-num">2</span><div class="module-meta"><div class="module-name">Resource & Cấu trúc URL</div><div class="module-desc">Danh từ, Entity/Attribute & Nested</div></div></a>
+<a class="module-item" href="module-03.html"><span class="module-num">3</span><div class="module-meta"><div class="module-name">Methods, Idempotency & Cache</div><div class="module-desc">PUT vs POST, ETag 304, Signed URL</div></div></a>
+<a class="module-item active" href="module-04.html"><span class="module-num">4</span><div class="module-meta"><div class="module-name">Read, Lỗi & Phân trang</div><div class="module-desc">N+1, RFC 9457, Offset vs Cursor</div></div></a>
+<a class="module-item" href="module-05.html"><span class="module-num">5</span><div class="module-meta"><div class="module-name">An toàn Ghi & Độ tin cậy</div><div class="module-desc">Idempotency-Key, If-Match, Webhook</div></div></a>
+<a class="module-item" href="module-06.html"><span class="module-num">6</span><div class="module-meta"><div class="module-name">Kiến trúc 3 tầng & Versioning</div><div class="module-desc">SQL Join, Expand-Contract, v1/v2</div></div></a>
+<a class="module-item" href="module-07.html"><span class="module-num">7</span><div class="module-meta"><div class="module-name">Xác thực & Phân quyền</div><div class="module-desc">401/403, JWT, OAuth+PKCE, RBAC</div></div></a>
+<a class="module-item" href="module-08.html"><span class="module-num">8</span><div class="module-meta"><div class="module-name">Bảo mật API (Red-Team)</div><div class="module-desc">BOLA, Mass Assignment, Rate Limit</div></div></a>
+<a class="module-item" href="module-09.html"><span class="module-num">9</span><div class="module-meta"><div class="module-name">Tài liệu & OpenAPI</div><div class="module-desc">OpenAPI 3.1, Schemas, Diff & Linter</div></div></a>
+<a class="module-item" href="module-10.html"><span class="module-num">10</span><div class="module-meta"><div class="module-name">GraphQL & gRPC</div><div class="module-desc">Overfetching, DataLoader, Protobuf</div></div></a>
+      </nav>
+    </aside>
+
+    <!-- CỘT 2: KHU VỰC MÔ PHỎNG TƯƠNG TÁC (SLOT_SIMULATOR) -->
+    <section class="sim-column" aria-label="Mô phỏng tương tác">
+      <div class="sim-topbar">
+        <strong style="font-size:13px;">Live Feed Pagination Lab</strong>
+        <span class="chip chip-junior" data-mode-badge>Junior (First-Try)</span>
+      </div>
+      <div class="sim-scroll">
+        
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span class="scenario-title">Feed đang hiển thị (Trang 1 → Trang 2)</span>
+          <span class="chip chip-info" id="m4-feed-info">Trang 1</span>
+        </div>
+        <div id="m4-feed-list" style="display:flex;flex-direction:column;gap:6px;font-family:var(--font-mono);font-size:12px;">
+          <div class="analysis-box">#105 · Sunset Beach (10:05)</div>
+          <div class="analysis-box">#104 · Morning Espresso (10:04)</div>
+          <div class="analysis-box">#103 · City Lights (10:03)</div>
+        </div>
+      </div>
+      <div class="scenario-box">
+        <div class="scenario-title">Kịch bản thực hành Module 04</div>
+        <button class="btn btn-warn scenario-btn" id="m4-sc-insert">1. Giả lập có 2 bài mới (#107, #106) đăng lên đầu Feed</button>
+        <button class="btn btn-primary scenario-btn" id="m4-sc-page2">2. Tải Trang 2 (Offset vs Cursor)</button>
+        <button class="btn scenario-btn" id="m4-sc-n1">3. Tải 10 bài viết kèm tác giả (N+1 vs Screen-driven)</button>
+        <button class="btn scenario-btn" id="m4-sc-err">4. Gửi Caption quá 500 ký tự (Chuẩn lỗi RFC 9457)</button>
+      </div>
+    
+      </div>
+    </section>
+
+    <!-- CỘT 3: KHU VỰC HỌC & SOI 3 TAB (SLOT_WORKBENCH) -->
+    <section class="workbench-column" aria-label="Lý thuyết, Live Inspector và Nhiệm vụ">
+      <div class="wb-tabs" role="tablist">
+        <button class="wb-tab active" data-tab="theory" role="tab">1. Kiến Thức Cốt Lõi</button>
+        <button class="wb-tab" data-tab="inspector" role="tab">2. Live HTTP Inspector</button>
+        <button class="wb-tab" data-tab="challenges" role="tab">3. Nhiệm Vụ <span class="tab-badge" id="tl-tab-challenge-count">0/3</span></button>
+      </div>
+
+      <!-- TAB 1: LÝ THUYẾT -->
+      <div class="wb-pane active" data-pane="theory">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+          <h2 style="margin:0;font-size:16px;">Module 04: Read, Lỗi & Phân trang</h2>
+          <span class="ts-badge">Video [00:57:56] – [01:12:54]</span>
+        </div>
+        
+      <div class="card">
+        <h3 class="card-title"><span>So sánh 4 kiểu Phân trang & RFC 9457</span><span class="ts-badge">[01:02:46] – [01:12:19]</span></h3>
+        <table class="data-table">
+          <thead><tr><th>Kiểu phân trang</th><th>Ưu điểm</th><th>Nhược điểm / Khi nào dùng</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">Offset / Limit</td><td>Nhảy tới trang bất kỳ</td><td>Trùng bài khi có bài mới, chậm ở trang sâu (DB vẫn đọc bỏ dòng trước)</td></tr>
+            <tr><td class="mono">Page Number</td><td>Hiển thị nút 1, 2, 3...</td><td>Tốn COUNT(*) toàn bảng; chỉ dùng cho bảng Admin nhỏ ít thay đổi</td></tr>
+            <tr><td class="mono">Cursor / Keyset</td><td>Nhanh ở mọi độ sâu nhờ Index (created_at, id), không trùng bài</td><td>Không nhảy thẳng trang 50; chuẩn mực cho Live Feed vô hạn</td></tr>
+            <tr><td class="mono">since= / Sync Token</td><td>Bắt kịp thông báo mới</td><td>Cần cặp (time, id) do server cấp để tránh bỏ sót thông báo trùng giây</td></tr>
+          </tbody>
+        </table>
+      </div>
+    
+      </div>
+
+      <!-- TAB 2: LIVE HTTP INSPECTOR & MẠNG -->
+      <div class="wb-pane" data-pane="inspector" aria-live="polite">
+        <div class="scenario-title">Hành trình gói tin &amp; tầng xử lý (5 chặng)</div>
+        <div class="hops-bar" id="tl-hops">
+          <div class="hop-node">1. Client</div>
+          <div class="hop-node">2. DNS/TLS</div>
+          <div class="hop-node">3. Gateway</div>
+          <div class="hop-node">4. Service</div>
+          <div class="hop-node">5. Database</div>
+        </div>
+        <div id="tl-analysis" class="analysis-box">Bấm một nút kịch bản ở cột giữa để quan sát gói tin và so sánh chế độ Junior vs Senior.</div>
+        <div>
+          <div class="scenario-title" style="margin-bottom:4px;">Raw HTTP Request</div>
+          <pre class="code-block" id="tl-raw-req">(Chưa có request nào được gửi)</pre>
+        </div>
+        <div>
+          <div class="scenario-title" style="margin-bottom:4px;">Raw HTTP Response</div>
+          <pre class="code-block" id="tl-raw-res">(Chờ phản hồi từ server mô phỏng...)</pre>
+        </div>
+      </div>
+
+      <!-- TAB 3: NHIỆM VỤ THỰC HÀNH -->
+      <div class="wb-pane" data-pane="challenges" aria-live="polite">
+        <div class="muted">Thực hiện các thao tác trên khu vực mô phỏng bên trái để hệ thống tự động chấm điểm:</div>
+        
+        <div class="challenge-card" data-challenge-id="m04-c1">
+          <div class="challenge-top">
+            <strong>Chống trùng bài bằng Cursor Pagination</strong>
+            <span class="chip chip-info" data-challenge-status>Chưa đạt</span>
+          </div>
+          <div class="muted" style="font-size:12px;">Chèn 2 bài mới rồi tải Trang 2 ở Junior (thấy trùng #104, #103) và chuyển Senior (Cursor tải đúng #102, #101).</div>
+        </div>
+
+        <div class="challenge-card" data-challenge-id="m04-c2">
+          <div class="challenge-top">
+            <strong>Trị lỗi N+1 trên Client</strong>
+            <span class="chip chip-info" data-challenge-status>Chưa đạt</span>
+          </div>
+          <div class="muted" style="font-size:12px;">Chạy kịch bản 3 ở Senior Mode để gộp 21 request xuống còn 1 request /feed.</div>
+        </div>
+
+        <div class="challenge-card" data-challenge-id="m04-c3">
+          <div class="challenge-top">
+            <strong>Kiểm chứng chuẩn lỗi RFC 9457</strong>
+            <span class="chip chip-info" data-challenge-status>Chưa đạt</span>
+          </div>
+          <div class="muted" style="font-size:12px;">Chạy kịch bản 4 ở Senior Mode để xem Problem Details kèm errors[] và request_id.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  
+<div class="modal-backdrop" id="tl-cheatsheet-modal" role="dialog" aria-modal="true" aria-label="API Cheat Sheet">
+  <div class="modal-dialog">
+    <div class="modal-head">
+      <strong style="font-size:15px;">API Cheat Sheet — Tra cứu nhanh chuẩn Senior</strong>
+      <button class="btn btn-sm" id="btn-close-cheatsheet">Đóng (Esc)</button>
+    </div>
+    <div class="modal-body">
+      <div>
+        <div class="scenario-title" style="margin-bottom:6px;">HTTP Methods &amp; Thuộc tính</div>
+        <table class="data-table">
+          <thead><tr><th>Method</th><th>Safe</th><th>Idempotent</th><th>Body</th><th>Vai trò</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">GET</td><td>Có</td><td>Có</td><td>Không</td><td>Đọc tài nguyên</td></tr>
+            <tr><td class="mono">POST</td><td>Không</td><td>Không</td><td>Có</td><td>Tạo mới (dùng Idempotency-Key khi retry)</td></tr>
+            <tr><td class="mono">PUT</td><td>Không</td><td>Có</td><td>Có</td><td>Thay thế toàn bộ / đặt trạng thái (như Like)</td></tr>
+            <tr><td class="mono">PATCH</td><td>Không</td><td>Tùy</td><td>Có</td><td>Cập nhật một phần trường</td></tr>
+            <tr><td class="mono">DELETE</td><td>Không</td><td>Có</td><td>Không</td><td>Xóa tài nguyên (trả 204)</td></tr>
+            <tr><td class="mono">QUERY</td><td>Có</td><td>Có</td><td>Có</td><td>Tìm kiếm phức tạp có body (RFC 10008)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="scenario-title" style="margin-bottom:6px;">Mã trạng thái &amp; Kiến trúc cốt lõi</div>
+        <table class="data-table">
+          <thead><tr><th>Nhóm / Giao thức</th><th>Ghi nhớ nhanh</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">200 / 201 / 202 / 204</td><td>OK / Created (+Location) / Accepted (+Job URL) / No Content</td></tr>
+            <tr><td class="mono">301, 308 / 304</td><td>Redirect vĩnh viễn (308 giữ method) / Not Modified (ETag cache)</td></tr>
+            <tr><td class="mono">401 / 403 / 404 / 409 / 412 / 422 / 429</td><td>Chưa login / Cấm / Không thấy / Xung đột / Sai If-Match / Sai rule / Vượt Rate Limit</td></tr>
+            <tr><td class="mono">REST · GraphQL · gRPC</td><td>REST cho Public + Cache · GraphQL cho đa thiết bị · gRPC cho nội bộ nhanh + Deadline</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="../../../shell/shell.js"></script>
+  <script>
+    (function() {
+      
+      var newPostsInserted = false;
+      document.getElementById("m4-sc-insert").onclick = function() {
+        newPostsInserted = true;
+        document.getElementById("m4-feed-info").textContent = "Đã chèn +2 bài mới trên DB";
+        window.TechLab.updateInspector({
+          req: "(Sự kiện nền) User khác vừa đăng bài #107 và #106 lên đầu bảng posts",
+          res: "DB hiện tại: [#107, #106, #105, #104, #103, #102, #101, #100]",
+          analysis: "Đã chèn 2 bài mới lên đầu danh sách. Hãy bấm bước 2 (Tải Trang 2) để xem Offset bị dịch vị trí ra sao so với Cursor.",
+          tone: "warn", openInspector: false
+        });
+      };
+      document.getElementById("m4-sc-page2").onclick = function() {
+        var s = window.TechLab.mode === "senior";
+        var listEl = document.getElementById("m4-feed-list");
+        if (!s && newPostsInserted) {
+          listEl.innerHTML = '<div class="analysis-box">#105 · Sunset Beach</div><div class="analysis-box">#104 · Morning Espresso</div><div class="analysis-box">#103 · City Lights</div><div class="analysis-box crit">#104 · Morning Espresso (TRÙNG LẶP!)</div><div class="analysis-box crit">#103 · City Lights (TRÙNG LẶP!)</div><div class="analysis-box">#102 · Night Walk</div>';
+        } else {
+          listEl.innerHTML = '<div class="analysis-box">#105 · Sunset Beach</div><div class="analysis-box">#104 · Morning Espresso</div><div class="analysis-box">#103 · City Lights</div><div class="analysis-box ok">#102 · Night Walk</div><div class="analysis-box ok">#101 · Rainy Day</div><div class="analysis-box ok">#100 · First Post</div>';
+        }
+        window.TechLab.updateInspector({
+          req: s ? "GET /v1/feed?limit=3&cursor=eyJ0IjoxNzMxLCJpZCI6MTAzfQ HTTP/2" : "GET /v1/feed?limit=3&offset=3 HTTP/1.1",
+          res: s ? "HTTP/2 200 OK\n{\"data\": [#102, #101, #100], \"next_cursor\": \"eyJ...\", \"has_more\": true}" : "HTTP/1.1 200 OK\n{\"data\": [#104, #103, #102]  // Lặp lại #104, #103}",
+          analysis: s ? "Chuẩn Senior: Cursor neo theo cặp (created_at, id) của bài #103 nên bài mới ở trên không làm trôi trang." : "Lỗi Junior: Offset đếm vị trí (bỏ qua 3 dòng đầu mới) nên lấy trùng lại bài #104 và #103 mà người dùng vừa đọc.",
+          tone: s ? "ok" : "crit"
+        });
+        if (s && newPostsInserted) window.TechLab.markChallengePassed("m04-c1");
+      };
+      document.getElementById("m4-sc-n1").onclick = function() {
+        var s = window.TechLab.mode === "senior";
+        window.TechLab.updateInspector({
+          req: s ? "GET /v1/feed?limit=10&fields=id,image_url,author_summary HTTP/2" : "1) GET /posts (1 call)\n2) GET /users/{id} (x10 calls)\n3) GET /posts/{id}/likes (x10 calls)\n=> Tổng: 21 HTTP requests",
+          res: s ? "HTTP/2 200 OK (1 round-trip · 48ms)" : "21 responses nối đuôi nhau (840ms trên mạng 4G)",
+          analysis: s ? "Chuẩn Senior: Thiết kế ngược từ màn hình (Screen-driven), nhúng tóm tắt tác giả + link chi tiết trong 1 lần gọi." : "Lỗi Junior: Dính lỗi N+1 trên Client làm tăng độ trễ gấp nhiều lần trên di động.",
+          tone: s ? "ok" : "warn"
+        });
+        if (s) window.TechLab.markChallengePassed("m04-c2");
+      };
+      document.getElementById("m4-sc-err").onclick = function() {
+        var s = window.TechLab.mode === "senior";
+        window.TechLab.updateInspector({
+          req: "POST /v1/posts {\"caption\": \"<540 ký tự>\"}",
+          res: s ? "HTTP/2 422 Unprocessable Content\nContent-Type: application/problem+json\n{\n  \"type\": \"https://api.janegram.com/errors/validation\",\n  \"status\": 422,\n  \"detail\": \"Caption vượt quá 500 ký tự\",\n  \"errors\": [{\"field\": \"caption\", \"code\": \"max_length\"}],\n  \"request_id\": \"req_7b29\"\n}" : "HTTP/1.1 500 Internal Server Error\n{\"err\": \"ORA-12899 value too large for column POSTS.CAPTION\"}",
+          analysis: s ? "Chuẩn Senior: Dùng RFC 9457 Problem Details chỉ rõ lỗi theo từng trường để UI tô đỏ và kèm request_id tra log." : "Lỗi Junior: Trả 500 kèm thông báo lỗi nội bộ Database giúp kẻ tấn công dò cấu trúc bảng.",
+          tone: s ? "ok" : "crit", errorHop: 4
+        });
+        if (s) window.TechLab.markChallengePassed("m04-c3");
+      };
+    
+    })();
+  </script>
+</body>
+</html>
